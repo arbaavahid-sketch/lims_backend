@@ -1,0 +1,26 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# --- Virtual environment ---
+venv/
+.venv/
+env/
+
+# --- محیط و رازها (هرگز کامیت نشوند) ---
+.env
+*.env
+!.env.example
+
+# --- دیتابیس محلی دِو (SQLite) ---
+*.db
+*.sqlite3
+lims_dev.db
+
+# --- IDE / OS ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
