@@ -19,6 +19,10 @@ env/
 *.sqlite3
 lims_dev.db
 
+# --- فرانت‌اند / Frontend ---
+node_modules/
+frontend/dist/
+
 # --- IDE / OS ---
 .vscode/
 .idea/

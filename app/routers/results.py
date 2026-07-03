@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 
 from .. import models, schemas
 from ..database import get_db
-from ..deps import require_roles
+from ..deps import get_current_user, require_roles
 from ..i18n import bi
 
 router = APIRouter(prefix="/results", tags=["Results"])
@@ -80,6 +80,21 @@ def _evaluate_conformity(
             return models.ConformityStatus.CONDITIONAL
 
     return models.ConformityStatus.CONFORM
+
+
+@router.get("/by-sample/{sample_id}", response_model=list[schemas.TestResultOut])
+def results_for_sample(
+    sample_id: str,
+    db: Session = Depends(get_db),
+    _: models.User = Depends(get_current_user),
+):
+    """همهٔ نتایج ثبت‌شدهٔ یک نمونه (برای نمایش در فرانت‌اند)."""
+    return (
+        db.query(models.TestResult)
+        .join(models.TestAssignment, models.TestResult.assignment_id == models.TestAssignment.id)
+        .filter(models.TestAssignment.sample_id == sample_id)
+        .all()
+    )
 
 
 @router.post("/", response_model=schemas.TestResultOut)

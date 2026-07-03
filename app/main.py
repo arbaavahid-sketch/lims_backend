@@ -14,7 +14,18 @@ from .routers import users, samples, test_methods, results, equipment, grades, a
 app = FastAPI(
     title="LIMS — Petroleum QC Laboratory / سیستم مدیریت اطلاعات آزمایشگاه نفتی",
     description="Bilingual (FA/EN) LIMS backend for refinery & petrochemical QC labs — ISO/IEC 17025 aligned",
-    version="0.4.0",
+    version="0.6.0",
+)
+
+# CORS — اجازهٔ تماس فرانت‌اند (Vite dev server) با API
+from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # وصل کردن روترها
