@@ -14,9 +14,9 @@ from .routers import users, samples, test_methods, results, equipment, grades
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
-    title="LIMS - سیستم مدیریت اطلاعات آزمایشگاه",
-    description="بک‌اند کنترل کیفیت صنعتی | FastAPI + PostgreSQL",
-    version="0.1.0",
+    title="LIMS — Petroleum QC Laboratory / سیستم مدیریت اطلاعات آزمایشگاه نفتی",
+    description="Bilingual (FA/EN) LIMS backend for refinery & petrochemical QC labs — ISO/IEC 17025 aligned",
+    version="0.4.0",
 )
 
 # وصل کردن روترها
@@ -30,8 +30,8 @@ app.include_router(equipment.router)
 
 @app.get("/", tags=["Root"])
 def root():
-    """بررسی سلامت سرویس"""
+    """بررسی سلامت سرویس / Service health check"""
     return {
-        "message": "LIMS API در حال اجراست ✅",
+        "message": {"fa": "LIMS API در حال اجراست ✅", "en": "LIMS API is running ✅"},
         "docs": "/docs",
     }

@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from .. import models, schemas
 from ..database import get_db
 from ..deps import get_current_user, require_roles
+from ..i18n import bi
 
 router = APIRouter(prefix="/grades", tags=["Product Grades & Specs"])
 
@@ -16,7 +17,7 @@ def create_grade(
 ):
     existing = db.query(models.ProductGrade).filter_by(name=grade.name).first()
     if existing:
-        raise HTTPException(400, "این گرید محصول قبلا تعریف شده است")
+        raise HTTPException(400, bi("این گرید محصول قبلا تعریف شده است", "This product grade already exists"))
     db_grade = models.ProductGrade(**grade.model_dump())
     db.add(db_grade)
     db.commit()
@@ -41,7 +42,7 @@ def create_specification(
     grade = db.get(models.ProductGrade, spec.product_grade_id)
     method = db.get(models.TestMethod, spec.test_method_id)
     if not grade or not method:
-        raise HTTPException(404, "گرید یا روش آزمون یافت نشد")
+        raise HTTPException(404, bi("گرید یا روش آزمون یافت نشد", "Grade or test method not found"))
 
     existing = (
         db.query(models.Specification)
@@ -49,7 +50,10 @@ def create_specification(
         .first()
     )
     if existing:
-        raise HTTPException(400, "برای این گرید و روش آزمون قبلا مشخصات تعریف شده است")
+        raise HTTPException(400, bi(
+            "برای این گرید و روش آزمون قبلا مشخصات تعریف شده است",
+            "A specification already exists for this grade and test method",
+        ))
 
     db_spec = models.Specification(**spec.model_dump())
     db.add(db_spec)

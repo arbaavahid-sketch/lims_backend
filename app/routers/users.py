@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from .. import models, schemas, auth
 from ..database import get_db
 from ..deps import get_current_user, require_roles
+from ..i18n import bi
 
 router = APIRouter(tags=["Users"])
 
@@ -19,7 +20,7 @@ def create_user(
         (models.User.username == user.username) | (models.User.email == user.email)
     ).first()
     if existing:
-        raise HTTPException(400, "نام کاربری یا ایمیل تکراری است")
+        raise HTTPException(400, bi("نام کاربری یا ایمیل تکراری است", "Username or email already exists"))
 
     db_user = models.User(
         username=user.username,
@@ -52,7 +53,7 @@ def read_me(current_user: models.User = Depends(get_current_user)):
 def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = db.query(models.User).filter_by(username=form_data.username).first()
     if not user or not auth.verify_password(form_data.password, user.hashed_password):
-        raise HTTPException(401, "نام کاربری یا رمز عبور اشتباه است")
+        raise HTTPException(401, bi("نام کاربری یا رمز عبور اشتباه است", "Incorrect username or password"))
 
     token = auth.create_access_token({"sub": user.id, "role": user.role.value})
     return {"access_token": token, "token_type": "bearer"}

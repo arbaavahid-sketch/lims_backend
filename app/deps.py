@@ -10,6 +10,7 @@ import jwt
 
 from . import models, auth
 from .database import get_db
+from .i18n import bi
 
 # آدرس گرفتن توکن؛ دکمهٔ Authorize در /docs از همین استفاده می‌کند.
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login")
@@ -22,7 +23,7 @@ def get_current_user(
     """توکن را اعتبارسنجی و کاربر فعال را برمی‌گرداند."""
     cred_exc = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="توکن نامعتبر یا منقضی است",
+        detail=bi("توکن نامعتبر یا منقضی است", "Invalid or expired token"),
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
@@ -46,10 +47,13 @@ def require_roles(*roles: models.UserRole):
     """
     def checker(current_user: models.User = Depends(get_current_user)) -> models.User:
         if current_user.role not in roles:
-            allowed = "، ".join(r.value for r in roles)
+            allowed = ", ".join(r.value for r in roles)
             raise HTTPException(
                 status_code=status.HTTP_403_FORBIDDEN,
-                detail=f"نقش شما ({current_user.role.value}) مجاز نیست؛ نقش‌های مجاز: {allowed}",
+                detail=bi(
+                    f"نقش شما ({current_user.role.value}) مجاز نیست؛ نقش‌های مجاز: {allowed}",
+                    f"Your role ({current_user.role.value}) is not allowed; allowed roles: {allowed}",
+                ),
             )
         return current_user
 

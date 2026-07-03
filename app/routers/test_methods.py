@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from .. import models, schemas
 from ..database import get_db
 from ..deps import get_current_user, require_roles
+from ..i18n import bi
 
 router = APIRouter(prefix="/test-methods", tags=["Test Methods"])
 
@@ -16,7 +17,7 @@ def create_test_method(
 ):
     existing = db.query(models.TestMethod).filter_by(code=method.code).first()
     if existing:
-        raise HTTPException(400, "کد آزمون تکراری است")
+        raise HTTPException(400, bi("کد آزمون تکراری است", "Duplicate test method code"))
     db_method = models.TestMethod(**method.model_dump())
     db.add(db_method)
     db.commit()
@@ -41,7 +42,7 @@ def assign_test_to_sample(
     sample = db.query(models.Sample).get(payload.sample_id)
     method = db.query(models.TestMethod).get(payload.test_method_id)
     if not sample or not method:
-        raise HTTPException(404, "نمونه یا روش آزمون یافت نشد")
+        raise HTTPException(404, bi("نمونه یا روش آزمون یافت نشد", "Sample or test method not found"))
 
     assignment = models.TestAssignment(**payload.model_dump())
     db.add(assignment)

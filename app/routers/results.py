@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 from .. import models, schemas
 from ..database import get_db
 from ..deps import require_roles
+from ..i18n import bi
 
 router = APIRouter(prefix="/results", tags=["Results"])
 
@@ -89,11 +90,14 @@ def submit_result(
 ):
     assignment = db.get(models.TestAssignment, payload.assignment_id)
     if not assignment:
-        raise HTTPException(404, "اختصاص آزمون یافت نشد")
+        raise HTTPException(404, bi("اختصاص آزمون یافت نشد", "Test assignment not found"))
 
     existing = db.query(models.TestResult).filter_by(assignment_id=payload.assignment_id).first()
     if existing:
-        raise HTTPException(400, "برای این آزمون قبلا نتیجه ثبت شده است")
+        raise HTTPException(400, bi(
+            "برای این آزمون قبلا نتیجه ثبت شده است",
+            "A result has already been submitted for this assignment",
+        ))
 
     method = assignment.test_method
     spec_type, spec_min, spec_max, unit, decision_rule = _resolve_spec(db, assignment)
@@ -128,10 +132,13 @@ def review_result(
 ):
     result = db.get(models.TestResult, result_id)
     if not result:
-        raise HTTPException(404, "نتیجه یافت نشد")
+        raise HTTPException(404, bi("نتیجه یافت نشد", "Result not found"))
     # 17025 بند 6.2 — تفکیک وظایف: بازبین نباید همان ثبت‌کننده باشد
     if result.tested_by and result.tested_by == current_user.id:
-        raise HTTPException(400, "ثبت‌کنندهٔ نتیجه نمی‌تواند بازبینِ همان نتیجه باشد")
+        raise HTTPException(400, bi(
+            "ثبت‌کنندهٔ نتیجه نمی‌تواند بازبینِ همان نتیجه باشد",
+            "The person who entered the result cannot review it (segregation of duties)",
+        ))
     result.reviewed_by = current_user.id
     result.reviewed_at = datetime.utcnow()
     result.assignment.status = models.TestAssignmentStatus.REVIEWED
@@ -148,12 +155,15 @@ def approve_result(
 ):
     result = db.get(models.TestResult, result_id)
     if not result:
-        raise HTTPException(404, "نتیجه یافت نشد")
+        raise HTTPException(404, bi("نتیجه یافت نشد", "Result not found"))
     if not result.reviewed_by:
-        raise HTTPException(400, "نتیجه باید ابتدا بازبینی شود")
+        raise HTTPException(400, bi("نتیجه باید ابتدا بازبینی شود", "Result must be reviewed first"))
     # 17025 بند 6.2 — تفکیک وظایف: تأییدکننده نباید همان بازبین یا ثبت‌کننده باشد
     if current_user.id in (result.reviewed_by, result.tested_by):
-        raise HTTPException(400, "تأییدکنندهٔ نهایی نمی‌تواند بازبین یا ثبت‌کنندهٔ همان نتیجه باشد")
+        raise HTTPException(400, bi(
+            "تأییدکنندهٔ نهایی نمی‌تواند بازبین یا ثبت‌کنندهٔ همان نتیجه باشد",
+            "The final approver cannot be the reviewer or tester of the same result (segregation of duties)",
+        ))
 
     result.approved_by = current_user.id
     result.approved_at = datetime.utcnow()

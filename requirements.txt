@@ -9,5 +9,10 @@ bcrypt>=5.0
 PyJWT>=2.13
 alembic>=1.18
 
+# تولید گواهی آنالیز (CoA) دوزبانه به‌صورت PDF
+reportlab>=4.2
+arabic-reshaper>=3.0
+python-bidi>=0.6
+
 # فقط برای استقرار روی PostgreSQL لازم است (در دِو با SQLite کار می‌کنیم):
 # psycopg[binary]>=3.2
