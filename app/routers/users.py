@@ -4,12 +4,17 @@ from sqlalchemy.orm import Session
 
 from .. import models, schemas, auth
 from ..database import get_db
+from ..deps import get_current_user, require_roles
 
 router = APIRouter(tags=["Users"])
 
 
 @router.post("/users", response_model=schemas.UserOut)
-def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+def create_user(
+    user: schemas.UserCreate,
+    db: Session = Depends(get_db),
+    _: models.User = Depends(require_roles(models.UserRole.ADMIN)),
+):
     existing = db.query(models.User).filter(
         (models.User.username == user.username) | (models.User.email == user.email)
     ).first()
@@ -30,8 +35,17 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/users", response_model=list[schemas.UserOut])
-def list_users(db: Session = Depends(get_db)):
+def list_users(
+    db: Session = Depends(get_db),
+    _: models.User = Depends(require_roles(models.UserRole.ADMIN)),
+):
     return db.query(models.User).all()
+
+
+@router.get("/me", response_model=schemas.UserOut, tags=["Users"])
+def read_me(current_user: models.User = Depends(get_current_user)):
+    """اطلاعات کاربرِ توکنِ فعلی (برای بررسی اینکه با چه نقشی وارد شده‌ای)."""
+    return current_user
 
 
 @router.post("/login")

@@ -152,15 +152,7 @@ class TestAssignmentOut(BaseModel):
 class TestResultCreate(BaseModel):
     assignment_id: str
     value: float
-    tested_by: Optional[str] = None
-
-
-class TestResultReview(BaseModel):
-    reviewed_by: str
-
-
-class TestResultApprove(BaseModel):
-    approved_by: str
+    # هویت ثبت‌کننده از توکن JWT گرفته می‌شود؛ در بدنه ارسال نمی‌شود.
 
 
 class TestResultOut(BaseModel):

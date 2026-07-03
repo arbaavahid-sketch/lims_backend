@@ -3,16 +3,22 @@ from sqlalchemy.orm import Session
 
 from .. import models, schemas
 from ..database import get_db
+from ..deps import get_current_user, require_roles
 
 router = APIRouter(prefix="/samples", tags=["Samples"])
 
 
 @router.post("/", response_model=schemas.SampleOut)
-def create_sample(sample: schemas.SampleCreate, db: Session = Depends(get_db)):
+def create_sample(
+    sample: schemas.SampleCreate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(require_roles(models.UserRole.ANALYST, models.UserRole.ADMIN)),
+):
     existing = db.query(models.Sample).filter_by(sample_code=sample.sample_code).first()
     if existing:
         raise HTTPException(400, "کد نمونه تکراری است")
-    db_sample = models.Sample(**sample.dict())
+    # ثبت‌کنندهٔ نمونه از توکن گرفته می‌شود (نه از بدنهٔ درخواست)
+    db_sample = models.Sample(**sample.model_dump(), submitted_by=current_user.id)
     db.add(db_sample)
     db.commit()
     db.refresh(db_sample)
@@ -20,7 +26,11 @@ def create_sample(sample: schemas.SampleCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/", response_model=list[schemas.SampleOut])
-def list_samples(status: str | None = None, db: Session = Depends(get_db)):
+def list_samples(
+    status: str | None = None,
+    db: Session = Depends(get_db),
+    _: models.User = Depends(get_current_user),
+):
     q = db.query(models.Sample)
     if status:
         q = q.filter(models.Sample.status == status)
@@ -28,7 +38,11 @@ def list_samples(status: str | None = None, db: Session = Depends(get_db)):
 
 
 @router.get("/{sample_id}", response_model=schemas.SampleOut)
-def get_sample(sample_id: str, db: Session = Depends(get_db)):
+def get_sample(
+    sample_id: str,
+    db: Session = Depends(get_db),
+    _: models.User = Depends(get_current_user),
+):
     sample = db.query(models.Sample).get(sample_id)
     if not sample:
         raise HTTPException(404, "نمونه یافت نشد")
@@ -36,7 +50,12 @@ def get_sample(sample_id: str, db: Session = Depends(get_db)):
 
 
 @router.patch("/{sample_id}/status", response_model=schemas.SampleOut)
-def update_sample_status(sample_id: str, status: models.SampleStatus, db: Session = Depends(get_db)):
+def update_sample_status(
+    sample_id: str,
+    status: models.SampleStatus,
+    db: Session = Depends(get_db),
+    _: models.User = Depends(require_roles(models.UserRole.ANALYST, models.UserRole.ADMIN)),
+):
     sample = db.query(models.Sample).get(sample_id)
     if not sample:
         raise HTTPException(404, "نمونه یافت نشد")

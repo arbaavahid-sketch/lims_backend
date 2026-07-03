@@ -6,6 +6,7 @@ from sqlalchemy.orm import Session
 
 from .. import models, schemas
 from ..database import get_db
+from ..deps import require_roles
 
 router = APIRouter(prefix="/results", tags=["Results"])
 
@@ -81,7 +82,11 @@ def _evaluate_conformity(
 
 
 @router.post("/", response_model=schemas.TestResultOut)
-def submit_result(payload: schemas.TestResultCreate, db: Session = Depends(get_db)):
+def submit_result(
+    payload: schemas.TestResultCreate,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(require_roles(models.UserRole.ANALYST, models.UserRole.ADMIN)),
+):
     assignment = db.get(models.TestAssignment, payload.assignment_id)
     if not assignment:
         raise HTTPException(404, "اختصاص آزمون یافت نشد")
@@ -105,7 +110,7 @@ def submit_result(payload: schemas.TestResultCreate, db: Session = Depends(get_d
         applied_spec_min=spec_min,
         applied_spec_max=spec_max,
         conformity=conformity,
-        tested_by=payload.tested_by,
+        tested_by=current_user.id,          # از توکن، نه از بدنهٔ درخواست
         tested_at=datetime.utcnow(),
     )
     db.add(result)
@@ -116,14 +121,18 @@ def submit_result(payload: schemas.TestResultCreate, db: Session = Depends(get_d
 
 
 @router.post("/{result_id}/review", response_model=schemas.TestResultOut)
-def review_result(result_id: str, payload: schemas.TestResultReview, db: Session = Depends(get_db)):
+def review_result(
+    result_id: str,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(require_roles(models.UserRole.REVIEWER, models.UserRole.ADMIN)),
+):
     result = db.get(models.TestResult, result_id)
     if not result:
         raise HTTPException(404, "نتیجه یافت نشد")
     # 17025 بند 6.2 — تفکیک وظایف: بازبین نباید همان ثبت‌کننده باشد
-    if result.tested_by and result.tested_by == payload.reviewed_by:
+    if result.tested_by and result.tested_by == current_user.id:
         raise HTTPException(400, "ثبت‌کنندهٔ نتیجه نمی‌تواند بازبینِ همان نتیجه باشد")
-    result.reviewed_by = payload.reviewed_by
+    result.reviewed_by = current_user.id
     result.reviewed_at = datetime.utcnow()
     result.assignment.status = models.TestAssignmentStatus.REVIEWED
     db.commit()
@@ -132,17 +141,21 @@ def review_result(result_id: str, payload: schemas.TestResultReview, db: Session
 
 
 @router.post("/{result_id}/approve", response_model=schemas.TestResultOut)
-def approve_result(result_id: str, payload: schemas.TestResultApprove, db: Session = Depends(get_db)):
+def approve_result(
+    result_id: str,
+    db: Session = Depends(get_db),
+    current_user: models.User = Depends(require_roles(models.UserRole.APPROVER, models.UserRole.ADMIN)),
+):
     result = db.get(models.TestResult, result_id)
     if not result:
         raise HTTPException(404, "نتیجه یافت نشد")
     if not result.reviewed_by:
         raise HTTPException(400, "نتیجه باید ابتدا بازبینی شود")
-    # 17025 بند 6.2 — تفکیک وظایف: تأییدکننده نباید همان بازبین باشد
-    if result.reviewed_by == payload.approved_by:
-        raise HTTPException(400, "بازبین نمی‌تواند تأییدکنندهٔ نهاییِ همان نتیجه باشد")
+    # 17025 بند 6.2 — تفکیک وظایف: تأییدکننده نباید همان بازبین یا ثبت‌کننده باشد
+    if current_user.id in (result.reviewed_by, result.tested_by):
+        raise HTTPException(400, "تأییدکنندهٔ نهایی نمی‌تواند بازبین یا ثبت‌کنندهٔ همان نتیجه باشد")
 
-    result.approved_by = payload.approved_by
+    result.approved_by = current_user.id
     result.approved_at = datetime.utcnow()
     result.assignment.status = models.TestAssignmentStatus.APPROVED
 

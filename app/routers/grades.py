@@ -3,12 +3,17 @@ from sqlalchemy.orm import Session
 
 from .. import models, schemas
 from ..database import get_db
+from ..deps import get_current_user, require_roles
 
 router = APIRouter(prefix="/grades", tags=["Product Grades & Specs"])
 
 
 @router.post("/", response_model=schemas.ProductGradeOut)
-def create_grade(grade: schemas.ProductGradeCreate, db: Session = Depends(get_db)):
+def create_grade(
+    grade: schemas.ProductGradeCreate,
+    db: Session = Depends(get_db),
+    _: models.User = Depends(require_roles(models.UserRole.ADMIN)),
+):
     existing = db.query(models.ProductGrade).filter_by(name=grade.name).first()
     if existing:
         raise HTTPException(400, "این گرید محصول قبلا تعریف شده است")
@@ -20,12 +25,19 @@ def create_grade(grade: schemas.ProductGradeCreate, db: Session = Depends(get_db
 
 
 @router.get("/", response_model=list[schemas.ProductGradeOut])
-def list_grades(db: Session = Depends(get_db)):
+def list_grades(
+    db: Session = Depends(get_db),
+    _: models.User = Depends(get_current_user),
+):
     return db.query(models.ProductGrade).all()
 
 
 @router.post("/specifications", response_model=schemas.SpecificationOut)
-def create_specification(spec: schemas.SpecificationCreate, db: Session = Depends(get_db)):
+def create_specification(
+    spec: schemas.SpecificationCreate,
+    db: Session = Depends(get_db),
+    _: models.User = Depends(require_roles(models.UserRole.ADMIN)),
+):
     grade = db.get(models.ProductGrade, spec.product_grade_id)
     method = db.get(models.TestMethod, spec.test_method_id)
     if not grade or not method:
@@ -47,5 +59,9 @@ def create_specification(spec: schemas.SpecificationCreate, db: Session = Depend
 
 
 @router.get("/{grade_id}/specifications", response_model=list[schemas.SpecificationOut])
-def list_specifications(grade_id: str, db: Session = Depends(get_db)):
+def list_specifications(
+    grade_id: str,
+    db: Session = Depends(get_db),
+    _: models.User = Depends(get_current_user),
+):
     return db.query(models.Specification).filter_by(product_grade_id=grade_id).all()
