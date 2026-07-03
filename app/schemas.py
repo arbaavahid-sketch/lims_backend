@@ -173,3 +173,18 @@ class TestResultOut(BaseModel):
 
     class Config:
         from_attributes = True
+
+
+# ---------------- Audit Log ----------------
+class AuditLogOut(BaseModel):
+    id: str
+    table_name: str
+    record_id: str
+    action: str
+    changed_by: Optional[str]
+    changed_at: datetime
+    old_value: Optional[str]
+    new_value: Optional[str]
+
+    class Config:
+        from_attributes = True

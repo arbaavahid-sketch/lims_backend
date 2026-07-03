@@ -37,6 +37,10 @@ def get_current_user(
     user = db.get(models.User, user_id)
     if not user or not user.is_active:
         raise cred_exc
+
+    # هویت کاربر روی سشن دیتابیس ثبت می‌شود تا AuditLog خودکار
+    # (app/audit.py) بداند تغییرات این درخواست توسط چه کسی انجام شده.
+    db.info["user_id"] = user.id
     return user
 
 

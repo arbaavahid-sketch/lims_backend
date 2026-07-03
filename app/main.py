@@ -4,14 +4,12 @@
 """
 from fastapi import FastAPI
 
-from .database import Base, engine
-from . import models  # noqa: F401  (لازم است تا مدل‌ها قبل از create_all شناخته شوند)
-from .routers import users, samples, test_methods, results, equipment, grades
+from . import models  # noqa: F401
+from . import audit  # noqa: F401  — فعال‌سازی AuditLog خودکار (17025 بند 8.4)
+from .routers import users, samples, test_methods, results, equipment, grades, audit_logs
 
-# ساخت خودکار جداول در دیتابیس هنگام شروع.
-# نکته: این روش فقط برای شروع سریع مناسب است. در محیط واقعی
-# به‌جای این خط از Alembic برای migration استفاده کنید.
-Base.metadata.create_all(bind=engine)
+# ساختار دیتابیس با Alembic مدیریت می‌شود (نه create_all):
+#   python -m alembic upgrade head
 
 app = FastAPI(
     title="LIMS — Petroleum QC Laboratory / سیستم مدیریت اطلاعات آزمایشگاه نفتی",
@@ -26,6 +24,7 @@ app.include_router(test_methods.router)
 app.include_router(grades.router)
 app.include_router(results.router)
 app.include_router(equipment.router)
+app.include_router(audit_logs.router)
 
 
 @app.get("/", tags=["Root"])

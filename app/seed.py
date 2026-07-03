@@ -1,15 +1,25 @@
 """پرکردن دیتابیس با دادهٔ نمونهٔ یک آزمایشگاه نفتی.
 
-اجرا:  python -m app.seed
+اجرا (ابتدا مهاجرت‌ها، سپس داده):
+    python -m alembic upgrade head
+    python -m app.seed
+
 یک آزمایشگاه فرآوردهٔ نفتی را شبیه‌سازی می‌کند: کاربران با نقش‌های مختلف،
 تجهیزات، روش‌های آزمون ASTM، و گرید «گازوئیل یورو ۵ (EN 590)» با مشخصات آن.
 """
 from datetime import datetime, timedelta
 
-from .database import SessionLocal, Base, engine
-from . import models, auth
+from sqlalchemy import inspect as sa_inspect
 
-Base.metadata.create_all(bind=engine)
+from .database import SessionLocal, engine
+from . import models, auth
+from . import audit  # noqa: F401  — ثبت seed هم در AuditLog
+
+if not sa_inspect(engine).has_table("users"):
+    raise SystemExit(
+        "جداول ساخته نشده‌اند؛ ابتدا اجرا کنید / Tables missing; run first:\n"
+        "    python -m alembic upgrade head"
+    )
 
 
 def get_or_create(db, model, defaults=None, **kwargs):
