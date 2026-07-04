@@ -1,0 +1,8 @@
+HTTP/1.1 204 No Content
+Connection: close
+Date: Sat, 04 Jul 2026 15:10:56 GMT
+Server: waitress
+Via: waitress
+X-Frame-Options: SAMEORIGIN
+X-Powered-By: Zope (www.zope.dev), Python (www.python.org)
+
