@@ -1,6 +1,9 @@
-"""اعمال ترجمه‌های دسته‌ای (batches/*.json) روی سورس فورک senaite.core.
+"""اعمال ترجمه‌های دسته‌ای روی سورس فورک senaite.core.
 
 ترجمه‌ها مستقیم داخل submodule نوشته می‌شوند (fa و fa_IR) و .mo هم کامپایل می‌شود.
+دو دامنه:
+  - batches/*.json        → دامنهٔ senaite.core (رابط اصلی LIMS)
+  - batches_plone/*.json  → دامنهٔ plone (رابط مدیریتی فریم‌ورک)
 
 چرخهٔ کار:
     python translations/apply.py
@@ -15,28 +18,38 @@ import polib
 base = Path(__file__).parent
 locales = base.parent / "senaite.core" / "src" / "senaite" / "core" / "locales"
 
-# همهٔ دسته‌ها را به یک دیکشنری واحد تبدیل کن (دسته‌های بعدی، قبلی‌ها را override می‌کنند)
-mapping = {}
-for batch_file in sorted(base.glob("batches/*.json")):
-    data = json.loads(batch_file.read_text(encoding="utf-8"))
-    mapping.update(data)
-    print(f"{batch_file.name}: {len(data)} ترجمه")
 
-for lang in ["fa", "fa_IR"]:
-    po_path = locales / lang / "LC_MESSAGES" / "senaite.core.po"
-    po = polib.pofile(str(po_path), encoding="utf-8")
+def load_mapping(subdir):
+    mapping = {}
+    for batch_file in sorted((base / subdir).glob("*.json")):
+        data = json.loads(batch_file.read_text(encoding="utf-8"))
+        mapping.update(data)
+        print(f"{subdir}/{batch_file.name}: {len(data)} ترجمه")
+    return mapping
 
-    applied = 0
-    for entry in po:
-        if entry.obsolete:
-            continue
-        if entry.msgid in mapping and entry.msgstr != mapping[entry.msgid]:
-            entry.msgstr = mapping[entry.msgid]
-            applied += 1
 
-    po.save(str(po_path))
-    po.save_as_mofile(str(po_path.with_suffix(".mo")))
+def apply_domain(domain, mapping):
+    if not mapping:
+        return
+    for lang in ["fa", "fa_IR"]:
+        po_path = locales / lang / "LC_MESSAGES" / f"{domain}.po"
+        po = polib.pofile(str(po_path), encoding="utf-8")
 
-    done = len(po.translated_entries())
-    total = done + len(po.untranslated_entries())
-    print(f"{lang}: {applied} اعمال شد → پوشش {done}/{total} ({done/total*100:.1f}%)")
+        applied = 0
+        for entry in po:
+            if entry.obsolete:
+                continue
+            if entry.msgid in mapping and entry.msgstr != mapping[entry.msgid]:
+                entry.msgstr = mapping[entry.msgid]
+                applied += 1
+
+        po.save(str(po_path))
+        po.save_as_mofile(str(po_path.with_suffix(".mo")))
+
+        done = len(po.translated_entries())
+        total = done + len(po.untranslated_entries())
+        print(f"{domain} [{lang}]: {applied} اعمال شد → پوشش {done}/{total} ({done/total*100:.1f}%)")
+
+
+apply_domain("senaite.core", load_mapping("batches"))
+apply_domain("plone", load_mapping("batches_plone"))
