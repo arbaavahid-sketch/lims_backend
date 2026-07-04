@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="fa">
+
+    
+
+    <head><script src="http://localhost:8080/senaite/++plone++senaite.core.static/modules/react/vendor-react.js"></script><script src="http://localhost:8080/senaite/++plone++senaite.core.static/modules/jquery/jquery.min.js"></script><script src="http://localhost:8080/senaite/++plone++senaite.core.static/modules/jquery-form/jquery.form.min.js"></script><script src="http://localhost:8080/senaite/++plone++senaite.core.static/modules/jquery-ui/jquery-ui.min.js"></script><script src="http://localhost:8080/senaite/++plone++senaite.core.static/modules/handlebars/handlebars.min.js"></script><script src="http://localhost:8080/senaite/++plone++senaite.core.static/modules/popperjs/popper.min.js"></script><script src="http://localhost:8080/senaite/++plone++senaite.core.static/modules/bootstrap/js/bootstrap.min.js"></script><script src="http://localhost:8080/senaite/++plone++senaite.core.static/modules/bootstrap-confirmation2/bootstrap-confirmation.min.js"></script><script src="http://localhost:8080/senaite/++plone++senaite.core.static/modules/bootstrap-select/js/bootstrap-select.min.js"></script><script src="http://localhost:8080/senaite/++plone++senaite.core.static/modules/tinymce/tinymce.min.js"></script><script src="http://localhost:8080/senaite/++plone++senaite.core.static/modules/d3/d3.min.js"></script><link href="http://localhost:8080/senaite/++plone++senaite.core.static/modules/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet"><link href="http://localhost:8080/senaite/++plone++senaite.core.static/modules/jquery-ui/themes/smoothness/jquery-ui.min.css" rel="stylesheet"><script src="http://localhost:8080/senaite/++plone++senaite.core.static/bundles/senaite.core.064ec022f1f85e4c78be.js"></script><script src="http://localhost:8080/senaite/++plone++senaite.core.static/bundles/senaite.core.widgets.0e4fea660acd4521a98f.js"></script><link href="http://localhost:8080/senaite/++plone++senaite.core.static/bundles/senaite.core.css" rel="stylesheet"><link href="http://localhost:8080/senaite/++plone++senaite.core.static/bundles/senaite.core.widgets.css" rel="stylesheet"><script src="http://localhost:8080/senaite/++plone++senaite.core.static/bundles/thirdparty.js"></script><link href="http://localhost:8080/senaite/++plone++senaite.core.static/bundles/thirdparty.css" rel="stylesheet"><script src="http://localhost:8080/senaite/++plone++senaite.core.static/bundles/legacy.js"></script><link href="http://localhost:8080/senaite/++plone++senaite.core.static/bundles/legacy.css" rel="stylesheet">
+<script src="http://localhost:8080/senaite/++plone++senaite.app.listing.static/bundles/senaite.app.listing.399f3ada5c6723f34fc7.js"></script>
+
+<title>&#1570;&#1586;&#1605;&#1575;&#1740;&#1588;&#1711;&#1575;&#1607; &#1578;&#1606;&#1583;&#1740;&#1587;</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://localhost:8080/senaite/++plone++senaite.core.static/images/favicon.ico">
+    <link rel="apple-touch-icon" href="http://localhost:8080/senaite/++plone++senaite.core.static/images/favicon.ico">
+
+
+
+      
+
+      
+      
+
+      <!-- Disable all Plone JS/CSS -->
+      <!-- <div tal:replace="structure provider:plone.scripts" /> -->
+      <!-- <metal:javascriptslot define-slot="javascript_head_slot" /> -->
+      <!-- <link tal:replace="structure provider:plone.htmlhead.links" /> -->
+      <!-- <metal:styleslot define-slot="style_slot" /> -->
+
+      <!-- NOTE: All Legacy JS/CSS are rendered at the bottom of the page! -->
+
+      <meta name="generator" content="SENAITE - https://www.senaite.com">
+
+      <meta name="viewport" content="width=device-width,initial-scale=0.8">
+    </head>
+
+    <body id="visual-portal-wrapper" class="frontend icons-on plone-toolbar-expanded plone-toolbar-left plone-toolbar-left-expanded portaltype-plone-site site-senaite template-senaite-dashboard thumbs-on userrole-authenticated userrole-manager userrole-owner viewpermission-none senaite-body" dir="rtl" data-auto-logoff="0" data-i18ncatalogurl="http://localhost:8080/senaite/plonejsi18n" data-portal-type="Plone Site" data-view-url="http://localhost:8080/senaite" data-portal-url="http://localhost:8080/senaite" data-view-name="senaite-frontpage" data-base-url="http://localhost:8080/senaite">
+
+      <!-- Ajax Loader -->
+      <div id="loader" i18n-translate="">Loading...</div>
+
+      <!-- Toolbar -->
+      <div class="mb-2">
+        <nav id="senaite-toolbar" class="navbar static-top navbar-expand-md">
+
+  <!-- Navbar Brand Icon -->
+  <a class="navbar-brand" href="http://localhost:8080/senaite">
+    <img src="http://localhost:8080/senaite/++plone++senaite.core.static/images/senaite.svg" style="height:15px;">
+  </a>
+
+  <!-- Navbar Toggle Button -->
+  <button class="navbar-toggler btn btn-outline-light" type="button" data-toggle="collapse" data-target="#toolbarContent" aria-controls="toolbarContent" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- Navbar Menu Items -->
+  <div class="collapse navbar-collapse" id="toolbarContent">
+
+    <!-- left -->
+    <ul class="nav navbar-nav mr-auto content-views">
+      <!-- contentviews -->
+      
+
+  
+    
+
+  
+
+    <!-- Contentviews -->
+    <li id="contentview-view" class="nav-item">
+
+      
+        <a href="http://localhost:8080/senaite?_authenticator=5339a2e5ec67b25043bd5d91b06e1c0d11238f44" class=" nav-link">
+          <span>&#1605;&#1588;&#1575;&#1607;&#1583;&#1607;</span>
+        </a>
+      
+    </li>
+
+  
+
+
+
+  
+
+  
+    
+
+  
+
+
+
+  
+
+  
+    <!-- Workflow, Display, Portlets -->
+    
+
+  
+
+    <!-- Workflow menu: React mount point. The current state pill is
+         rendered server-side so the menu is visible immediately;
+         transitions are fetched on first open via
+         @@workflow_menu_data. -->
+    
+
+    <li class="nav-item dropdown" id="plone-contentmenu-portletmanager">
+      <!-- Menu Item -->
+      
+
+      <!-- dropdown menu -->
+      <div class="nav-item dropdown" aria-hidden="true">
+
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="">Manage portlets</span>
+            <!-- State Title -->
+            
+          </a>
+
+          <div class="dropdown-menu">
+            <div class="plonetoolbar-portlet-manager None dropdown-item">
+            <a href="http://localhost:8080/senaite/manage-portlets?_authenticator=5339a2e5ec67b25043bd5d91b06e1c0d11238f44" aria-expanded="false" title="Manage all portlets" id="portlet-manager-all" class="None nav-link">
+              All&#8230;
+            </a>
+            
+          </div>
+            <div class="plonetoolbar-portlet-manager None dropdown-item">
+            <a href="http://localhost:8080/senaite/@@topbar-manage-portlets/plone.footerportlets?_authenticator=5339a2e5ec67b25043bd5d91b06e1c0d11238f44" aria-expanded="false" title="plone.footerportlets" id="portlet-manager-plone.footerportlets" class="None nav-link">
+              Plone Footerportlets
+            </a>
+            
+          </div>
+            <div class="plonetoolbar-portlet-manager None dropdown-item">
+            <a href="http://localhost:8080/senaite/@@topbar-manage-portlets/plone.leftcolumn?_authenticator=5339a2e5ec67b25043bd5d91b06e1c0d11238f44" aria-expanded="false" title="plone.leftcolumn" id="portlet-manager-plone.leftcolumn" class="None nav-link">
+              Plone Leftcolumn
+            </a>
+            
+          </div>
+            <div class="plonetoolbar-portlet-manager None dropdown-item">
+            <a href="http://localhost:8080/senaite/@@topbar-manage-portlets/plone.rightcolumn?_authenticator=5339a2e5ec67b25043bd5d91b06e1c0d11238f44" aria-expanded="false" title="plone.rightcolumn" id="portlet-manager-plone.rightcolumn" class="None nav-link">
+              Plone Rightcolumn
+            </a>
+            
+          </div>
+        </div>
+      </div>
+
+    </li>
+  
+
+
+  
+
+
+
+    </ul>
+
+    <!-- right -->
+    <ul class="navbar-nav ml-auto">
+
+      <!-- Global Sections -->
+      <li class="nav-item">
+        
+
+  <nav class="dropdown">
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-th"></i>
+    </a>
+
+    <ul class="dropdown-menu dropdown-menu-right">
+
+      
+        <li class="nav-item">
+          <a href="http://localhost:8080/senaite/import" class="nav-link" title="">
+            <span>&#1583;&#1585;&#1608;&#1606;&#8204;&#1585;&#1740;&#1586;&#1740;</span>
+          </a>
+        </li>
+      
+        <li class="nav-item">
+          <a href="http://localhost:8080/senaite/spotlight" class="nav-link" title="">
+            <span>Search</span>
+          </a>
+        </li>
+      
+        <li class="nav-item">
+          <a href="http://localhost:8080/senaite/bika_setup/auditlog" class="nav-link" title="">
+            <span>&#1604;&#1575;&#1711; &#1605;&#1605;&#1740;&#1586;&#1740;</span>
+          </a>
+        </li>
+      
+        
+      
+    </ul>
+  </nav>
+
+
+
+      </li>
+
+      <!-- Language Selector -->
+      <li class="nav-item">
+        
+
+  <nav class="dropdown">
+
+    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-globe"></i>
+    </a>
+
+    <!-- Available Languages -->
+    <div class="dropdown-menu dropdown-menu-right" role="menu" aria-labelledby="portal-languageselector">
+
+      
+
+        <div class="language-en dropdown-item">
+          <a href="http://localhost:8080/senaite/senaite-dashboard?set_language=en" class=" text-decoration-none" title="English">
+            <span>English</span>
+          </a>
+        </div>
+      
+
+        <div class="language-fa currentLanguage active dropdown-item">
+          <a href="http://localhost:8080/senaite/senaite-dashboard?set_language=fa" class="text-light text-decoration-none" title="&#1601;&#1575;&#1585;&#1587;&#1740;">
+            <span>&#1601;&#1575;&#1585;&#1587;&#1740;</span>
+          </a>
+        </div>
+      
+    </div>
+  </nav>
+
+
+      </li>
+
+      <!-- Search trigger -->
+      <li class="nav-item">
+        <a class="nav-link" title="&#1576;&#1585;&#1575;&#1740; &#1580;&#1587;&#1578;&#1580;&#1608;&#1740; &#1587;&#1585;&#1740;&#1593; Ctrl+Space &#1585;&#1575; &#1601;&#1588;&#1575;&#1585; &#1583;&#1607;&#1740;&#1583;" href="http://localhost:8080/senaite/spotlight">
+          <i class="fas fa-search"></i>
+        </a>
+      </li>
+
+      <!-- LIMS Setup -->
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:8080/senaite/@@lims-setup">
+          
+            <i class="fas fa-cog"></i>
+          
+        </a>
+      </li>
+
+      <!-- Personal Bar Menu -->
+      <li class="nav-item dropdown">
+        <a href="http://localhost:8080/senaite/useractions" class="nav-link dropdown-toggle" id="navbarUserDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          admin
+        </a>
+        <!-- Personal Bar Dropdown Items -->
+        <ul class="dropdown-menu dropdown-menu-right">
+          <li class="nav-item">
+            <a href="http://localhost:8080/senaite/@@overview-controlpanel" id="personaltools-site-setup" title="&#1578;&#1606;&#1592;&#1740;&#1605;&#1575;&#1578; &#1587;&#1575;&#1740;&#1578;" class="nav-link">
+              
+                <i class="fas fa-wrench"></i>
+              
+              
+              
+              
+              &#1578;&#1606;&#1592;&#1740;&#1605;&#1575;&#1578; &#1587;&#1575;&#1740;&#1578;
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="http://localhost:8080/senaite/@@personal-information" id="personaltools-user-profile" title="&#1662;&#1585;&#1608;&#1601;&#1575;&#1740;&#1604; &#1605;&#1606;" class="nav-link">
+              
+              
+              
+              
+                <i class="fas fa-user-cog"></i>
+              
+              &#1662;&#1585;&#1608;&#1601;&#1575;&#1740;&#1604; &#1605;&#1606;
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="http://localhost:8080/senaite/logout" id="personaltools-logout" title="&#1582;&#1585;&#1608;&#1580;" class="nav-link">
+              
+              
+              
+                <i class="fas fa-sign-out-alt"></i>
+              
+              
+              &#1582;&#1585;&#1608;&#1580;
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Login/Register -->
+      
+
+    </ul>
+  </div>
+</nav>
+
+      </div>
+
+      <div class="wrapper">
+
+        <!-- Sidebar -->
+        <!-- Sidebar container - React component renders here -->
+<div id="sidebar">
+</div>
+
+
+        <!-- Content -->
+        <div class="container-fluid">
+
+          <div class="row">
+            <div class="col-sm-12">
+              <header id="portal-top">
+                <div id="portal-header">
+    
+
+</div>
+
+              </header>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div id="portal-mainnavigation"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <aside id="global_statusmessage">
+                
+
+                <div>
+                </div>
+              </aside>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div id="viewlet-above-content"><p style="display:none"></p>
+
+
+</div>
+            </div>
+          </div>
+
+          <!-- Main content -->
+          <div class="row">
+            <article id="portal-column-content" class="col-md-12">
+              
+                <div>
+                  
+                    <article id="content">
+                      
+                        <header>
+                          <div id="viewlet-above-content-title"><div id="senaite-document-actions">
+
+  
+</div>
+</div>
+                          
+    <h1 class="documentFirstHeading">
+      <span>&#1582;&#1608;&#1588; &#1570;&#1605;&#1583;&#1740;&#1583;</span>,
+      <span></span>
+    </h1>
+  
+                          <div id="viewlet-below-content-title"></div>
+
+                          
+    <div class="documentDescription text-muted">
+      <span>Saturday, 04 July 2026</span>
+      &#8212;
+      <span>10:18</span>
+    </div>
+  
+                        </header>
+
+                        <div id="viewlet-above-content-body"></div>
+                        <div id="content-core">
+                          
+
+    <link rel="stylesheet" href="http://localhost:8080/senaite/++resource++senaite.core.dashboard.css">
+
+    <!-- Configuration for dashboard.js -->
+    <div id="dashboard-config" style="display:none" data-base-url="http://localhost:8080/senaite/senaite-dashboard-data" data-periodicity="w" data-can-view-stats="true" data-portal-url="http://localhost:8080/senaite" data-date-from="2026/01/01" data-date-to="2026/07/05">
+    </div>
+
+    <!-- Status Cards + Quick Links (async) -->
+    <div id="dashboard-overview" class="mt-4">
+      <div class="text-muted">
+        <i class="fas fa-spinner fa-spin mr-2"></i>
+        <span>&#1583;&#1585; &#1581;&#1575;&#1604; &#1576;&#1575;&#1585;&#1711;&#1584;&#1575;&#1585;&#1740;&#8230;</span>
+      </div>
+    </div>
+
+    <!-- Statistics Sections (async, permission-gated) -->
+    
+      <div>
+        <div class="dashboard-section" id="dashboard-section-analysisrequests">
+          <div class="text-muted py-3">
+            <i class="fas fa-spinner fa-spin mr-2"></i>
+            <span>&#1583;&#1585; &#1581;&#1575;&#1604; &#1576;&#1575;&#1585;&#1711;&#1584;&#1575;&#1585;&#1740;&#8230;</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="dashboard-section" id="dashboard-section-analyses">
+          <div class="text-muted py-3">
+            <i class="fas fa-spinner fa-spin mr-2"></i>
+            <span>&#1583;&#1585; &#1581;&#1575;&#1604; &#1576;&#1575;&#1585;&#1711;&#1584;&#1575;&#1585;&#1740;&#8230;</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="dashboard-section" id="dashboard-section-worksheets">
+          <div class="text-muted py-3">
+            <i class="fas fa-spinner fa-spin mr-2"></i>
+            <span>&#1583;&#1585; &#1581;&#1575;&#1604; &#1576;&#1575;&#1585;&#1711;&#1584;&#1575;&#1585;&#1740;&#8230;</span>
+          </div>
+        </div>
+      </div>
+    
+
+    <script src="http://localhost:8080/senaite/++resource++senaite.core.dashboard.js"></script>
+
+    <input type="hidden" name="_authenticator" value="5339a2e5ec67b25043bd5d91b06e1c0d11238f44">
+  
+                        </div>
+                        <div id="viewlet-below-content-body"></div>
+
+                      
+                    </article>
+
+                  
+                </div>
+
+              
+              <footer>
+                <div id="viewlet-below-content">
+</div>
+              </footer>
+            </article>
+
+            <!-- Column 1 -->
+            
+
+            <!-- Column 2 -->
+            
+
+          </div>
+
+          <footer id="portal-footer-wrapper">
+            <footer id="senaite-footer">
+
+  <div class="row">
+    <div class="col-md-12">
+      <hr>
+      <!-- footer portlets -->
+      
+
+      <div class="float-left">
+        
+          <abbr title="Copyright">&#169;</abbr>
+          2026
+          <a href="https://tppc.ir" target="_blank">&#1570;&#1586;&#1605;&#1575;&#1740;&#1588;&#1711;&#1575;&#1607; &#1662;&#1578;&#1585;&#1608;&#1588;&#1740;&#1605;&#1740; &#1578;&#1606;&#1583;&#1740;&#1587; &#1662;&#1575;&#1585;&#1587; (TPPC)</a>
+        
+      </div>
+      <div class="float-right">
+        <ul class="nav nav-pills">
+          <li><a class="nav-link" href="https://tppc.ir" title="tppc.ir" target="_blank"><i class="fas fa-globe"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="senaite-colophon">
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+
+        <div class="text-center text-muted">
+          <ul class="list-inline">
+            <li>
+              &#1570;&#1586;&#1605;&#1575;&#1740;&#1588;&#1711;&#1575;&#1607; &#1578;&#1606;&#1583;&#1740;&#1587; &#8212; Tandis Laboratory
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+  <!-- React mount node, the configuration is provided as JSON -->
+  <div id="spotlight-root" data-config='{"commands": [{"permission": "senaite.core: Add AnalysisRequest", "url": "${portal_url}/samples/ar_add", "title": "Add Samples", "keywords": ["new", "create", "register"], "id": "add-sample", "icon": "fas fa-plus"}, {"permission": null, "url": "${portal_url}/samples", "title": "Samples", "keywords": [], "id": "samples", "icon": "fas fa-vial"}, {"permission": null, "url": "${portal_url}/worksheets", "title": "Worksheets", "keywords": [], "id": "worksheets", "icon": "fas fa-th-list"}, {"permission": null, "url": "${portal_url}/clients", "title": "Clients", "keywords": [], "id": "clients", "icon": "fas fa-users"}, {"permission": null, "url": "${portal_url}/batches", "title": "Batches", "keywords": [], "id": "batches", "icon": "fas fa-layer-group"}, {"permission": "senaite.core: Manage Bika", "url": "${portal_url}/setup", "title": "Setup", "keywords": [], "id": "setup", "icon": "fas fa-cog"}, {"permission": null, "url": "${portal_url}/logout", "title": "Logout", "keywords": [], "id": "logout", "icon": "fas fa-sign-out-alt"}], "catalogs": [{"index": null, "name": "senaite_catalog_sample", "sort_on": null, "label": "Samples", "states": [], "prefix": "s", "sort_order": "ascending", "portal_types": []}, {"index": null, "name": "senaite_catalog_setup", "sort_on": null, "label": "Setup", "states": [{"id": "active", "title": "Active"}], "prefix": null, "sort_order": "ascending", "portal_types": []}, {"index": null, "name": "senaite_catalog_worksheet", "sort_on": null, "label": "Worksheets", "states": [], "prefix": "w", "sort_order": "ascending", "portal_types": []}, {"index": null, "name": "senaite_catalog", "sort_on": null, "label": "SENAITE", "states": [], "prefix": null, "sort_order": "ascending", "portal_types": []}, {"index": null, "name": "senaite_catalog_client", "sort_on": null, "label": "Clients", "states": [{"id": "active", "title": "Active"}], "prefix": "c", "sort_order": "ascending", "portal_types": []}, {"index": null, "name": "senaite_catalog_contact", "sort_on": null, "label": "Contacts", "states": [], "prefix": null, "sort_order": "ascending", "portal_types": []}], "api_url": "http://localhost:8080/senaite/@@API/spotlight/search", "debounce": 200, "can_manage": true, "portal_url": "http://localhost:8080/senaite", "commands_url": "http://localhost:8080/senaite/@@API/spotlight/commands", "settings_url": "http://localhost:8080/senaite/@@spotlight-controlpanel", "max_results": 25, "search_url": "http://localhost:8080/senaite/@@spotlight-search", "hotkey": "Control+Space", "highlight": true, "min_chars": 2}'></div>
+
+  <!-- Spotlight bundle (consumes the shared React from senaite.core) -->
+  <script src="http://localhost:8080/senaite/++resource++senaite.app.spotlight.static/js/senaite.app.spotlight.js" type="text/javascript">
+  </script>
+
+
+          </footer>
+
+        </div>
+
+      </div>
+
+      <!-- NOTE:
+           We define all legacy resource slots at the bottom to ensure these are
+           loaded *after* the JS/CSS from the resources viewlet (rendered in the
+           IHtmlHead viewlet manager) and the HTML is completely loaded.
+      -->
+
+      <!-- SENAITE legacy resouces -->
+      
+      <!-- SENAITE legacy JS -->
+      
+      <!-- SENAITE legacy CSS -->
+      
+
+    <script src="http://localhost:8080/senaite/++resource++protect.js" type="application/javascript" id="protect-script" data-token="d212f2750ba9765ac63e75c7b0ee6b3dcfb0965c" data-site-url="http://localhost:8080/senaite"></script></body>
+  </html>
