@@ -35,12 +35,16 @@ def apply_domain(domain, mapping):
         po_path = locales / lang / "LC_MESSAGES" / f"{domain}.po"
         po = polib.pofile(str(po_path), encoding="utf-8")
 
-        applied = 0
-        for entry in po:
-            if entry.obsolete:
-                continue
-            if entry.msgid in mapping and entry.msgstr != mapping[entry.msgid]:
-                entry.msgstr = mapping[entry.msgid]
+        existing = {e.msgid: e for e in po if not e.obsolete}
+        applied = added = 0
+        for msgid, msgstr in mapping.items():
+            entry = existing.get(msgid)
+            if entry is None:
+                # msgid جدید (عنوان محتوای پویا که در .pot استخراج نشده) → افزودن
+                po.append(polib.POEntry(msgid=msgid, msgstr=msgstr))
+                added += 1
+            elif entry.msgstr != msgstr:
+                entry.msgstr = msgstr
                 applied += 1
 
         po.save(str(po_path))
@@ -48,7 +52,7 @@ def apply_domain(domain, mapping):
 
         done = len(po.translated_entries())
         total = done + len(po.untranslated_entries())
-        print(f"{domain} [{lang}]: {applied} اعمال شد → پوشش {done}/{total} ({done/total*100:.1f}%)")
+        print(f"{domain} [{lang}]: {applied} به‌روز، {added} افزوده → پوشش {done}/{total} ({done/total*100:.1f}%)")
 
 
 apply_domain("senaite.core", load_mapping("batches"))

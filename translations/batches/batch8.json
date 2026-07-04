@@ -28,7 +28,7 @@
   "description_labcontact_default_department": "بخش پیش‌فرض این مخاطب",
   "description_referencedefinition_hazardous": "آیا این ماده مرجع خطرناک است؟",
   "description_sampletemplate_auto_partition": "پارتیشن‌بندی خودکار هنگام دریافت نمونه",
-  "description_senaitesetup_worksheet_layout": "چیدمان پیش‌فرض برگه‌های کار",
+  "description_senaitesetup_worksheet_layout": "چیدمان پیش‌فرض کاربرگ‌ها",
   "description_storagelocation_location_code": "کد این مکان",
   "description_storagelocation_location_type": "نوع این مکان",
   "label_edit_default_view_container_go_here": "برو به",
