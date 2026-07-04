@@ -11,8 +11,9 @@ services:
     volumes:
       - senaite_data:/data
       # ترجمه‌های فارسی ما روی ترجمه‌های داخل ایمیج سوار می‌شوند
-      - ./translations/fa:/home/senaite/senaitelims/src/senaite.core/src/senaite/core/locales/fa:ro
-      - ./translations/fa:/home/senaite/senaitelims/src/senaite.core/src/senaite/core/locales/fa_IR:ro
+      # (بدون :ro — چون entrypoint کانتینر موقع بوت chown می‌زند و روی mount فقط-خواندنی crash می‌کند)
+      - ./translations/fa:/home/senaite/senaitelims/src/senaite.core/src/senaite/core/locales/fa
+      - ./translations/fa:/home/senaite/senaitelims/src/senaite.core/src/senaite/core/locales/fa_IR
 
 volumes:
   senaite_data:
