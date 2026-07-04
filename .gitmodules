@@ -1,0 +1,4 @@
+[submodule "senaite.core"]
+	path = senaite.core
+	url = https://github.com/arbaavahid-sketch/senaite.core.git
+	branch = persian
