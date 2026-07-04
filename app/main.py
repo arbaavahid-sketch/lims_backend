@@ -11,10 +11,15 @@ from .routers import users, samples, test_methods, results, equipment, grades, a
 # ساختار دیتابیس با Alembic مدیریت می‌شود (نه create_all):
 #   python -m alembic upgrade head
 
+import os
+
 app = FastAPI(
     title="LIMS — Petroleum QC Laboratory / سیستم مدیریت اطلاعات آزمایشگاه نفتی",
     description="Bilingual (FA/EN) LIMS backend for refinery & petrochemical QC labs — ISO/IEC 17025 aligned",
-    version="0.6.0",
+    version="0.7.0",
+    # وقتی پشت پروکسی nginx زیر مسیر /api هستیم (docker-compose)،
+    # این مقدار باعث می‌شود /docs و openapi.json درست کار کنند.
+    root_path=os.getenv("ROOT_PATH", ""),
 )
 
 # CORS — اجازهٔ تماس فرانت‌اند (Vite dev server) با API
@@ -22,7 +27,9 @@ from fastapi.middleware.cors import CORSMiddleware  # noqa: E402
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    # در توسعه، هر پورتی روی localhost مجاز است (Vite گاهی 5174، 5175 و… را برمی‌دارد).
+    # برای استقرار واقعی، دامنهٔ فرانت‌اند را در allow_origins مشخص می‌کنیم.
+    allow_origin_regex=r"http://(localhost|127\.0\.0\.1):\d+",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

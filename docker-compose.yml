@@ -1,0 +1,41 @@
+# استقرار کامل LIMS: دیتابیس + بک‌اند + فرانت‌اند
+# اجرا:  docker compose up -d --build
+# داده‌ی دمو (اختیاری):  docker compose exec backend python -m app.seed
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-lims}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?در فایل .env مقدار بدهید}
+      POSTGRES_DB: ${POSTGRES_DB:-lims}
+    volumes:
+      - lims_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-lims} -d ${POSTGRES_DB:-lims}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build: .
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-lims}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-lims}
+      LIMS_SECRET_KEY: ${LIMS_SECRET_KEY:?در فایل .env مقدار بدهید}
+      ROOT_PATH: /api
+    depends_on:
+      db:
+        condition: service_healthy
+    # پورت بک‌اند فقط داخل شبکهٔ کانتینرهاست؛ دسترسی بیرونی از طریق nginx است
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-80}:80"
+    depends_on:
+      - backend
+
+volumes:
+  lims_pgdata:
