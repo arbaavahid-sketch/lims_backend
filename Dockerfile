@@ -12,3 +12,7 @@ COPY senaite.core/src/bika /home/senaite/senaitelims/src/senaite.core/src/bika
 # فارسی‌سازی کامل گزارش/گواهی آنالیز (پکیج senaite.impress)
 COPY translations/impress/senaite.impress.po translations/impress/senaite.impress.mo \
      /home/senaite/senaitelims/src/senaite.impress/src/senaite/impress/locales/fa/LC_MESSAGES/
+
+# راست‌چین‌سازی (RTL) گزارش‌های فارسی — CSS چاپ senaite.impress
+COPY translations/impress/print.css \
+     /home/senaite/senaitelims/src/senaite.impress/src/senaite/impress/browser/static/css/print.css

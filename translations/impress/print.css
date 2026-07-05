@@ -1,0 +1,45 @@
+.report {
+  overflow: hidden;
+  position: relative;
+  /* Includes padding and border in the element's total width and height */
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-size: 9pt;
+}
+
+@media print {
+  .noprint { display: none; }
+  .report { page-break-after: always; overflow: visible; }
+  h1, h2, h3, h4, h5 { page-break-after: avoid; }
+  div.row { page-break-inside: avoid; }
+}
+
+/** For screen preview **/
+@media screen {
+  body {
+    background: #e0e0e0;
+  }
+  .report {
+    background: white;
+    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+    margin: 5mm auto; /* separator between pages */
+    padding: 0!important; /* Avoid double padding in the screen view */
+  }
+}
+
+/* ===== راست‌چین (RTL) گزارش فارسی تندیس ===== */
+.report { direction: rtl; text-align: right; }
+.report table { direction: rtl; }
+.report th, .report td { text-align: right; }
+/* جابه‌جایی ستون‌های گرید Bootstrap در RTL (سربرگ: آزمایشگاه راست، مشتری چپ) */
+.report [class*="col-"] { float: right; }
+.report .pull-left, .report .float-left { float: right !important; }
+.report .pull-right, .report .float-right { float: left !important; }
+.report .text-left { text-align: right !important; }
+.report .text-right { text-align: left !important; }
+/* بارکد/QR/لوگو و اعداد داخل خودشان چپ‌به‌راست بمانند */
+.report .barcode, .report .qrcode, .report img,
+.report .barcode *, .report .qrcode * { direction: ltr; }
+/* فاصله‌گذاری‌های جهت‌دار رایج */
+.report .ml-1,.report .ml-2,.report .ml-3 { margin-left:0 !important; }
+.report .mr-1,.report .mr-2,.report .mr-3 { margin-right:0 !important; }

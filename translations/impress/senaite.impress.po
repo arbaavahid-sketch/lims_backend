@@ -353,3 +353,24 @@ msgstr "وضعیت گردش‌کار"
 #: senaite/impress/browser/publish/content.py:100
 msgid "Workflow State ID"
 msgstr "شناسهٔ وضعیت گردش‌کار"
+
+msgid "Results for"
+msgstr "نتایج برای"
+
+msgid "Results for ${id}"
+msgstr "نتایج برای ${id}"
+
+msgid "Page"
+msgstr "صفحه"
+
+msgid "of"
+msgstr "از"
+
+msgid "Attachments"
+msgstr "پیوست‌ها"
+
+msgid "Method"
+msgstr "روش"
+
+msgid "Instrument"
+msgstr "دستگاه"
