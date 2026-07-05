@@ -43,9 +43,9 @@
 .report .section-results .analysis { text-align: right !important; }
 .report .section-results th:not(.analysis),
 .report .section-results td:not(.analysis) { text-align: center !important; }
-/* سرتیتر پهنِ دستهٔ آزمایشگاه (گریس/روغن/…): راست‌چین و پررنگ */
+/* سرتیتر پهنِ دستهٔ آزمایشگاه (گریس/روغن/…): وسط‌چین و پررنگ (مطابق هدف) */
 .report .section-results .category-header {
-  text-align: right !important;
+  text-align: center !important;
   font-weight: bold;
   padding-top: 6px;
 }
