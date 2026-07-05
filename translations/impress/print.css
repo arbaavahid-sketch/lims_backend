@@ -45,7 +45,8 @@
 
   .report .section-header,
   .report .section-info,
-  .report .section-summary {
+  .report .section-summary,
+  .report .section-discreeter {
     page-break-inside: avoid;
   }
 
@@ -354,6 +355,12 @@
   padding: 0;
 }
 
+.report .section-discreeter {
+  direction: rtl;
+  margin-top: 4mm;
+  text-align: right !important;
+}
+
 .report .font-italic {
   font-style: italic;
 }
@@ -436,14 +443,18 @@
 }
 
 .report.report-en .summary-table {
-  direction: rtl;
+  direction: ltr;
 }
 
-.report.report-en .summary-table .label,
+.report.report-en .summary-table .label {
+  direction: ltr;
+  text-align: left !important;
+}
+
 .report.report-en .summary-table .value,
 .report.report-en .summary-table .ltr-value {
   direction: ltr;
-  text-align: left !important;
+  text-align: right !important;
 }
 
 .report.report-en .section-results {
@@ -477,4 +488,9 @@
 .report.report-en .section-footer > :not(#footer-line) {
   padding-left: 0;
   padding-right: 38mm;
+}
+
+.report.report-en .section-discreeter {
+  direction: ltr;
+  text-align: left !important;
 }

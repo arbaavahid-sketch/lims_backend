@@ -70,7 +70,7 @@
        vertical-align: top;
        margin-top: 2mm;
        font-size: 9pt;
-       content: "<tal:t i18n:translate=''>Page</tal:t> " counter(page) " <tal:t i18n:translate=''>of</tal:t> " counter(pages);
+       content: counter(page) " / " counter(pages);
      }
    </tal:rtl>
    <tal:ltr condition="not:is_rtl">

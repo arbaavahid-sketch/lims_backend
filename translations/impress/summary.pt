@@ -5,7 +5,8 @@
                reporter python:view.current_user;
                specification model/Specification;
                publication_specification model/PublicationSpecification;
-               spec python:publication_specification or specification;"
+               spec python:publication_specification or specification;
+               english_report python:view.is_report_english();"
        i18n:domain="senaite.impress">
 
   <div class="row section-summary no-gutters">
@@ -23,7 +24,87 @@
 
       <h1 i18n:translate="">Summary</h1>
 
-      <table class="summary-table table table-sm table-condensed">
+      <table class="summary-table table table-sm table-condensed"
+             tal:condition="english_report">
+        <colgroup>
+          <col style="width: 22%">
+          <col style="width: 78%">
+        </colgroup>
+        <tr>
+          <td class="label" i18n:translate="">Sample ID</td>
+          <td class="value">
+            <a tal:content="model/getId"
+               tal:attributes="href model/absolute_url;">
+            </a>
+          </td>
+        </tr>
+        <tr tal:condition="batch">
+          <td class="label" i18n:translate="">Batch ID</td>
+          <td class="value">
+            <a tal:content="batch/id"
+               tal:attributes="href batch/absolute_url">
+            </a>
+          </td>
+        </tr>
+        <tr tal:condition="batch">
+          <td class="label" i18n:translate="">Client Batch ID</td>
+          <td class="value" tal:content="batch/ClientBatchID"></td>
+        </tr>
+        <tr>
+          <td class="label" i18n:translate="">Client</td>
+          <td class="value">
+            <a tal:attributes="href client/absolute_url"
+               tal:define="client_name client/Name|nothing"
+               tal:content="python:view.translate_report_text(client_name)"></a>
+          </td>
+        </tr>
+        <tr>
+          <td class="label" i18n:translate="">Client SID</td>
+          <td class="value" tal:content="model/ClientSampleID"></td>
+        </tr>
+        <tr>
+          <td class="label" i18n:translate="">Sample Type</td>
+          <td class="value"
+              tal:define="sample_type model/SampleType/title|nothing"
+              tal:content="python:view.translate_report_text(sample_type)"></td>
+        </tr>
+        <tr>
+          <td class="label" i18n:translate="">Specification</td>
+          <td class="value"
+              tal:define="spec_title spec/contextual_title|nothing"
+              tal:content="python:view.translate_report_text(spec_title)"></td>
+        </tr>
+        <tr>
+          <td class="label" i18n:translate="">Date Received</td>
+          <td class="value ltr-value" tal:content="python:view.to_localized_time(model.DateReceived)"></td>
+        </tr>
+        <tr>
+          <td class="label" i18n:translate="">Date Verified</td>
+          <td class="value ltr-value" tal:content="python:view.to_localized_time(model.getDateVerified())"></td>
+        </tr>
+        <tr>
+          <td class="label" i18n:translate="">Date Published</td>
+          <td class="value ltr-value" tal:content="python:view.to_localized_time(view.timestamp)"></td>
+        </tr>
+        <tr tal:condition="reporter">
+          <td class="label" i18n:translate="">Published by</td>
+          <td class="value">
+            <span tal:content="reporter/fullname|reporter/username"/>
+            <tal:email tal:condition="reporter/email|nothing"
+                       tal:define="email reporter/email">
+              (<a tal:content="email"
+                  tal:attributes="href string:mailto:${email}"></a>)
+            </tal:email>
+          </td>
+        </tr>
+        <tr tal:condition="python: batch and batch.BatchLabels">
+          <td class="label" i18n:translate="">Batch Labels</td>
+          <td class="value" tal:content="structure python:', '.join(map(lambda x: x.Title(), batch.BatchLabels))"></td>
+        </tr>
+      </table>
+
+      <table class="summary-table table table-sm table-condensed"
+             tal:condition="not:english_report">
         <colgroup>
           <col style="width: 78%">
           <col style="width: 22%">

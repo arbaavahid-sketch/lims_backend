@@ -3,7 +3,8 @@
                outofrange_symbol string:△;
                global footnotes python:[];
                report_options python:options.get('report_options', {});
-               show_conditions python:bool(report_options.get('show_conditions', True));"
+               show_conditions python:bool(report_options.get('show_conditions', True));
+               english_report python:view.is_report_english();"
        i18n:domain="senaite.impress">
 
   <tal:model repeat="model collection">
@@ -19,12 +20,19 @@
                                  repeat="category python:view.sort_items(categories_by_poc.get(poc))">
 
             <table class="table table-sm table-condensed">
-              <colgroup>
+              <colgroup tal:condition="not:english_report">
                 <col class="specs-col" style="width: 16%;">
                 <col class="unit-col" style="width: 14%;">
                 <col class="result-col" style="width: 14%;">
                 <col class="method-col" style="width: 20%;">
                 <col class="analysis-col" style="width: 36%;">
+              </colgroup>
+              <colgroup tal:condition="english_report">
+                <col class="analysis-col" style="width: 36%;">
+                <col class="method-col" style="width: 20%;">
+                <col class="result-col" style="width: 14%;">
+                <col class="unit-col" style="width: 14%;">
+                <col class="specs-col" style="width: 16%;">
               </colgroup>
               <thead>
                 <tr>
@@ -34,79 +42,147 @@
                   </th>
                 </tr>
                 <tr class="small">
-                  <th class="specs" i18n:translate="">Range</th>
-                  <th class="unit" i18n:translate="">Unit</th>
-                  <th class="result" i18n:translate="">Result</th>
-                  <th class="method" i18n:translate="">Test Method</th>
-                  <th class="analysis" i18n:translate="">Analysis</th>
+                  <tal:fa condition="not:english_report">
+                    <th class="specs" i18n:translate="">Range</th>
+                    <th class="unit" i18n:translate="">Unit</th>
+                    <th class="result" i18n:translate="">Result</th>
+                    <th class="method" i18n:translate="">Test Method</th>
+                    <th class="analysis" i18n:translate="">Analysis</th>
+                  </tal:fa>
+                  <tal:en condition="english_report">
+                    <th class="analysis" i18n:translate="">Analysis</th>
+                    <th class="method" i18n:translate="">Test Method</th>
+                    <th class="result" i18n:translate="">Result</th>
+                    <th class="unit" i18n:translate="">Unit</th>
+                    <th class="specs" i18n:translate="">Range</th>
+                  </tal:en>
                 </tr>
               </thead>
 
               <tbody>
                 <tal:analyses tal:repeat="analysis python:view.get_analyses_by(model, poc=poc, category=category)">
                   <tr>
-                    <td class="specs">
-                      <span tal:content="python:model.get_formatted_specs(analysis)">(RT)</span>
-                    </td>
+                    <tal:en condition="english_report">
+                      <td class="analysis">
+                        <span class="text-success accredited-symbol"
+                              tal:content="accredited_symbol"
+                              tal:condition="analysis/Accredited">
+                        </span>
+                        <span tal:condition="not:analysis/ScientificName">
+                          <span class="font-weight-normal"
+                                tal:content="python:view.get_analysis_title(analysis)">Analysis</span>
+                        </span>
+                        <span tal:condition="analysis/ScientificName">
+                          <span class="font-italic"
+                                tal:content="python:view.get_analysis_title(analysis)">Scientific analysis</span>
+                        </span>
 
-                    <td class="unit text-muted font-italic">
-                      <span class="units" tal:content="structure python:model.get_formatted_unit(analysis)">mg/kg</span>
-                    </td>
+                        <tal:analysis_footnotes define="analysis_footnotes python:[];">
 
-                    <td class="result"
-                        tal:define="out_of_range python:model.is_out_of_range(analysis);
-                                    results_range python:analysis.getResultsRange();
-                                    comment python:results_range.get('rangecomment');">
-                      <span tal:content="structure python:model.get_formatted_result(analysis)"
-                            tal:attributes="class python:'text-danger font-weight-bold' if out_of_range else ''">23</span>
-                      <span tal:condition="out_of_range"
-                            class="outofrange text-danger"
-                            tal:content="outofrange_symbol"/>
-                      <span class="text-danger small"
-                            tal:condition="python:out_of_range and comment"
-                            tal:content="comment"/>
-                    </td>
+                          <tal:analysis_conditions
+                            define="conditions python:view.get_analysis_conditions(analysis)"
+                            condition="show_conditions">
+                            <tal:x define="dummy python:analysis_footnotes.extend(conditions)">
+                          </tal:analysis_conditions>
 
-                    <td class="method">
-                      <span tal:content="analysis/getMethodTitle|nothing">ASTM D1319</span>
-                    </td>
+                          <tal:interim_fields
+                              define="interims python:view.get_result_variables(analysis);
+                                      dummy python:analysis_footnotes.extend(interims)">
+                          </tal:interim_fields>
 
-                    <td class="analysis">
-                      <span class="text-success accredited-symbol"
-                            tal:content="accredited_symbol"
-                            tal:condition="analysis/Accredited">
-                      </span>
-                      <span tal:condition="not:analysis/ScientificName">
-                        <span class="font-weight-normal"
-                              tal:define="analysis_title analysis/title"
-                              tal:content="python:view.translate_report_text(analysis_title)">Analysis</span>
-                      </span>
-                      <span tal:condition="analysis/ScientificName">
-                        <span class="font-italic"
-                              tal:define="analysis_title analysis/title"
-                              tal:content="python:view.translate_report_text(analysis_title)">Scientific analysis</span>
-                      </span>
+                          <tal:x condition="analysis_footnotes">
+                            <sup tal:define="dummy python:footnotes.append(analysis_footnotes)"
+                                 tal:content="python: len(footnotes)"/>
+                          </tal:x>
 
-                      <tal:analysis_footnotes define="analysis_footnotes python:[];">
+                        </tal:analysis_footnotes>
+                      </td>
+                      <td class="method">
+                        <span tal:content="python:view.get_analysis_method_title(analysis)">ASTM D1319</span>
+                      </td>
+                      <td class="result"
+                          tal:define="out_of_range python:model.is_out_of_range(analysis);
+                                      results_range python:analysis.getResultsRange();
+                                      comment python:results_range.get('rangecomment');">
+                        <span tal:content="structure python:model.get_formatted_result(analysis)"
+                              tal:attributes="class python:'text-danger font-weight-bold' if out_of_range else ''">23</span>
+                        <span tal:condition="out_of_range"
+                              class="outofrange text-danger"
+                              tal:content="outofrange_symbol"/>
+                        <span class="text-danger small"
+                              tal:condition="python:out_of_range and comment"
+                              tal:content="comment"/>
+                      </td>
+                      <td class="unit text-muted font-italic">
+                        <span class="units" tal:content="structure python:model.get_formatted_unit(analysis)">mg/kg</span>
+                      </td>
+                      <td class="specs">
+                        <span tal:content="python:model.get_formatted_specs(analysis)">(RT)</span>
+                      </td>
+                    </tal:en>
 
-                        <tal:analysis_conditions
-                          define="conditions python:view.get_analysis_conditions(analysis)"
-                          condition="show_conditions">
-                          <tal:x define="dummy python:analysis_footnotes.extend(conditions)">
-                        </tal:analysis_conditions>
+                    <tal:fa condition="not:english_report">
+                      <td class="specs">
+                        <span tal:content="python:model.get_formatted_specs(analysis)">(RT)</span>
+                      </td>
 
-                        <tal:interim_fields
-                            define="interims python:view.get_result_variables(analysis);
-                                    dummy python:analysis_footnotes.extend(interims)">
-                        </tal:interim_fields>
+                      <td class="unit text-muted font-italic">
+                        <span class="units" tal:content="structure python:model.get_formatted_unit(analysis)">mg/kg</span>
+                      </td>
 
-                        <tal:x condition="analysis_footnotes">
-                          <sup tal:define="dummy python:footnotes.append(analysis_footnotes)"
-                               tal:content="python: len(footnotes)"/>
-                        </tal:x>
+                      <td class="result"
+                          tal:define="out_of_range python:model.is_out_of_range(analysis);
+                                      results_range python:analysis.getResultsRange();
+                                      comment python:results_range.get('rangecomment');">
+                        <span tal:content="structure python:model.get_formatted_result(analysis)"
+                              tal:attributes="class python:'text-danger font-weight-bold' if out_of_range else ''">23</span>
+                        <span tal:condition="out_of_range"
+                              class="outofrange text-danger"
+                              tal:content="outofrange_symbol"/>
+                        <span class="text-danger small"
+                              tal:condition="python:out_of_range and comment"
+                              tal:content="comment"/>
+                      </td>
 
-                      </tal:analysis_footnotes>
-                    </td>
+                      <td class="method">
+                        <span tal:content="python:view.get_analysis_method_title(analysis)">ASTM D1319</span>
+                      </td>
+
+                      <td class="analysis">
+                        <span class="text-success accredited-symbol"
+                              tal:content="accredited_symbol"
+                              tal:condition="analysis/Accredited">
+                        </span>
+                        <span tal:condition="not:analysis/ScientificName">
+                          <span class="font-weight-normal"
+                                tal:content="python:view.get_analysis_title(analysis)">Analysis</span>
+                        </span>
+                        <span tal:condition="analysis/ScientificName">
+                          <span class="font-italic"
+                                tal:content="python:view.get_analysis_title(analysis)">Scientific analysis</span>
+                        </span>
+
+                        <tal:analysis_footnotes define="analysis_footnotes python:[];">
+
+                          <tal:analysis_conditions
+                            define="conditions python:view.get_analysis_conditions(analysis)"
+                            condition="show_conditions">
+                            <tal:x define="dummy python:analysis_footnotes.extend(conditions)">
+                          </tal:analysis_conditions>
+
+                          <tal:interim_fields
+                              define="interims python:view.get_result_variables(analysis);
+                                      dummy python:analysis_footnotes.extend(interims)">
+                          </tal:interim_fields>
+
+                          <tal:x condition="analysis_footnotes">
+                            <sup tal:define="dummy python:footnotes.append(analysis_footnotes)"
+                                 tal:content="python: len(footnotes)"/>
+                          </tal:x>
+
+                        </tal:analysis_footnotes>
+                      </td>
+                    </tal:fa>
                   </tr>
                 </tal:analyses>
               </tbody>

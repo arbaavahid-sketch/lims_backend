@@ -83,9 +83,10 @@ class ReportView(Base):
 
     EN_REPORT_TERMS = {
         u"آزمایشگاه پتروشیمی تندیس پارس": u"Tandis Pars Petrochemical Laboratory",
-        u"آزمایشگاه پتروشیمی تندیس پارس (TPPC)": u"Tandis Pars Petrochemical Laboratory (TPPC)",
-        u"آزمایشگاه پتروشیمی تندیس پارس (TPPC) پارس": u"Tandis Pars Petrochemical Laboratory (TPPC)",
+        u"آزمایشگاه پتروشیمی تندیس پارس (TPPC)": u"Tandis Pars Petrochemical Laboratory",
+        u"آزمایشگاه پتروشیمی تندیس پارس (TPPC) پارس": u"Tandis Pars Petrochemical Laboratory",
         u"باشگاه تست": u"Test Club",
+        u"پالایشگاه تست": u"Test Refinery",
         u"علی مرادی": u"Ali Moradi",
         u"انواع نفتا": u"Naphtha types",
         u"گریس": u"Grease",
@@ -96,7 +97,7 @@ class ReportView(Base):
         u"هیدروکربن": u"Hydrocarbon",
         u"نفوذپذیری کارکرده در 25°C": u"Worked penetration at 25°C",
         u"نفوذپذیری کارکرده در C°25": u"Worked penetration at 25°C",
-        u"اندازه گیری عدد قلیایی کل": u"Total base number",
+        u"اندازه گیری عدد قلیایی کل": u"Determination of total base number",
         u"دانسیته در 15.5°C": u"Density at 15.5°C",
         u"دانسیته در C°15.5": u"Density at 15.5°C",
         u"کشش‌پذیری قیر (داکتیلیتی، D113)": u"Bitumen ductility (D113)",
@@ -110,6 +111,20 @@ class ReportView(Base):
         u"گرانروی کینماتیک در دمای 50 درجه سانتی گراد": u"Kinematic viscosity at 50°C",
     }
     EN_REPORT_TERMS_NORMALIZED = None
+    EN_REPORT_TERM_HINTS = (
+        (u"عدد قلیایی", u"Determination of total base number"),
+        (u"قلیایی کل", u"Determination of total base number"),
+        (u"قلیائی کل", u"Determination of total base number"),
+        (u"قليا", u"Determination of total base number"),
+        (u"TBN", u"Determination of total base number"),
+    )
+    EN_REPORT_METHODS = {
+        u"Worked penetration at 25°C": u"ASTM D1319",
+        u"Determination of total base number": u"ASTM D1319",
+        u"Density at 15.5°C": u"ASTM D1319",
+        u"Bitumen ductility (D113)": u"ASTM D5453",
+        u"Water and sediment by centrifuge": u"ASTM D3606",
+    }
 
     def get_report_language_context(self):
         language = (self.request.get("LANGUAGE", "") or "en").split("-")[0]
@@ -135,10 +150,16 @@ class ReportView(Base):
         text = self.to_report_unicode(value)
         replacements = (
             (u"\u200c", u" "),
+            (u"\u200e", u" "),
+            (u"\u200f", u" "),
             (u"\xa0", u" "),
             (u"ي", u"ی"),
+            (u"ى", u"ی"),
             (u"ك", u"ک"),
             (u"ۀ", u"ه"),
+            (u"أ", u"ا"),
+            (u"إ", u"ا"),
+            (u"آ", u"ا"),
             (u" ،", u"،"),
             (u"،", u","),
         )
@@ -164,7 +185,136 @@ class ReportView(Base):
         for source, replacement in self.get_en_report_terms().items():
             if source and source in normalized:
                 normalized = normalized.replace(source, replacement)
+        for source, replacement in self.EN_REPORT_TERM_HINTS:
+            source = self.normalize_report_text(source)
+            if source in normalized:
+                return replacement
+            if source.replace(u" ", u"") in normalized.replace(u" ", u""):
+                return replacement
+        if u"عدد" in normalized and u"قلیا" in normalized:
+            return u"Determination of total base number"
         return normalized
+
+    def get_object_title(self, obj):
+        if not obj:
+            return ""
+        title = getattr(obj, "Title", None)
+        if safe_callable(title):
+            return title()
+        title = getattr(obj, "title", "")
+        if safe_callable(title):
+            return title()
+        return title or ""
+
+    def get_uid_title(self, uid):
+        if not uid:
+            return ""
+        obj = api.get_object_by_uid(uid, None)
+        return self.get_object_title(obj)
+
+    def get_first_method_title(self, methods):
+        for method in methods or []:
+            title = self.get_object_title(method)
+            if title:
+                return title
+            title = isinstance(method, basestring) and self.get_uid_title(method)
+            if title:
+                return title
+        return ""
+
+    def get_analysis_method_fallback(self, analysis):
+        title = self.get_analysis_title(analysis)
+        normalized = self.normalize_report_text(title)
+        method = self.EN_REPORT_METHODS.get(normalized)
+        if method:
+            return method
+
+        obj = api.get_object(analysis)
+        title = self.get_analysis_title(obj)
+        normalized = self.normalize_report_text(title)
+        return self.EN_REPORT_METHODS.get(normalized, "")
+
+    def get_analysis_title(self, analysis):
+        candidates = []
+        title = getattr(analysis, "Title", None)
+        if safe_callable(title):
+            candidates.append(title())
+        title = getattr(analysis, "title", "")
+        if safe_callable(title):
+            title = title()
+        candidates.append(title)
+
+        obj = api.get_object(analysis)
+        if obj is not analysis:
+            title = getattr(obj, "Title", None)
+            if safe_callable(title):
+                candidates.append(title())
+            title = getattr(obj, "title", "")
+            if safe_callable(title):
+                title = title()
+            candidates.append(title)
+
+        for value in candidates:
+            if value:
+                return self.translate_report_text(value)
+        return ""
+
+    def get_analysis_method_title(self, analysis):
+        objects = [analysis]
+        obj = api.get_object(analysis)
+        if obj is not analysis:
+            objects.append(obj)
+
+        for item in objects:
+            getter = getattr(item, "getMethodTitle", None)
+            title = safe_callable(getter) and getter() or ""
+            if title:
+                return title
+
+            getter = getattr(item, "getMethod", None)
+            method = safe_callable(getter) and getter() or None
+            title = self.get_object_title(method)
+            if title:
+                return title
+
+            getter = getattr(item, "getRawMethod", None)
+            method_uid = safe_callable(getter) and getter() or None
+            title = self.get_uid_title(method_uid)
+            if title:
+                return title
+
+        service = None
+        for item in objects:
+            getter = getattr(item, "getAnalysisService", None)
+            service = safe_callable(getter) and getter() or None
+            if service:
+                break
+
+        getter = getattr(service, "getMethod", None)
+        method = safe_callable(getter) and getter() or None
+        title = self.get_object_title(method)
+        if title:
+            return title
+
+        getter = getattr(service, "getMethods", None)
+        methods = safe_callable(getter) and getter() or []
+        title = self.get_first_method_title(methods)
+        if title:
+            return title
+
+        getter = getattr(service, "getRawMethod", None)
+        method_uid = safe_callable(getter) and getter() or None
+        title = self.get_uid_title(method_uid)
+        if title:
+            return title
+
+        getter = getattr(service, "getRawMethods", None)
+        methods = safe_callable(getter) and getter() or []
+        title = self.get_first_method_title(methods)
+        if title:
+            return title
+
+        return self.get_analysis_method_fallback(analysis)
 
     def render_js(self, context, **kw):
         return self.JS_TEMPLATE(context, **kw)
