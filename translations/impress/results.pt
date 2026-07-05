@@ -23,26 +23,28 @@
             <!-- Analysis in POC and Category -->
             <table class="table table-sm table-condensed">
               <colgroup>
-                <!-- آزمون (نام) -->
-                <col style="width: 34%;">
-                <!-- روش آزمون -->
-                <col style="width: 24%">
+                <!-- شرح آزمون -->
+                <col style="width: 45%;">
                 <!-- نتیجه -->
-                <col style="width: 16%">
+                <col style="width: 18%">
                 <!-- واحد -->
-                <col style="width: 12%">
-                <!-- حد مجاز -->
-                <col style="width: 14%">
+                <col style="width: 17%">
+                <!-- محدوده -->
+                <col style="width: 20%">
               </colgroup>
               <thead>
-                <tr class="small">
-                  <th class="analysis">
+                <!-- سرتیتر پهنِ دستهٔ آزمایشگاه -->
+                <tr>
+                  <th class="category-header" colspan="4">
                     <span tal:content="category/Title">Category</span>
                   </th>
-                  <th class="method">روش آزمون</th>
+                </tr>
+                <!-- سرستون‌ها -->
+                <tr class="small">
+                  <th class="analysis">شرح آزمون</th>
                   <th class="result">نتیجه</th>
                   <th class="unit">واحد</th>
-                  <th class="specs">حد مجاز</th>
+                  <th class="specs">محدوده</th>
                 </tr>
               </thead>
 
@@ -86,12 +88,6 @@
                       </tal:analysis_footnotes>
                     </td>
 
-                    <!-- روش آزمون -->
-                    <td class="method text-secondary"
-                        tal:define="method_title python:analysis and analysis.getMethodTitle() or '';">
-                      <span tal:content="structure python:view.hyphenize(method_title)"/>
-                    </td>
-
                     <!-- نتیجه (با علامت/رنگ خارج‌از‌محدوده) -->
                     <td class="result"
                         tal:define="out_of_range python:model.is_out_of_range(analysis);
@@ -112,7 +108,7 @@
                       <span class="units" tal:content="structure python:model.get_formatted_unit(analysis)"></span>
                     </td>
 
-                    <!-- حد مجاز -->
+                    <!-- محدوده (حد مجاز) -->
                     <td class="specs">
                       <span tal:content="python:model.get_formatted_specs(analysis)"></span>
                     </td>

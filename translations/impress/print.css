@@ -43,6 +43,12 @@
 .report .section-results .analysis { text-align: right !important; }
 .report .section-results th:not(.analysis),
 .report .section-results td:not(.analysis) { text-align: center !important; }
+/* سرتیتر پهنِ دستهٔ آزمایشگاه (گریس/روغن/…): راست‌چین و پررنگ */
+.report .section-results .category-header {
+  text-align: right !important;
+  font-weight: bold;
+  padding-top: 6px;
+}
 /* بارکد/QR/لوگو و اعداد داخل خودشان چپ‌به‌راست بمانند */
 .report .barcode, .report .qrcode, .report img,
 .report .barcode *, .report .qrcode * { direction: ltr; }
