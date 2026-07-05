@@ -22,26 +22,39 @@ MASTER = "TPPC_LIMS_Master_Data_units_filled.xlsx"
 EXAMPLE = "../../senaite.core/src/bika/lims/setupdata/test/test.xlsx"
 OUT = "TPPC_SENAITE_Setup.xlsx"
 
-CATEGORY = {
-    "ICP": ("عناصر و فلزات (ICP)", "Instrumental"),
-    "GC_DHA": ("دستگاهی و کروماتوگرافی", "Instrumental"),
-    "FTIR": ("دستگاهی و کروماتوگرافی", "Instrumental"),
-    "SE": ("دستگاهی و کروماتوگرافی", "Instrumental"),
-    "DR": ("دستگاهی و کروماتوگرافی", "Instrumental"),
-    "VM": ("خواص فیزیکی", "Oil Lab"), "FP_01": ("خواص فیزیکی", "Oil Lab"),
-    "FP_02": ("خواص فیزیکی", "Oil Lab"), "Densitimeter": ("خواص فیزیکی", "Oil Lab"),
-    "Distilation_01": ("خواص فیزیکی", "Oil Lab"), "Distilation_02": ("خواص فیزیکی", "Oil Lab"),
-    "Pour_point": ("خواص فیزیکی", "Oil Lab"), "Cloud_point": ("خواص فیزیکی", "Oil Lab"),
-    "RVP": ("خواص فیزیکی", "Oil Lab"), "CS": ("خواص فیزیکی", "Oil Lab"),
-    "saybolt": ("خواص فیزیکی", "Oil Lab"), "OCTAN_CETAN_METER": ("خواص فیزیکی", "Oil Lab"),
-    "PT": ("تیتراسیون و محتوای آب", "Oil Lab"), "TITRATOR": ("تیتراسیون و محتوای آب", "Oil Lab"),
-    "KARL_FISHER": ("تیتراسیون و محتوای آب", "Oil Lab"), "Coulometry": ("تیتراسیون و محتوای آب", "Oil Lab"),
-    "PH": ("آزمون‌های آب و محلول", "Water Lab"), "COND": ("آزمون‌های آب و محلول", "Water Lab"),
-    "Turbidity": ("آزمون‌های آب و محلول", "Water Lab"),
-    "INST_027": ("متفرقه", "Oil Lab"), "HEATER_STIRRER": ("متفرقه", "Oil Lab"),
-    "": ("متفرقه", "Oil Lab"),
-}
-DEFAULT_CAT = ("متفرقه", "Oil Lab")
+# ۶ آزمایشگاه واقعی TPPC (از tppc.ir) — هم دپارتمان، هم دستهٔ آنالیز
+LABS = ["هیدروکربن", "روغن", "نفت خام", "ضدیخ", "قیر", "گریس"]
+
+
+def _norm(s):
+    return s.replace("ي", "ی").replace("ى", "ی").replace("ك", "ک")
+
+
+def LAB(title):
+    """نگاشت نام آزمون فارسی به آزمایشگاه واقعی (اولویت: تخصصی‌ها اول).
+
+    آزمون‌های مشترک (نقطه اشتعال، گرانروی…) به آزمایشگاه پیش‌فرض «هیدروکربن»
+    می‌روند؛ این نگاشت خودکار و قابل‌بازبینی است.
+    """
+    t = _norm(title)
+    if any(k in t for k in ["ضد یخ", "ضدیخ", "نقطه انجماد", "گلایکول", "گلیکول"]):
+        return "ضدیخ"
+    if any(k in t for k in ["قیر", "داکتیل", "کشش", "نفوذ", "نرمی", "اسپات", "لکه مواد قیری"]):
+        return "قیر"
+    if "گریس" in t:
+        return "گریس"
+    if any(k in t for k in ["نفت خام", "رمزباتوم", "باقیمانده کربن", "کنرادسون",
+                            "فشار بخار", "آب و رسوب", "نمک", "کربن باقی"]):
+        return "نفت خام"
+    # آنالیز عنصری ICP (فلزات/افزودنی‌ها) و عدد اسیدی/قلیایی → عمدتاً آزمایشگاه روغن
+    if any(k in t for k in ["طیف سنجی نشر", "طیف سنج نشر", "پلاسما", "نشر اتمی",
+                            "عنصری", "عنصر"]):
+        return "روغن"
+    if any(k in t for k in ["روغن", "روان کننده", "روانکار", "عدد قلیای", "قلیائ",
+                            "قلیایی", "قلیاییت", "عدد اسید", "اسیدیته", "خنثی",
+                            "جدا شدن آب", "جداپذیری", "افزودنی", "شاخص گرانروی", "کف "]):
+        return "روغن"
+    return "هیدروکربن"
 
 
 def load(path, sheet, header_key):
@@ -73,8 +86,7 @@ code2title = {s(r, "Instrument Code"): inst_title(r) for r in instruments}
 DATA = {}
 
 DATA["Lab Departments"] = [
-    {"title": d, "description": "", "LabContact_Username": ""}
-    for d in ["Oil Lab", "Water Lab", "Instrumental"]
+    {"title": d, "description": "", "LabContact_Username": ""} for d in LABS
 ]
 
 DATA["Instrument Types"] = [
@@ -95,21 +107,20 @@ DATA["Instruments"] = [{
     "CalibrationExpiryDate": s(r, "Next Calibration Due"),
 } for r in instruments]
 
-cats = {}
-for r in services:
-    cat, dept = CATEGORY.get(s(r, "Instrument Code"), DEFAULT_CAT)
-    cats[cat] = dept
+# دستهٔ آنالیز = همان ۶ آزمایشگاه (هر دسته زیر دپارتمان هم‌نام خودش)
 DATA["Analysis Categories"] = [
-    {"title": c, "description": "", "Department_title": d} for c, d in sorted(cats.items())
+    {"title": lab, "description": "", "Department_title": lab} for lab in LABS
 ]
 
 serv_records = []
+lab_counts = {}
 for r in services:
     code = s(r, "Instrument Code")
-    cat, dept = CATEGORY.get(code, DEFAULT_CAT)
+    lab = LAB(s(r, "Analysis Title FA"))
+    lab_counts[lab] = lab_counts.get(lab, 0) + 1
     serv_records.append({
         "title": s(r, "Analysis Title FA"), "Keyword": s(r, "Analysis Keyword"),
-        "PointOfCapture": "lab", "AnalysisCategory_title": cat, "Department_title": dept,
+        "PointOfCapture": "lab", "AnalysisCategory_title": lab, "Department_title": lab,
         "Unit": s(r, "Unit"), "ManualEntryOfResults": "1",
         "DefaultInstrument_title": code2title.get(code, ""),
         "MaxTimeAllowed_days": s(r, "Turnaround Days"), "Accredited": "1", "Price": "0",
@@ -183,6 +194,20 @@ DATA["Setup"] = kv_from_example("Setup", {
     "CategoriseAnalysisServices": "1",
 })
 
+# مشخصات گازوئیل را هم بگنجان (تا در re-import کامل از دست نرود)
+try:
+    gw = openpyxl.load_workbook("TPPC_Specs_Gasoil.xlsx", data_only=True)["Analysis Specifications"]
+    grows = list(gw.iter_rows(values_only=True))
+    gkeys = [c for c in grows[0] if c]
+    specs = []
+    for row in grows[3:]:
+        rec = dict(zip(gkeys, row))
+        if rec.get("SampleType_title") and rec.get("service"):
+            specs.append({k: ("" if rec.get(k) is None else rec.get(k)) for k in gkeys})
+    DATA["Analysis Specifications"] = specs
+except FileNotFoundError:
+    pass
+
 out = openpyxl.Workbook()
 out.remove(out.active)
 hdr_fill = PatternFill("solid", fgColor="1A3C6E")
@@ -215,5 +240,9 @@ for name in ex.sheetnames:
 out.save(OUT)
 print(f"✅ ساخته شد: {OUT}  ({len(ex.sheetnames)} شیت، {filled} شیت دارای داده)\n")
 for name in ["Lab Departments", "Instrument Types", "Manufacturers", "Instruments",
-             "Analysis Categories", "Analysis Services", "Sample Types"]:
-    print(f"   {name:22} {len(DATA.get(name, [])):4} ردیف")
+             "Analysis Categories", "Analysis Services", "Sample Types",
+             "Analysis Specifications"]:
+    print(f"   {name:24} {len(DATA.get(name, [])):4} ردیف")
+print("\n   توزیع ۱۵۸ سرویس بین ۶ آزمایشگاه:")
+for lab in LABS:
+    print(f"     {lab:12} {lab_counts.get(lab, 0)}")
