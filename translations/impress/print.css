@@ -37,6 +37,10 @@
 .report .pull-right, .report .float-right { float: left !important; }
 .report .text-left { text-align: right !important; }
 .report .text-right { text-align: left !important; }
+/* جدول نتایج: همهٔ سلول‌ها راست‌چین تا نام آزمون (راست) و مقدار/واحد/بازه
+   کنار هم و چسبیده بیایند، نه با فاصله‌ی چپ‌چین */
+.report .section-results th,
+.report .section-results td { text-align: right !important; }
 /* بارکد/QR/لوگو و اعداد داخل خودشان چپ‌به‌راست بمانند */
 .report .barcode, .report .qrcode, .report img,
 .report .barcode *, .report .qrcode * { direction: ltr; }
