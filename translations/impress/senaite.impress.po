@@ -1,0 +1,355 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2024-01-03 09:08+0000\n"
+"PO-Revision-Date: 2018-06-06 17:12+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Persian (https://app.transifex.com/senaite/teams/87187/fa/)\n"
+"Language: fa\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Domain: DOMAIN\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+
+#: senaite/impress/controlpanel.py:51
+msgid "Active templates"
+msgstr "قالب‌های فعال"
+
+#: senaite/impress/controlpanel.py:139
+msgid "Advanced"
+msgstr "پیشرفته"
+
+#: senaite/impress/browser/publish/content.py:112
+msgid "All"
+msgstr "همه"
+
+#: senaite/impress/controlpanel.py:105
+msgid "Allow PDF download"
+msgstr "اجازهٔ دانلود PDF"
+
+#: senaite/impress/controlpanel.py:112
+msgid "Allow PDF email share"
+msgstr "اجازهٔ اشتراک PDF با ایمیل"
+
+#: senaite/impress/controlpanel.py:106
+msgid "Allow direct download of the generated report"
+msgstr "اجازهٔ دانلود مستقیم گزارش تولیدشده"
+
+#: senaite/impress/controlpanel.py:113
+msgid "Allow to share the generated PDF directly via email"
+msgstr "اجازهٔ اشتراک مستقیم PDF تولیدشده از طریق ایمیل"
+
+#: senaite/impress/analysisrequest/templates/header.pt:14
+msgid "Analysis Report"
+msgstr "گزارش آنالیز"
+
+#: senaite/impress/analysisrequest/templates/discreeter.pt:34
+msgid "Analysis results relate only to the samples tested."
+msgstr "نتایج آنالیز فقط به نمونه‌های آزمون‌شده مربوط می‌شوند."
+
+#: senaite/impress/analysisrequest/templates/attachments.pt:29
+msgid "Attachment for"
+msgstr "پیوست برای"
+
+#: senaite/impress/analysisrequest/templates/attachments.pt:13
+msgid "Attachments for ${DYNAMIC_CONTENT}"
+msgstr "پیوست‌های ${DYNAMIC_CONTENT}"
+
+#: senaite/impress/analysisrequest/templates/controls.pt:34
+msgid "Attachments per Row"
+msgstr "پیوست در هر ردیف"
+
+#: senaite/impress/controlpanel.py:46
+msgid "Available Templates"
+msgstr "قالب‌های موجود"
+
+#: senaite/impress/analysisrequest/templates/summary.pt:37
+#: senaite/impress/browser/publish/content.py:96
+msgid "Batch ID"
+msgstr "شناسه بچ"
+
+#: senaite/impress/analysisrequest/templates/summary.pt:91
+msgid "Batch Labels"
+msgstr "برچسب‌های بچ"
+
+#: senaite/impress/analysisrequest/templates/summary.pt:49
+#: senaite/impress/browser/publish/content.py:84
+msgid "Client"
+msgstr "مشتری"
+
+#: senaite/impress/analysisrequest/templates/summary.pt:45
+msgid "Client Batch ID"
+msgstr "شناسه بچ مشتری"
+
+#: senaite/impress/browser/publish/content.py:88
+msgid "Client ID"
+msgstr "شناسه مشتری"
+
+#: senaite/impress/analysisrequest/templates/summary.pt:56
+msgid "Client SID"
+msgstr "شناسه نمونهٔ مشتری"
+
+#: senaite/impress/browser/publish/content.py:92
+msgid "Contact"
+msgstr "مخاطب"
+
+#: senaite/impress/analysisrequest/templates/summary.pt:76
+msgid "Date Published"
+msgstr "تاریخ انتشار"
+
+#: senaite/impress/analysisrequest/templates/summary.pt:68
+msgid "Date Received"
+msgstr "تاریخ دریافت"
+
+#: senaite/impress/browser/publish/content.py:80
+msgid "Date Sampled"
+msgstr "تاریخ نمونه‌گیری"
+
+#: senaite/impress/analysisrequest/templates/summary.pt:72
+msgid "Date Verified"
+msgstr "تاریخ تأیید"
+
+#: senaite/impress/controlpanel.py:73
+msgid "Default Orientation"
+msgstr "جهت پیش‌فرض"
+
+#: senaite/impress/controlpanel.py:65
+msgid "Default Paper Format"
+msgstr "قطع کاغذ پیش‌فرض"
+
+#: senaite/impress/controlpanel.py:57
+msgid "Default Template"
+msgstr "قالب پیش‌فرض"
+
+#: senaite/impress/controlpanel.py:98
+msgid "Developer Mode"
+msgstr "حالت توسعه‌دهنده"
+
+#: senaite/impress/adapters.py:81
+msgid "Download the generated PDF to your computer"
+msgstr "دانلود PDF تولیدشده روی رایانهٔ شما"
+
+#: senaite/impress/actions/providers.py:194
+msgid "Email sent"
+msgstr "ایمیل ارسال شد"
+
+#: senaite/impress/actions/providers.py:190
+msgid "Failed to send Email"
+msgstr "ارسال ایمیل ناموفق بود"
+
+#: senaite/impress/analysisrequest/templates/attachments.pt:36
+msgid "Filename:"
+msgstr "نام فایل:"
+
+#: senaite/impress/controlpanel.py:81
+msgid "Footer Text"
+msgstr "متن پاورقی"
+
+#: senaite/impress/ajax.py:332
+msgid "Generated reports for: {}, "
+msgstr "گزارش‌های تولیدشده برای: {}، "
+
+#: senaite/impress/configure.zcml:175
+msgid "HTML to PDF report engine for SENAITE"
+msgstr "موتور گزارش HTML به PDF برای سامانه"
+
+#: senaite/impress/browser/publish/content.py:60
+msgid "ID"
+msgstr "شناسه"
+
+#: senaite/impress/profiles/default/actionicons.xml
+#: senaite/impress/profiles/default/controlpanel.xml
+msgid "Impress Settings"
+msgstr "تنظیمات گزارش"
+
+#: senaite/impress/controlpanel.py:74
+msgid "Initially loaded orientation"
+msgstr "جهت بارگذاری اولیه"
+
+#: senaite/impress/controlpanel.py:66
+msgid "Initially loaded paper format"
+msgstr "قطع کاغذ بارگذاری اولیه"
+
+#: senaite/impress/controlpanel.py:58
+msgid "Initially loaded report template"
+msgstr "قالب گزارش بارگذاری اولیه"
+
+#: senaite/impress/analysisrequest/templates/discreeter.pt:29
+msgid ""
+"Methods included in the ${accreditation_body} schedule of Accreditation for "
+"this Laboratory. Analysis remarks are not accredited"
+msgstr ""
+"روش‌ها در دامنهٔ اعتباربخشی ${accreditation_body} این آزمایشگاه گنجانده "
+"شده‌اند. ملاحظات آنالیز اعتباربخشی‌شده نیستند"
+
+#: senaite/impress/analysisrequest/templates/discreeter.pt:16
+msgid "Not invoiced"
+msgstr "فاکتورنشده"
+
+#: senaite/impress/analysisrequest/templates/controls.pt:44
+msgid "Number of attachments rendered within one row per Analysis Request"
+msgstr "تعداد پیوست‌های نمایش‌داده‌شده در یک ردیف برای هر نمونه"
+
+#: senaite/impress/actions/providers.py:170
+msgid "PDF attachment is missing"
+msgstr "پیوست PDF موجود نیست"
+
+#: senaite/impress/controlpanel.py:47
+msgid "Please choose the templates that can be selected"
+msgstr "قالب‌هایی که قابل انتخاب‌اند را برگزینید"
+
+#: senaite/impress/analysisrequest/templates/alerts.pt:20
+msgid "Provisional report"
+msgstr "گزارش موقت"
+
+#: senaite/impress/analysisrequest/templates/signatures.pt:31
+#: senaite/impress/analysisrequest/templates/summary.pt:80
+msgid "Published by"
+msgstr "منتشرشده توسط"
+
+#: senaite/impress/analysisrequest/templates/results.pt:47
+msgid "Range"
+msgstr "بازه"
+
+#: senaite/impress/browser/publish/content.py:76
+msgid "Registered"
+msgstr "ثبت‌شده"
+
+#: senaite/impress/controlpanel.py:119
+msgid "Reload after reorder"
+msgstr "بارگذاری مجدد پس از مرتب‌سازی"
+
+#: senaite/impress/controlpanel.py:120
+msgid "Reload report automatically when items order changed"
+msgstr "بارگذاری خودکار گزارش هنگام تغییر ترتیب آیتم‌ها"
+
+#: senaite/impress/analysisrequest/templates/controls.pt:10
+msgid "Report Options"
+msgstr "گزینه‌های گزارش"
+
+#: senaite/impress/controlpanel.py:130
+msgid "Report Settings"
+msgstr "تنظیمات گزارش"
+
+#: senaite/impress/analysisrequest/templates/signatures.pt:7
+msgid "Responsibles"
+msgstr "مسئولین"
+
+#: senaite/impress/analysisrequest/templates/results.pt:41
+msgid "Result"
+msgstr "نتیجه"
+
+#: senaite/impress/analysisrequest/templates/discreeter.pt:14
+msgid "Result out of client specified range."
+msgstr "نتیجه خارج از بازهٔ تعیین‌شدهٔ مشتری."
+
+#: senaite/impress/analysisrequest/templates/results_transposed.pt:9
+msgid "Results"
+msgstr "نتایج"
+
+#: senaite/impress/controlpanel.py:99
+msgid "Returns the raw HTML in the report preview."
+msgstr "HTML خام را در پیش‌نمایش گزارش برمی‌گرداند."
+
+#: senaite/impress/configure.zcml:175 senaite/impress/templates/publish.pt:9
+msgid "SENAITE IMPRESS"
+msgstr "موتور گزارش"
+
+#: senaite/impress/controlpanel.py:154
+msgid "SENAITE IMPRESS Settings"
+msgstr "تنظیمات موتور گزارش"
+
+#: senaite/impress/analysisrequest/templates/summary.pt:29
+msgid "Sample ID"
+msgstr "شناسهٔ نمونه"
+
+#: senaite/impress/browser/publish/content.py:72
+msgid "Sample Point"
+msgstr "نقطهٔ نمونه‌گیری"
+
+#: senaite/impress/analysisrequest/templates/summary.pt:60
+#: senaite/impress/browser/publish/content.py:68
+msgid "Sample Type"
+msgstr "نوع نمونه"
+
+#: senaite/impress/adapters.py:97
+msgid "Share PDF via email"
+msgstr "اشتراک PDF از طریق ایمیل"
+
+#: senaite/impress/analysisrequest/templates/controls.pt:26
+msgid "Show Sample Remarks"
+msgstr "نمایش ملاحظات نمونه"
+
+#: senaite/impress/analysisrequest/templates/summary.pt:64
+msgid "Specification"
+msgstr "مشخصات"
+
+#: senaite/impress/controlpanel.py:89
+msgid "Store Multi-Report PDFs Individually"
+msgstr "ذخیرهٔ جداگانهٔ PDFهای چندگزارشی"
+
+#: senaite/impress/controlpanel.py:90
+msgid ""
+"Store generated multi-report PDFs individually. Turn off to store the multi-"
+"report PDF only for the primary item of the report"
+msgstr ""
+"PDFهای چندگزارشی تولیدشده را جداگانه ذخیره کن. برای ذخیرهٔ فقط برای آیتم "
+"اصلی گزارش، خاموش کنید"
+
+#: senaite/impress/analysisrequest/templates/summary.pt:25
+msgid "Summary"
+msgstr "خلاصه"
+
+#: senaite/impress/analysisrequest/templates/info.pt:59
+msgid "Supervisor"
+msgstr "سرپرست"
+
+#: senaite/impress/analysisrequest/templates/discreeter.pt:45
+msgid "Test results are at a ${lab_confidence}% confidence level"
+msgstr "نتایج آزمون در سطح اطمینان ${lab_confidence}٪ هستند"
+
+#: senaite/impress/controlpanel.py:82
+msgid ""
+"The footer text will be rendered on every PDF page and may contain arbitrary"
+" HTML"
+msgstr ""
+"متن پاورقی در هر صفحهٔ PDF نمایش داده می‌شود و می‌تواند شامل HTML دلخواه "
+"باشد"
+
+#: senaite/impress/analysisrequest/templates/alerts.pt:9
+msgid ""
+"This Analysis Request has been invalidated due to erroneously published "
+"results"
+msgstr "این نمونه به‌دلیل انتشار نادرست نتایج باطل شده است"
+
+#: senaite/impress/analysisrequest/templates/alerts.pt:12
+msgid "This Analysis request has been replaced by"
+msgstr "این نمونه جایگزین شده است با"
+
+#: senaite/impress/analysisrequest/templates/discreeter.pt:41
+msgid ""
+"This document shall not be reproduced except in full, without the written "
+"approval of ${name_lab}"
+msgstr ""
+"این سند جز به‌صورت کامل و بدون تأیید کتبی ${name_lab} قابل بازتولید نیست"
+
+#: senaite/impress/browser/publish/content.py:64
+msgid "Title"
+msgstr "عنوان"
+
+#: senaite/impress/analysisrequest/templates/results.pt:44
+msgid "Unit"
+msgstr "واحد"
+
+#: senaite/impress/browser/publish/content.py:104
+msgid "Workflow State"
+msgstr "وضعیت گردش‌کار"
+
+#: senaite/impress/browser/publish/content.py:100
+msgid "Workflow State ID"
+msgstr "شناسهٔ وضعیت گردش‌کار"

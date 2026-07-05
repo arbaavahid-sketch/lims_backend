@@ -8,3 +8,7 @@ FROM lims/senaite-base:2.x
 # جایگزینی سورس senaite.core با فورک ما — github.com/arbaavahid-sketch/senaite.core (برنچ persian)
 COPY senaite.core/src/senaite /home/senaite/senaitelims/src/senaite.core/src/senaite
 COPY senaite.core/src/bika /home/senaite/senaitelims/src/senaite.core/src/bika
+
+# فارسی‌سازی کامل گزارش/گواهی آنالیز (پکیج senaite.impress)
+COPY translations/impress/senaite.impress.po translations/impress/senaite.impress.mo \
+     /home/senaite/senaitelims/src/senaite.impress/src/senaite/impress/locales/fa/LC_MESSAGES/

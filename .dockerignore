@@ -1,4 +1,6 @@
 .git/
 senaite.core/.git
 translations/
+!translations/impress/senaite.impress.po
+!translations/impress/senaite.impress.mo
 backups/
