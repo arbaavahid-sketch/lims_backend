@@ -23,34 +23,26 @@
             <!-- Analysis in POC and Category -->
             <table class="table table-sm table-condensed">
               <colgroup>
-                <!-- Category -->
-                <col style="width: 40%;">
-                <!-- Result -->
-                <col style="width: 30%">
-                <!-- Unit -->
-                <col style="width: 15%">
-                <!-- Range -->
-                <col style="width: 10%">
-                <!-- Out of Range -->
-                <col style="width: 5%">
+                <!-- آزمون (نام) -->
+                <col style="width: 34%;">
+                <!-- روش آزمون -->
+                <col style="width: 24%">
+                <!-- نتیجه -->
+                <col style="width: 16%">
+                <!-- واحد -->
+                <col style="width: 12%">
+                <!-- حد مجاز -->
+                <col style="width: 14%">
               </colgroup>
               <thead>
                 <tr class="small">
                   <th class="analysis">
                     <span tal:content="category/Title">Category</span>
                   </th>
-                  <th class="text-right result">
-                    <span i18n:translate="">Result</span>
-                  </th>
-                  <th class="text-left unit">
-                    <span i18n:translate="">Unit</span>
-                  </th>
-                  <th class="specs">
-                    <span i18n:translate="">Range</span>
-                  </th>
-                  <th class="outofrange">
-                    <span/>
-                  </th>
+                  <th class="method">روش آزمون</th>
+                  <th class="result">نتیجه</th>
+                  <th class="unit">واحد</th>
+                  <th class="specs">حد مجاز</th>
                 </tr>
               </thead>
 
@@ -92,45 +84,37 @@
                         </tal:x>
 
                       </tal:analysis_footnotes>
+                    </td>
 
-                      <!-- Method -->
-                      <div class="text-secondary methodtitle"
-                           i18n:translate=""
-                           tal:define="method_title python:analysis and analysis.getMethodTitle() or '';"
-                           tal:content="structure python:view.hyphenize(method_title)"/>
+                    <!-- روش آزمون -->
+                    <td class="method text-secondary"
+                        tal:define="method_title python:analysis and analysis.getMethodTitle() or '';">
+                      <span tal:content="structure python:view.hyphenize(method_title)"/>
                     </td>
-                    <td class="text-right">
-                      <span class="result" tal:content="structure python:model.get_formatted_result(analysis)">23</span>
+
+                    <!-- نتیجه (با علامت/رنگ خارج‌از‌محدوده) -->
+                    <td class="result"
+                        tal:define="out_of_range python:model.is_out_of_range(analysis);
+                                    results_range python:analysis.getResultsRange();
+                                    comment python:results_range.get('rangecomment');">
+                      <span tal:content="structure python:model.get_formatted_result(analysis)"
+                            tal:attributes="class python:'text-danger font-weight-bold' if out_of_range else ''">23</span>
+                      <span tal:condition="out_of_range"
+                            class="outofrange text-danger"
+                            style="font-family:Lucida Console, Courier, monospace;"
+                            tal:content="outofrange_symbol"/>
+                      <span class="text-danger small"
+                            tal:condition="python:out_of_range and comment" tal:content="comment"/>
                     </td>
-                    <td class="text-left text-muted font-italic">
+
+                    <!-- واحد -->
+                    <td class="unit text-muted font-italic">
                       <span class="units" tal:content="structure python:model.get_formatted_unit(analysis)"></span>
                     </td>
+
+                    <!-- حد مجاز -->
                     <td class="specs">
-                      <span tal:condition="analysis/Uncertainty"
-                            tal:content="structure python:model.get_formatted_uncertainty(analysis)"></span>
-                      <span tal:content="python:'(RT)' if model.is_retest(analysis) else ''"></span>
-                      <span tal:content="python:model.get_formatted_specs(analysis)">50 - 60</span>
-                    </td>
-
-                    <!-- Out of range column -->
-                    <td class="text-center align-middle"
-                        tal:define="out_of_range  python: model.is_out_of_range(analysis);
-                                    results_range python: analysis.getResultsRange();
-                                    comment       python: results_range.get('rangecomment');">
-                      <tal:out_of_range condition="out_of_range">
-
-                        <!-- Out of range symbol -->
-                        <span class="font-weight-light outofrange text-danger"
-                              style="font-family:Lucida Console, Courier, monospace;"
-                              tal:content="outofrange_symbol">
-                        </span>
-
-                        <!-- Out-of-range comment -->
-                        <span class="text-danger small"
-                              tal:condition="comment" tal:content="comment"/>
-
-                      </tal:out_of_range>
-
+                      <span tal:content="python:model.get_formatted_specs(analysis)"></span>
                     </td>
                   </tr>
                 </tal:analyses>
