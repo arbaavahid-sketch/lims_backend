@@ -16,3 +16,7 @@ COPY translations/impress/senaite.impress.po translations/impress/senaite.impres
 # راست‌چین‌سازی (RTL) گزارش‌های فارسی — CSS چاپ senaite.impress
 COPY translations/impress/print.css \
      /home/senaite/senaitelims/src/senaite.impress/src/senaite/impress/browser/static/css/print.css
+
+# اصلاح قالب نتایج: افزودن i18n:name تا «Results for ${id}» درست ترجمه شود
+COPY translations/impress/results.pt \
+     /home/senaite/senaitelims/src/senaite.impress/src/senaite/impress/analysisrequest/templates/results.pt
