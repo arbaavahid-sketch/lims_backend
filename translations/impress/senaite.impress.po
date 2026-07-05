@@ -214,7 +214,7 @@ msgstr "منتشرشده توسط"
 
 #: senaite/impress/analysisrequest/templates/results.pt:47
 msgid "Range"
-msgstr "بازه"
+msgstr "محدوده"
 
 #: senaite/impress/browser/publish/content.py:76
 msgid "Registered"
@@ -371,6 +371,12 @@ msgstr "پیوست‌ها"
 
 msgid "Method"
 msgstr "روش"
+
+msgid "Test Method"
+msgstr "روش آزمون"
+
+msgid "Analysis"
+msgstr "شرح آزمون"
 
 msgid "Instrument"
 msgstr "دستگاه"

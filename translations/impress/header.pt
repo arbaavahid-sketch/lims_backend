@@ -1,0 +1,9 @@
+<tal:t i18n:domain="senaite.impress">
+
+  <div class="row section-header no-gutters">
+    <div class="w-100 mb-2">
+      <h1 class="report-title" i18n:translate="">Analysis Report</h1>
+    </div>
+  </div>
+
+</tal:t>

@@ -1,0 +1,76 @@
+<tal:t define="model python:view.model;
+               client model/Client;
+               contact model/Contact;
+               laboratory python:view.laboratory;"
+       i18n:domain="senaite.impress">
+
+  <div class="row section-info no-gutters">
+    <div class="w-100">
+      <table class="report-info-table table table-sm table-condensed noborder">
+        <colgroup>
+          <col style="width: 24%">
+          <col style="width: 42%">
+          <col style="width: 34%">
+        </colgroup>
+        <tr>
+          <td class="media-cell">
+            <div class="accreditation-logo"
+                 tal:define="accredited laboratory/LaboratoryAccredited;
+                        accreditation_logo_url python:view.get_accreditation_logo_url()"
+                 tal:condition="accredited">
+              <img class="img-fluid"
+                   tal:condition="accreditation_logo_url"
+                   tal:attributes="src accreditation_logo_url"/>
+              <img class="img-fluid"
+                   tal:condition="not:accreditation_logo_url"
+                   tal:attributes="src python:view.get_resource_url('AccreditationBodyLogo.png', prefix='bika.lims.images' )"/>
+            </div>
+            <div class="qrcode"
+                 data-size="80"
+                 data-color="#000"
+                 tal:attributes="data-text model/absolute_url">
+            </div>
+          </td>
+
+          <td class="lab-cell">
+            <address class="laboratory-address">
+              <div class="lab-title font-weight-bold">
+                <div tal:define="lab_title laboratory/title|nothing"
+                     tal:content="python:view.translate_report_text(lab_title)"/>
+              </div>
+              <div class="lab-short-name font-weight-bold">(TPPC)</div>
+              <div class="lab-country">
+                <div tal:replace="laboratory/PostalAddress/country|nothing">Iran</div>
+              </div>
+              <div class="lab-url">
+                <a tal:attributes="href laboratory/LabURL"
+                   tal:content="laboratory/LabURL">https://tppc.ir</a>
+              </div>
+            </address>
+          </td>
+
+          <td class="client-cell">
+            <address class="client-address">
+              <div class="client-name font-weight-bold">
+                <div tal:define="client_name client/Name|nothing"
+                     tal:content="python:view.translate_report_text(client_name)">Client</div>
+              </div>
+              <div class="contact-fullname">
+                <div tal:define="contact_name contact/Fullname|nothing"
+                     tal:replace="python:view.translate_report_text(contact_name)"></div>
+              </div>
+              <div class="client-country">
+                <div tal:replace="client/PostalAddress/country|nothing"></div>
+              </div>
+              <div class="contact-phone">
+                <div tal:replace="contact/Phone|nothing"></div>
+              </div>
+            </address>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+
+</tal:t>

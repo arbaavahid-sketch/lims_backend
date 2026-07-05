@@ -1,0 +1,31 @@
+<tal:t define="footer python:view.get_footer_text();">
+
+  <tal:render condition="python:footer">
+    <div class="row section-footer no-gutters">
+      <div id="footer-line"></div>
+      <div class="footer-content" tal:replace="structure footer"/>
+    </div>
+  </tal:render>
+
+  <tal:render condition="python:not footer"
+              define="laboratory python:view.laboratory;">
+    <div class="row section-footer no-gutters">
+      <div id="footer-line"></div>
+      <div class="footer-content">
+        <strong tal:define="lab_name laboratory/Name|nothing"
+                tal:content="python:view.translate_report_text(lab_name)">Laboratory</strong>
+        <span> • </span>
+        <span tal:content="laboratory/PhysicalAddress/country|nothing">Iran</span>
+        <br>
+        <a href="#" tal:attributes="href laboratory/LabURL|nothing">
+          <span tal:content="laboratory/LabURL|nothing">https://tppc.ir</span>
+        </a>
+        <span> • Phone: </span>
+        <span tal:content="laboratory/Phone|nothing"></span>
+        <span> • Fax: </span>
+        <span tal:content="laboratory/Fax|nothing"></span>
+      </div>
+    </div>
+  </tal:render>
+
+</tal:t>

@@ -1,0 +1,106 @@
+<tal:t define="collection view/collection;
+               model view/model;
+               batch model/Batch;
+               client model/Client;
+               reporter python:view.current_user;
+               specification model/Specification;
+               publication_specification model/PublicationSpecification;
+               spec python:publication_specification or specification;"
+       i18n:domain="senaite.impress">
+
+  <div class="row section-summary no-gutters">
+    <div class="w-100">
+
+      <div class="barcode-container">
+        <div class="barcode"
+             data-code="code128"
+             data-showHRI="true"
+             data-barHeight="15"
+             data-addQuietZone="true"
+             tal:attributes="data-id model/getId">
+        </div>
+      </div>
+
+      <h1 i18n:translate="">Summary</h1>
+
+      <table class="summary-table table table-sm table-condensed">
+        <colgroup>
+          <col style="width: 78%">
+          <col style="width: 22%">
+        </colgroup>
+        <tr>
+          <td class="value">
+            <a tal:content="model/getId"
+               tal:attributes="href model/absolute_url;">
+            </a>
+          </td>
+          <td class="label" i18n:translate="">Sample ID</td>
+        </tr>
+        <tr tal:condition="batch">
+          <td class="value">
+            <a tal:content="batch/id"
+               tal:attributes="href batch/absolute_url">
+            </a>
+          </td>
+          <td class="label" i18n:translate="">Batch ID</td>
+        </tr>
+        <tr tal:condition="batch">
+          <td class="value" tal:content="batch/ClientBatchID"></td>
+          <td class="label" i18n:translate="">Client Batch ID</td>
+        </tr>
+        <tr>
+          <td class="value">
+            <a tal:attributes="href client/absolute_url"
+               tal:define="client_name client/Name|nothing"
+               tal:content="python:view.translate_report_text(client_name)"></a>
+          </td>
+          <td class="label" i18n:translate="">Client</td>
+        </tr>
+        <tr>
+          <td class="value" tal:content="model/ClientSampleID"></td>
+          <td class="label" i18n:translate="">Client SID</td>
+        </tr>
+        <tr>
+          <td class="value"
+              tal:define="sample_type model/SampleType/title|nothing"
+              tal:content="python:view.translate_report_text(sample_type)"></td>
+          <td class="label" i18n:translate="">Sample Type</td>
+        </tr>
+        <tr>
+          <td class="value"
+              tal:define="spec_title spec/contextual_title|nothing"
+              tal:content="python:view.translate_report_text(spec_title)"></td>
+          <td class="label" i18n:translate="">Specification</td>
+        </tr>
+        <tr>
+          <td class="value ltr-value" tal:content="python:view.to_localized_time(model.DateReceived)"></td>
+          <td class="label" i18n:translate="">Date Received</td>
+        </tr>
+        <tr>
+          <td class="value ltr-value" tal:content="python:view.to_localized_time(model.getDateVerified())"></td>
+          <td class="label" i18n:translate="">Date Verified</td>
+        </tr>
+        <tr>
+          <td class="value ltr-value" tal:content="python:view.to_localized_time(view.timestamp)"></td>
+          <td class="label" i18n:translate="">Date Published</td>
+        </tr>
+        <tr tal:condition="reporter">
+          <td class="value">
+            <span tal:content="reporter/fullname|reporter/username"/>
+            <tal:email tal:condition="reporter/email|nothing"
+                       tal:define="email reporter/email">
+              (<a tal:content="email"
+                  tal:attributes="href string:mailto:${email}"></a>)
+            </tal:email>
+          </td>
+          <td class="label" i18n:translate="">Published by</td>
+        </tr>
+        <tr tal:condition="python: batch and batch.BatchLabels">
+          <td class="value" tal:content="structure python:', '.join(map(lambda x: x.Title(), batch.BatchLabels))"></td>
+          <td class="label" i18n:translate="">Batch Labels</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+</tal:t>
