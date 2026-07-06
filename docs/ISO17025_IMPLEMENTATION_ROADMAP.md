@@ -481,11 +481,27 @@ Phase 6 notes:
     * staff responds: open item -> Edit -> fill investigation/resolution (or
       support response) -> Save
     * staff closes: item toolbar state menu -> Process -> Resolve -> Close
+- 2026-07-06: Added the customer-facing status page `@@track-request`
+  (browser/customerfeedback/track.py). The customer enters their tracking number
+  + the client name they used and sees the type, subject, current status and the
+  lab's response. Read with `api.security.as_privileged_user()` but only safe
+  fields are exposed, and the client name must match (case-insensitive) to avoid
+  trivial id enumeration. Added a customer-facing `customer_response` Text field
+  to Complaint and relabelled SupportRequest.response as customer-facing; these
+  (not the internal investigation/resolution notes) are what the track page
+  shows. The submit-form thank-you now links straight to the track page with the
+  tracking pre-filled. Verified live end to end: staff set customer_response +
+  drove the complaint to closed; an anonymous track with the right client name
+  showed type=Complaint / status=بسته / the response; a wrong client name showed
+  "not found" and did NOT leak the response. NOTE: setting fields via jsonapi is
+  only possible while the record is editable (received/in_progress); a closed
+  complaint correctly rejects edits (reopen first).
 - Still open / partial in Phase 6: (a) the form is public (no auth/anti-spam yet)
-  and does not auto-link the record to the logged-in client's Client object - it
-  stores a free-text client_name; wiring it to the authenticated contact's Client
-  + adding a link from the client portal is a follow-up. (b) live re-verification
-  of client data isolation with a real client login was inventoried by code, not
+  and stores a free-text client_name rather than auto-linking to the logged-in
+  contact's Client object; wiring it to the authenticated client + a link from
+  the native client portal is a follow-up. (b) status notifications (email/SMS
+  when a complaint is answered/closed) are Phase 7. (c) live re-verification of
+  client data isolation with a real client login was inventoried by code, not
   exercised end-to-end this session.
 
 ## Phase 7 - External Integrations
