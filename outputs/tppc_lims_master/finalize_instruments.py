@@ -55,6 +55,11 @@ MODEL_OVERRIDE = {
     "FP_01": "ATV21",
 }
 
+NAME_FA_OVERRIDE = {
+    "SE": "آنالایزر گوگرد XRF",
+    "saybolt": "رنگ‌سنج سیبولت",
+}
+
 
 def add_months(d, months):
     if not isinstance(d, datetime):
@@ -109,7 +114,7 @@ for r in data:
     out_rows.append({
         "Instrument Code": code,
         "Instrument Type": itype,
-        "Name FA": g(r, "Name FA"),
+        "Name FA": NAME_FA_OVERRIDE.get(code, g(r, "Name FA")),
         "Name EN": name_en,
         "Manufacturer": manu,
         "Country": country,
@@ -176,6 +181,6 @@ for i, w in enumerate([18, 40, 60], 1):
 q.freeze_panes = "A2"
 
 out.save(OUT)
-print(f"✅ ساخته شد: {OUT}")
-print(f"   {len(out_rows)} دستگاه نهایی | {len(qa)} یادداشت QA")
-print(f"   ستون‌ها: {len(OUT_COLS)} (شامل Instrument Type و Next Calibration Due جدید)")
+print(f"OK created: {OUT}")
+print(f"   final instruments: {len(out_rows)} | QA notes: {len(qa)}")
+print(f"   columns: {len(OUT_COLS)} including Instrument Type and Next Calibration Due")
