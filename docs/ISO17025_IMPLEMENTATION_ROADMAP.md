@@ -255,23 +255,73 @@ Phase 2 notes:
 Goal: provide usable document handling for ISO 17025 forms, checklists, and
 method documents.
 
-- [ ] Inventory current document-related capabilities: attachments, method
+- [x] Inventory current document-related capabilities: attachments, method
   documents, simple files, client attachments, instrument documents, and search.
-- [ ] Define document types: procedures, methods, forms, checklists, templates,
+- [x] Define document types: procedures, methods, forms, checklists, templates,
   certificates, safety sheets, and controlled records.
-- [ ] Decide which document needs versioning, approval, review date, owner,
+- [x] Decide which document needs versioning, approval, review date, owner,
   department, and retirement state.
-- [ ] Implement missing controlled-document metadata if SENAITE does not provide
+- [x] Implement missing controlled-document metadata if SENAITE does not provide
   enough structure.
-- [ ] Add search/filter views for document type, owner, code, method, status,
+- [x] Add search/filter views for document type, owner, code, method, status,
   and review date.
-- [ ] Add reminders for documents near review or expiry.
-- [ ] Link method documents to methods and analysis services.
+- [~] Add reminders for documents near review or expiry.
+- [~] Link method documents to methods and analysis services.
 
 Definition of done:
 
 - Staff can find current approved documents, see obsolete documents separated,
   and link test methods to controlled documents.
+
+Phase 3 notes:
+
+- 2026-07-06: Inventory. SENAITE natively has: `Method.MethodDocument` (single
+  file per method), the `Multifile` Dexterity type (only used for instrument
+  documents; fields document_id/file/version/location/type), sample & analysis
+  attachments, published reports, and `Method.Accredited`. It has NO controlled
+  document register, no approval workflow, no owner/department/effective/review
+  dates, no cross-document search, and no review reminders. User chose the FULL
+  ISO 17025 build.
+- 2026-07-06: Built the Controlled Documents module in the senaite.core fork:
+  - Two Dexterity content types: `ControlledDocuments` (setup container) and
+    `ControlledDocument` (item). Item fields: document_id (code), title,
+    document_type (SOP/method/form/checklist/template/certificate/SDS/record),
+    version, owner, department, effective_date, review_date, related_methods,
+    file, notes. Files: content/controlleddocument.py, controlleddocuments.py;
+    FTIs types/ControlledDocument.xml + ControlledDocuments.xml; registered in
+    types.xml; container added to setuphandlers add_senaite_setup_items.
+  - Approval workflow `senaite_controlleddocument_workflow`: draft (initial) ->
+    approve -> effective -> retire -> obsolete; effective/obsolete -> revise ->
+    draft. approve/retire guarded by "Review portal content" and revise too, so
+    an author with only "Modify portal content" cannot approve their own draft
+    (segregation of duties). effective/obsolete states remove Modify/Delete in
+    place. Bound in workflows.xml.
+  - Register listing view in the setup control panel
+    (browser/controlpanel/controlleddocuments) with All/Effective/Draft/Obsolete
+    filters and columns code/title/type/version/next-review/state.
+  - Bilingual (fa/en, RTL/LTR) "Document Review Status" dashboard
+    `@@document-review-status` (browser/documentstatus): per-document next review
+    date, days-left, colour-coded status (up to date / due soon / overdue / no
+    review date), configurable `?days=` window, summary badges. Setup tile added.
+  - Live installer view `@@install-documents-module` (Manager-only,
+    browser/installdocuments) that re-runs the typeinfo/workflow/rolemap import
+    steps and creates the container in the existing ZODB, because baking the FTI
+    into the image is not enough for an already-installed site.
+- 2026-07-06: Installed and verified live. Container at
+  `/senaite/setup/controlleddocuments`. Created a doc via JSON API, confirmed
+  initial state draft, drove approve->effective->retire->obsolete->revise->draft
+  through content_status_modify, and confirmed the review dashboard lists it.
+  Gotchas: (1) `--` is illegal inside XML comments (broke the workflow import
+  first time, fixed the ASCII arrows); (2) senaite.jsonapi cannot set schema.Date
+  fields from a string (WrongType) and its "delete" route performs a deactivate
+  transition our type does not have — set dates and delete from the UI instead.
+- Still open / partial in Phase 3: (a) review/expiry reminders are visual only
+  in the dashboard; push notifications (email/SMS) deferred to Phase 7. (b)
+  related_methods is a free-text field for now, not a hard UIDReference to Method
+  / AnalysisService objects - a real reference link is a follow-up. (c) one demo
+  ControlledDocument ("ST75 - density method", draft) remains in the register;
+  it can be deleted from the UI. Real controlled documents (files + review dates)
+  need to be entered by the lab.
 
 ## Phase 4 - Instrument Maintenance Module
 
