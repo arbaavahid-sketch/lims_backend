@@ -222,6 +222,27 @@ Definition of done:
 - A realistic request can be registered, labeled, assigned, tested, verified,
   reported, invoiced, and traced end to end.
 
+Phase 2 notes:
+
+- 2026-07-05: Verified end-to-end workflow live (client -> contact -> sample
+  register -> receive -> result entry -> submit -> verify by a different user ->
+  publish -> Persian RTL CoA PDF). Segregation of duties held: verifier could
+  not be the submitter.
+- 2026-07-05: Sample/AnalysisRequest ID format changed in the UI (Setup edit)
+  to `{clientId}-{sampleType}-{year}-{seq:04d}`. Note: the setupdata IDFormatting
+  importer is commented out (`# setIDFormatting`), so ID format is UI-only, not
+  importable. Clients need a Client ID set for `{clientId}` to populate.
+- 2026-07-05: Configured ISO-17025 workflow settings via Setup import
+  (`TPPC_ISO_Settings_Import.xlsx`): `EnableGlobalAuditlog=1` (clause 8.4),
+  `SelfVerificationEnabled=0` (segregation of duties), and
+  `NumberOfRequiredVerifications=1`. bika_setup Setup importer converts booleans
+  via `to_bool`, so "0"/"1" map correctly. `getNumberOfRequiredVerifications`
+  confirmed `1` after import.
+- Still open in Phase 2: price lists/per-service prices (all 0, need data),
+  printable invoice + receipt workflow, analyst workload/revenue dashboard
+  (custom development — SENAITE has no built-in analyst-revenue report), and
+  bulk Excel sample upload verification.
+
 ## Phase 3 - Documents Module
 
 Goal: provide usable document handling for ISO 17025 forms, checklists, and
