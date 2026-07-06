@@ -86,7 +86,7 @@ Goal: finish the one-time system setup data needed before production use.
   cleanup sheet.
 - [ ] Finalize instrument manufacturer, model, serial number, location,
   responsible person, status, calibration date, and calibration interval.
-- [ ] Review sample/product tree and merge entries that are too granular or
+- [x] Review sample/product tree and merge entries that are too granular or
   duplicated.
 - [ ] Finalize analysis services: keyword, title, unit, department, method,
   instrument, turnaround, price, and accreditation status.
@@ -114,6 +114,11 @@ Phase 1 notes:
   `TPPC_Instruments_final.xlsx` so `SE` and `saybolt` have Persian names. The
   only remaining instrument data gap is `FTIR`: manufacturer, country, model,
   serial number, calibration date, next calibration due, and responsible person.
+- 2026-07-06: Updated `FTIR` from the Artin Azma product page for
+  `INFRALUM FT-08`: manufacturer `Lumex`, country `روسیه`, model
+  `INFRALUM FT-08`, and English name `InfraLUM FT-08 FT mid-IR Spectrometer`.
+  Regenerated `TPPC_Instruments_final.xlsx`; remaining FTIR QA items are serial
+  number, calibration date, next calibration due, and responsible person.
 - 2026-07-06: Reviewed
   `outputs/tppc_lims_master/TPPC_AnalysisServices_final.xlsx`: 158 analysis
   services, 0 `REVIEW` mappings, and 6 intentionally blank instrument mappings
@@ -127,6 +132,34 @@ Phase 1 notes:
   engine oil with 30 grade-level sample types and 44 specification rows. Use
   this pattern to finish the product tree instead of flattening every product
   title as a peer sample type.
+- 2026-07-06: Added `docs/PHASE1_PRODUCT_TREE_DECISION.md` with the working
+  product-family decision. The next implementation step is to generate a
+  reviewed sample-type import workbook from that decision, while keeping broad
+  source-scope labels out of day-to-day selectable sample types unless the lab
+  confirms them.
+- 2026-07-06: Added `build_reviewed_sample_types.py` and generated
+  `TPPC_SampleTypes_reviewed.xlsx`. Result: 84 source rows, 65 import-ready
+  sample types, 17 rows requiring human review, and 2 inactive rows excluded.
+  This closes the duplicate/granularity review step; the 17 review rows must be
+  approved or remapped before final import.
+- 2026-07-06: Reviewed finalized analysis services. `TPPC_AnalysisServices_final.xlsx`
+  has 158 services with no missing keyword, title, unit, department,
+  turnaround, or method-reference text. Six services intentionally have no
+  instrument because they are manual, visual, preparation, sampling, or
+  computational steps. `TPPC_SENAITE_Setup.xlsx` still uses placeholder price
+  `0` for all services, so financial price finalization remains open.
+- 2026-07-06: Added `build_methods_import.py` and generated
+  `TPPC_Methods_Import.xlsx`: 170 method records, 374 analysis-service/method
+  links, and 5 QA rows where registered-scope keywords are not present in the
+  finalized service list. Method document files/links are still empty and must
+  be attached before the method-reference item is fully done.
+- 2026-07-06: Reviewed specifications. The master `Specifications Missing`
+  sheet still has 657 rows with empty `Spec Min`, `Spec Max`, `Unit`, and
+  `Acceptance Text`; 54 rows also miss reference year and 570 rows miss
+  reference clause. Current prepared specification imports cover 79 data rows:
+  9 gasoil rows, 41 family/grade rows, and 29 bitumen rows. Automated pass/fail
+  must stay disabled or limited to those reviewed imports until the remaining
+  limits are completed.
 
 ## Phase 2 - Base Module
 
@@ -345,9 +378,17 @@ Definition of done:
 
 Continue Phase 1 with the remaining master-data blockers:
 
-- Fill real `FTIR` device data: manufacturer, country, model, serial number,
-  calibration date, next calibration due, and responsible person.
-- Decide whether oil/fuel product names should be imported as separate peer
-  sample types or reorganized under product families and grades.
+- Fill remaining real `FTIR` device data: serial number, calibration date,
+  next calibration due, and responsible person.
+- Review the 17 `review` rows in `TPPC_SampleTypes_reviewed.xlsx` and decide
+  whether each is a real selectable sample type, a family label, or source-data
+  noise.
+- Review the 5 QA rows in `TPPC_Methods_Import.xlsx` and attach or link the
+  controlled method documents for each Method.
+- Review `docs/PHASE1_SERVICE_SCOPE_FROM_OIL_LAB_PDF.md` against Analysis
+  Services, Method References, and Sample/Product Types. Treat the source PDF as
+  service-scope evidence, not as an automatic import source.
+- Complete specification limits beyond the currently prepared 79 rows before
+  enabling broad automated acceptance decisions.
 - After those decisions, regenerate the import workbooks and create a fresh
   `senaite_data` backup before importing.

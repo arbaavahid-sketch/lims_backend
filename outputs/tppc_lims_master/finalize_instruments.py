@@ -53,6 +53,7 @@ MODEL_OVERRIDE = {
     "Densitimeter": "VIP-2MP",
     "Distilation_01": "ARNS21",
     "FP_01": "ATV21",
+    "FTIR": "INFRALUM FT-08",
 }
 
 NAME_FA_OVERRIDE = {
@@ -75,13 +76,15 @@ def add_months(d, months):
 # (جزئیات ناقص → در QA_Notes فهرست می‌شوند تا کاربر کامل کند)
 EXTRA_INSTRUMENTS = [
     {"Instrument Code": "FTIR", "Instrument Type": "طیف‌سنج FT-IR",
-     "Name FA": "طیف‌سنج مادون قرمز تبدیل فوریه", "Name EN": "FT-IR Spectrometer",
+     "Name FA": "طیف‌سنج مادون قرمز تبدیل فوریه",
+     "Name EN": "InfraLUM FT-08 FT mid-IR Spectrometer",
      "Manufacturer / Country": "", "Model": "", "Serial Number": "",
      "Calibration Date": "", "Calibration Interval Months": "12",
-     "Location": "آزمایشگاه کنترل کیفیت", "Responsible Person": "", "Status": "Active", "Notes": ""},
+     "Location": "آزمایشگاه کنترل کیفیت", "Responsible Person": "", "Status": "Active",
+     "Notes": "Source: https://artinazma.net/product/infralum-ft-08-ftir-spectrometer/"},
 ]
 # نوع/کشور دستگاه‌های اضافه (چون در FIX نیستند)
-FIX["FTIR"] = ("", "", "FT-IR Spectrometer", "طیف‌سنج FT-IR")
+FIX["FTIR"] = ("Lumex", "روسیه", "InfraLUM FT-08 FT mid-IR Spectrometer", "طیف‌سنج FT-IR")
 
 wb = openpyxl.load_workbook(SRC, read_only=True, data_only=True)
 ws = wb["Instruments"]
@@ -110,6 +113,10 @@ for r in data:
     interval = g(r, "Calibration Interval Months") or "12"
     nxt = add_months(cal, interval) if isinstance(cal, datetime) else ""
     model = MODEL_OVERRIDE.get(code, g(r, "Model"))
+    serial = g(r, "Serial Number")
+    location = g(r, "Location")
+    responsible = g(r, "Responsible Person")
+    cal_value = cal if isinstance(cal, datetime) else g(r, "Calibration Date")
 
     out_rows.append({
         "Instrument Code": code,
@@ -119,12 +126,12 @@ for r in data:
         "Manufacturer": manu,
         "Country": country,
         "Model": model,
-        "Serial Number": g(r, "Serial Number"),
-        "Calibration Date": cal if isinstance(cal, datetime) else g(r, "Calibration Date"),
+        "Serial Number": serial,
+        "Calibration Date": cal_value,
         "Calibration Interval Months": interval,
         "Next Calibration Due": nxt,
-        "Location": g(r, "Location"),
-        "Responsible Person": g(r, "Responsible Person"),
+        "Location": location,
+        "Responsible Person": responsible,
         "Status": g(r, "Status") or "Active",
         "Notes": g(r, "Notes"),
     })
@@ -135,6 +142,14 @@ for r in data:
         qa.append((code, "سازنده نامشخص", "نام سازنده را تأیید/کامل کنید"))
     if not country:
         qa.append((code, "کشور نامشخص", "کشور سازنده را وارد کنید"))
+    if not serial:
+        qa.append((code, "Serial Number خالی", "شماره سریال را از پلاک/گواهی دستگاه وارد کنید"))
+    if not cal_value:
+        qa.append((code, "Calibration Date خالی", "تاریخ آخرین کالیبراسیون را وارد کنید"))
+    if not nxt:
+        qa.append((code, "Next Calibration Due خالی", "سررسید بعدی پس از تاریخ کالیبراسیون محاسبه می‌شود"))
+    if not responsible:
+        qa.append((code, "Responsible Person خالی", "مسئول دستگاه را مشخص کنید"))
 
 # تاریخ کالیبراسیون یکسان تأیید شد (همه در یک روز انجام شده) — دیگر هشدار نیست.
 
