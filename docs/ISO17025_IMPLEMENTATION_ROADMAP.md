@@ -238,10 +238,17 @@ Phase 2 notes:
   `NumberOfRequiredVerifications=1`. bika_setup Setup importer converts booleans
   via `to_bool`, so "0"/"1" map correctly. `getNumberOfRequiredVerifications`
   confirmed `1` after import.
+- 2026-07-05: Built the analyst performance dashboard as a custom view
+  `@@analyst-performance` (senaite.core fork,
+  `browser/analystperformance/`). Per-analyst count of performed analyses
+  (result captured) + revenue (sum of analysis prices), optional date range
+  (`?from=&to=`), RTL Persian. Verified live: دکتر مدیرفنی 20, منصور آزمایش‌گر 1,
+  total 21; revenue 0 until service prices are entered. Gotcha: `getAnalyst` is
+  an index but NOT catalog metadata, so read it from the object, not the brain.
+  TODO: add a nav/dashboard link to this view; consider indexing price for perf.
 - Still open in Phase 2: price lists/per-service prices (all 0, need data),
-  printable invoice + receipt workflow, analyst workload/revenue dashboard
-  (custom development — SENAITE has no built-in analyst-revenue report), and
-  bulk Excel sample upload verification.
+  printable invoice + receipt workflow, and bulk Excel sample upload
+  verification.
 
 ## Phase 3 - Documents Module
 
