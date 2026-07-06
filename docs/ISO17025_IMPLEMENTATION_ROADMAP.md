@@ -412,7 +412,7 @@ Goal: provide customer-facing workflows without exposing internal-only screens.
 - [x] Verify current Client and Contact login behavior.
 - [x] Define what customers may see: own requests, own samples, status, reports,
   invoices, support requests, complaints, and surveys.
-- [~] Configure or build a simplified customer dashboard.
+- [x] Configure or build a simplified customer dashboard.
 - [x] Add request registration for customers.
 - [x] Add sample/test selection workflow for customers.
 - [x] Add read-only status tracking for submitted requests.
@@ -464,12 +464,29 @@ Phase 6 notes:
   showed complaints total/open, support total/open, survey responses; add form,
   view page (state badge "در حال بررسی") and dashboard all render Persian. Three
   demo records remain in the register (deletable from the UI).
-- Still open / partial in Phase 6: (a) the customer-facing dashboard is currently
-  the native client view; a curated/simplified customer landing page + wiring the
-  complaint/survey/support forms so clients can submit them directly (not just
-  staff) is a follow-up (needs a client-role add permission + client-scoped
-  views). (b) live re-verification of client data isolation with a real client
-  login was inventoried by code, not exercised end-to-end this session.
+- 2026-07-06: Built the public customer submission form `@@customer-feedback`
+  (browser/customerfeedback, permission zope2.View, bilingual in-view labels).
+  A customer picks complaint / support / survey, fills the form (JS toggles the
+  complaint category+severity and the survey rating sections), and on submit the
+  record is created in setup/customercare via `api.security.as_privileged_user()`
+  + `api.create` (so a low-privilege / anonymous submitter can write), CSRF
+  disabled for the POST via IDisableCSRFProtection. The customer gets the new id
+  as a tracking number. Verified live: an ANONYMOUS POST created complaint-2 with
+  title/description/client/category=result/severity=high, review_state=received,
+  received_date auto-set to today; empty-subject POST is rejected without
+  creating a record. So the full loop works now:
+    * customer submits: /senaite/@@customer-feedback
+    * staff sees: setup overview tile "Customer Care" (/senaite/setup/customercare)
+      + dashboard @@customer-care-status
+    * staff responds: open item -> Edit -> fill investigation/resolution (or
+      support response) -> Save
+    * staff closes: item toolbar state menu -> Process -> Resolve -> Close
+- Still open / partial in Phase 6: (a) the form is public (no auth/anti-spam yet)
+  and does not auto-link the record to the logged-in client's Client object - it
+  stores a free-text client_name; wiring it to the authenticated contact's Client
+  + adding a link from the client portal is a follow-up. (b) live re-verification
+  of client data isolation with a real client login was inventoried by code, not
+  exercised end-to-end this session.
 
 ## Phase 7 - External Integrations
 
