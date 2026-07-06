@@ -165,6 +165,30 @@ Phase 1 notes:
   Analysis Services, 15 review rows, 10 add/review rows, and 1 deferred/review
   row. Use this as service-scope evidence and decision support, not as an
   automatic import source.
+- 2026-07-06: Resolved 23 of the 26 open crosswalk rows with the lab technical
+  owner (see the Resolution Log and Summary in
+  `docs/PHASE1_SERVICE_SCOPE_CROSSWALK.md`). 12 rows confirmed `Covered` by
+  existing services (some need a method-reference/product-scope correction
+  only). 8 new Analysis Services were confirmed as needed: open-cup flash
+  point D92 (shared by grease/oil/hydrocarbon), antifreeze pH, antifreeze
+  freezing point, antifreeze relative density, antifreeze water content,
+  Ramsbottom carbon residue (shared by oil/crude oil), chlorine, and doctor
+  test. 3 rows remain open for a later session: Grease-4 water content,
+  Bitumen-1 ductility, Bitumen-2 specific gravity.
+
+- 2026-07-06: Created the confirmed new Analysis Services via
+  `outputs/tppc_lims_master/TPPC_NewServices_Import.xlsx` (incremental import,
+  keywords `NEW_*`). Service count went 176 -> 181. Added: open-cup Cleveland
+  flash point ASTM D92 (dept هیدروکربن, shared), Ramsbottom carbon residue ASTM
+  D524 (dept روغن), total chlorine ISO 15597 (dept هیدروکربن), doctor test ASTM
+  D4952 (dept هیدروکربن), and antifreeze water content ASTM D1123 (dept ضدیخ).
+  The other 3 of the 8 confirmed rows (antifreeze pH, freezing point, relative
+  density) were NOT recreated because equivalents already exist from the earlier
+  family import (`pH محلول 50%`, `نقطه انجماد محلول 33%/50%`, `دانسیته/چگالی
+  نسبی` services) — avoided duplicates. Backup `before-newservices.tar.gz` taken
+  before import. Still open (deferred to a later session per crosswalk):
+  Grease-4 water content, Bitumen-1 ductility, Bitumen-2 specific gravity, plus
+  method-document links and remaining specification limits.
 
 ## Phase 2 - Base Module
 
@@ -390,10 +414,11 @@ Continue Phase 1 with the remaining master-data blockers:
   noise.
 - Review the 5 QA rows in `TPPC_Methods_Import.xlsx` and attach or link the
   controlled method documents for each Method.
-- Resolve the 26 non-covered rows in
-  `docs/PHASE1_SERVICE_SCOPE_CROSSWALK.md`: 15 `Review`, 10 `Add/Review`, and
-  1 `Deferred/Review`. Treat the source PDF as service-scope evidence, not as an
-  automatic import source.
+- Create the 8 new Analysis Services confirmed in
+  `docs/PHASE1_SERVICE_SCOPE_CROSSWALK.md` (open-cup D92 flash point,
+  antifreeze pH/freezing point/relative density/water content, Ramsbottom
+  carbon residue, chlorine, doctor test), then decide the last 3 open rows
+  (Grease-4, Bitumen-1, Bitumen-2).
 - Complete specification limits beyond the currently prepared 79 rows before
   enabling broad automated acceptance decisions.
 - After those decisions, regenerate the import workbooks and create a fresh
