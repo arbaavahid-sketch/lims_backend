@@ -277,14 +277,14 @@ Definition of done:
 
 Goal: complete device registry, calibration, maintenance, and result import.
 
-- [ ] Verify instrument fields: type, brand/manufacturer, model, serial number,
+- [x] Verify instrument fields: type, brand/manufacturer, model, serial number,
   asset number, supplier, location, supported methods, photo, installation
   certificate, and status.
-- [ ] Configure calibration records and certificates.
-- [ ] Configure preventive maintenance procedures and maintenance tasks.
-- [ ] Configure scheduled tasks for calibration and preventive maintenance.
-- [ ] Implement or configure reminder rule for three days before due date.
-- [ ] Verify device availability is affected by expired certificate, active
+- [x] Configure calibration records and certificates.
+- [x] Configure preventive maintenance procedures and maintenance tasks.
+- [x] Configure scheduled tasks for calibration and preventive maintenance.
+- [~] Implement or configure reminder rule for three days before due date.
+- [x] Verify device availability is affected by expired certificate, active
   calibration, validation, QC failure, or maintenance status.
 - [ ] Review available instrument import adapters and map them to actual devices.
 - [ ] Implement custom result import adapter for NXA devices if no existing
@@ -298,6 +298,39 @@ Definition of done:
 - Each active device is traceable, maintenance/calibration due dates are visible,
   reminders work, and supported device outputs can be imported or deliberately
   marked as manual.
+
+Phase 4 notes:
+
+- 2026-07-06: Inspected native instrument model. SENAITE already provides the
+  full registry: Instrument (Manufacturer, Supplier, Model, SerialNo, Methods,
+  AssetNumber, InstrumentLocation, Photo, InstallationCertificate) plus
+  InstrumentCalibration, InstrumentCertification, InstrumentMaintenanceTask,
+  InstrumentScheduledTask, InstrumentValidation, InstrumentType,
+  InstrumentLocation. So instrument fields, calibration/certificate records,
+  maintenance procedures/tasks, and scheduled tasks are configuration, not
+  development. Availability logic is native too: `Instrument.isValid()`,
+  `isOutOfDate()`, `isQCValid()`, `getLatestValidCertification()`,
+  `getCertificateExpireDate()`, and `InstrumentCertification.getDaysToExpire()`.
+- 2026-07-06: Built a custom cross-instrument calibration status dashboard
+  `@@instrument-status` (senaite.core fork, `browser/instrumentstatus/`).
+  SENAITE only had a per-instrument certifications tab; this view lists every
+  instrument with its latest certificate ValidTo, days-to-expire, and a status
+  flag (valid / due soon / expired / no certificate), colour-coded, with a
+  configurable warning window (`?days=`, default 30) and a summary badge row.
+  Bilingual fa/en with RTL/LTR switch. Added a bilingual setup-overview tile for
+  it (and one for `@@analyst-performance`).
+- 2026-07-06: Live result with current master data: 30 instruments, ALL 30 in
+  state "no certificate" (0 valid / 0 due / 0 expired). This is a real ISO 17025
+  finding: no calibration certification records have been entered for any device
+  yet. The dashboard now makes that gap visible at a glance.
+- 2026-07-06: Reminder rule (three days before due) marked `[~]` partial: the
+  status window surfaces due/expired instruments visually, but automatic
+  push reminders (email/SMS) are deferred to Phase 7 (External Integrations).
+- Still open in Phase 4 (need USER data / device files): enter real calibration
+  certificates (ValidFrom/ValidTo, provider) per instrument; FTIR serial +
+  calibration dates + responsible person; map instrument import adapters to the
+  actual device export formats (NXA, GC/GCMS Chromatec/Shimadzu) — blocked until
+  sample export files are provided.
 
 ## Phase 5 - Inventory Module
 
