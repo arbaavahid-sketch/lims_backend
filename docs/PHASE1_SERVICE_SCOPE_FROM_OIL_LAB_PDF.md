@@ -43,6 +43,17 @@ Some of the 34 items are likely spelling/format differences, for example method
 references written with or without spaces, or source typos such as `INZO` instead
 of `INSO`. Others may represent missing or incomplete service coverage.
 
+A row-level crosswalk has also been prepared in
+`docs/PHASE1_SERVICE_SCOPE_CROSSWALK.md`. Use that file for decisions because it
+compares complete PDF service rows, not only individual method-reference tokens.
+Current row-level result:
+
+- 61 PDF service rows reviewed.
+- 35 rows are covered by current Analysis Services after notation cleanup.
+- 15 rows require review.
+- 10 rows are add/review candidates.
+- 1 row is deferred/review because the PDF marks it as future-capable.
+
 ## Review Candidates
 
 The following references were not found by direct normalized comparison and need

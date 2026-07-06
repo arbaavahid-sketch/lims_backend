@@ -160,6 +160,11 @@ Phase 1 notes:
   9 gasoil rows, 41 family/grade rows, and 29 bitumen rows. Automated pass/fail
   must stay disabled or limited to those reviewed imports until the remaining
   limits are completed.
+- 2026-07-06: Added `PHASE1_SERVICE_SCOPE_CROSSWALK.md` from the oil-lab service
+  PDF. Row-level result: 61 PDF service rows reviewed, 35 covered by current
+  Analysis Services, 15 review rows, 10 add/review rows, and 1 deferred/review
+  row. Use this as service-scope evidence and decision support, not as an
+  automatic import source.
 
 ## Phase 2 - Base Module
 
@@ -385,9 +390,10 @@ Continue Phase 1 with the remaining master-data blockers:
   noise.
 - Review the 5 QA rows in `TPPC_Methods_Import.xlsx` and attach or link the
   controlled method documents for each Method.
-- Review `docs/PHASE1_SERVICE_SCOPE_FROM_OIL_LAB_PDF.md` against Analysis
-  Services, Method References, and Sample/Product Types. Treat the source PDF as
-  service-scope evidence, not as an automatic import source.
+- Resolve the 26 non-covered rows in
+  `docs/PHASE1_SERVICE_SCOPE_CROSSWALK.md`: 15 `Review`, 10 `Add/Review`, and
+  1 `Deferred/Review`. Treat the source PDF as service-scope evidence, not as an
+  automatic import source.
 - Complete specification limits beyond the currently prepared 79 rows before
   enabling broad automated acceptance decisions.
 - After those decisions, regenerate the import workbooks and create a fresh
