@@ -119,7 +119,7 @@ Replace `YYYYMMDD-HHMM` with the actual date and time, for example
 Also consider saving the runnable images before production changes:
 
 ```powershell
-docker save lims/senaite-fa:latest -o backups/lims-senaite-fa-YYYYMMDD.tar
+docker save tandis/lims:latest -o backups/tandis-lims-YYYYMMDD.tar
 docker save lims/senaite-base:2.x -o backups/lims-senaite-base-2.x-YYYYMMDD.tar
 ```
 

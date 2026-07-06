@@ -8,7 +8,7 @@ This project is the Tandis Laboratory internal SENAITE LIMS build.
 - The SENAITE core fork used by this deployment:
   `arbaavahid-sketch/senaite.core`, branch `persian`
 - Persian translations, RTL stylesheet, and Tandis-specific branding
-- The local application image: `lims/senaite-fa:latest`
+- The local application image: `tandis/lims:latest`
 - The local base image tag: `lims/senaite-base:2.x`
 
 ## What It Is Based On
@@ -45,7 +45,7 @@ docker compose up -d
 To keep an offline backup of the runnable image:
 
 ```bash
-docker save lims/senaite-fa:latest -o backups/lims-senaite-fa.tar
+docker save tandis/lims:latest -o backups/tandis-lims.tar
 docker save lims/senaite-base:2.x -o backups/lims-senaite-base-2.x.tar
 ```
 

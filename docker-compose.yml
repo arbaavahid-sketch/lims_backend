@@ -4,7 +4,7 @@
 services:
   senaite:
     build: .
-    image: lims/senaite-fa:latest
+    image: tandis/lims:latest
     container_name: senaite
     restart: unless-stopped
     ports:
