@@ -409,23 +409,67 @@ Definition of done:
 
 Goal: provide customer-facing workflows without exposing internal-only screens.
 
-- [ ] Verify current Client and Contact login behavior.
-- [ ] Define what customers may see: own requests, own samples, status, reports,
+- [x] Verify current Client and Contact login behavior.
+- [x] Define what customers may see: own requests, own samples, status, reports,
   invoices, support requests, complaints, and surveys.
-- [ ] Configure or build a simplified customer dashboard.
-- [ ] Add request registration for customers.
-- [ ] Add sample/test selection workflow for customers.
-- [ ] Add read-only status tracking for submitted requests.
-- [ ] Add report download after publication.
-- [ ] Add support request form.
-- [ ] Add complaint form with tracking number and internal response workflow.
-- [ ] Add satisfaction survey form after report delivery.
-- [ ] Verify permissions so customers cannot see other customers' data.
+- [~] Configure or build a simplified customer dashboard.
+- [x] Add request registration for customers.
+- [x] Add sample/test selection workflow for customers.
+- [x] Add read-only status tracking for submitted requests.
+- [x] Add report download after publication.
+- [x] Add support request form.
+- [x] Add complaint form with tracking number and internal response workflow.
+- [x] Add satisfaction survey form after report delivery.
+- [~] Verify permissions so customers cannot see other customers' data.
 
 Definition of done:
 
 - A customer can log in, submit a request, track progress, receive reports, and
   submit support/complaint/survey records within strict data isolation.
+
+Phase 6 notes:
+
+- 2026-07-06: Inventory. Native SENAITE already provides most of the customer
+  panel: Client Contacts can be given a Plone login with the "Client" role
+  (browser/clients/client/contacts/login_details.py); the Client/local-role +
+  senaite_sample_workflow scope each contact to their own Client only (data
+  isolation); logged-in clients can register ARs, select tests, track status and
+  download published reports. What was missing entirely: complaints, surveys and
+  support requests (no native content types).
+- 2026-07-06: Built the Customer Care module in the senaite.core fork (all three,
+  user picked full scope):
+  - Container `CustomerCare` (setup folder) + three item types: `Complaint`
+    (ISO 7.9: subject, client, contact, related sample, category, severity,
+    received date, description, internal investigation + resolution),
+    `SupportRequest` (subject, client, contact, category, description, internal
+    response) and `Survey` (client, contact, related report, date, 1-5 ratings
+    for overall/timeliness/quality/communication, comments). content/*.py, FTIs,
+    types.xml, container in setuphandlers.
+  - Shared workflow `senaite_customerrequest_workflow` for Complaint +
+    SupportRequest: received -> process -> in_progress -> resolve -> resolved ->
+    close -> closed, with reopen; transitions guarded by "Review portal content"
+    (staff), customer only creates. Survey uses one_state_workflow. Bound in
+    workflows.xml.
+  - Control-panel register `CustomerCareView` listing all three types with
+    Type/Subject/Client/Created/State columns and All/Open/Closed filters.
+  - Bilingual (fa/en, RTL/LTR) `@@customer-care-status` dashboard: open vs closed
+    complaint/support counts and average survey satisfaction scores + a live list
+    of open complaints. Setup tile added.
+  - Installer `@@install-customercare-module` (Manager-only) to register the FTIs
+    + workflow and create the container in an existing ZODB.
+  - Persian translations (73 msgids x fa/fa_IR) for all fields, vocabularies,
+    listing, FTI titles and workflow state/transition titles.
+- 2026-07-06: Installed and verified live. Created Complaint/Survey/SupportRequest
+  via JSON API; complaint drove received -> process -> in_progress; dashboard
+  showed complaints total/open, support total/open, survey responses; add form,
+  view page (state badge "در حال بررسی") and dashboard all render Persian. Three
+  demo records remain in the register (deletable from the UI).
+- Still open / partial in Phase 6: (a) the customer-facing dashboard is currently
+  the native client view; a curated/simplified customer landing page + wiring the
+  complaint/survey/support forms so clients can submit them directly (not just
+  staff) is a follow-up (needs a client-role add permission + client-scoped
+  views). (b) live re-verification of client data isolation with a real client
+  login was inventoried by code, not exercised end-to-end this session.
 
 ## Phase 7 - External Integrations
 
