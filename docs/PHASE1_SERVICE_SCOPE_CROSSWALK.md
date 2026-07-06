@@ -90,3 +90,122 @@ Generated on: 2026-07-06
 1. Resolve all `Add/Review` rows with the lab technical owner.
 2. Resolve `Review` rows by either normalizing method references, expanding product scope, or marking the PDF row as source-only evidence.
 3. Do not import new Analysis Services until method document links and responsible instruments/people are known.
+
+## Resolution Log
+
+Decisions confirmed with the lab technical owner, row by row. Rows not yet
+listed here are still open.
+
+- 2026-07-06: Grease-2 (Flash point on separated grease oil, ASTM D92/INSO198,
+  open cup). Confirmed the lab only has closed-cup Pensky-Martens (D93) via
+  `AS_05147_149`. Decision: gap confirmed, open-cup D92 service does not exist.
+  Action: add a new Analysis Service for Cleveland open-cup D92 if the lab
+  wants to offer this test; otherwise mark the PDF row as not currently
+  offered.
+- 2026-07-06: Grease-4 (Water content, PDF cites D4048/INSO11291 which are
+  corrosion references). Left open; owner will decide later whether this is a
+  source typo needing a real water-content method or should be dropped.
+- 2026-07-06: Bitumen-1 (Ductility, ASTM D113/INSO3866). Left open, owner will
+  decide later.
+- 2026-07-06: Bitumen-2 (Specific gravity, ASTM D70/INSO3872). Left open,
+  owner will decide later.
+- 2026-07-06: Bitumen-3 (Viscosity, ASTM D445/INSO340). Confirmed: existing
+  viscosity services also cover bitumen. Decision: `Covered`, no new service
+  needed; add bitumen to the documented product scope of the viscosity
+  services.
+- 2026-07-06: Bitumen-4 (Extraction solvent distillation, ASTM D86).
+  Confirmed: existing D86 atmospheric distillation services are sufficient
+  for this scope. Decision: `Covered`.
+- 2026-07-06: Antifreeze-1 (pH, ASTM D1287/INSO1212). Confirmed the lab has a
+  pH meter and takes this measurement. Decision: add a new Analysis Service
+  for antifreeze pH (device: pH meter); not yet registered in SENAITE.
+- 2026-07-06: Antifreeze-2 (Freezing point, ASTM D1177/INSO1448). Confirmed
+  active capability. Decision: add a new Analysis Service.
+- 2026-07-06: Antifreeze-3 (Relative density, ASTM D1122). PDF marked this
+  future-capable/not ready, but owner confirmed it is now active. Decision:
+  add a new Analysis Service (supersedes the PDF's Deferred marking).
+- 2026-07-06: Antifreeze-4 (Water content, ASTM D1123/ISIRI6228). Confirmed
+  active capability. Decision: add a new Analysis Service.
+- 2026-07-06: Antifreeze-6 (Chloride, ASTM D3634/ISIRI5596). Confirmed the
+  existing ASTM E2469 chloride service is sufficient. Decision: `Covered`.
+- 2026-07-06: Oil-2 (Flash point open cup, ASTM D92). Same gap as Grease-2:
+  lab only has closed-cup D93. Decision: add a new Analysis Service for
+  open-cup D92 (can likely be the same new service as Grease-2/Hydrocarbon-3
+  if product scope is shared).
+- 2026-07-06: Oil-11 (Elemental analysis, 19 elements, ASTM D6595). Confirmed
+  the existing ICP service is the same package. Decision: `Covered`.
+- 2026-07-06: Oil-12 (Water separability, ASTM D1401/INSO3169). Confirmed
+  ISO 6614 is the same test. Decision: `Covered`.
+- 2026-07-06: Oil-13 (Ramsbottom carbon residue, ASTM D524/INSO200).
+  Confirmed active capability. Decision: add a new Analysis Service.
+- 2026-07-06: Hydrocarbon-3 (Flash point open cup, ASTM D92). Same confirmed
+  gap as Grease-2/Oil-2: only closed-cup D93 exists. Decision: add a new
+  Analysis Service for open-cup D92, shared across grease/oil/hydrocarbon
+  product scope.
+- 2026-07-06: Hydrocarbon-11 (Hydrogen sulfide, ASTM D3227/INSO9379).
+  Confirmed the existing mercaptan sulfur service is the same service.
+  Decision: `Covered`.
+- 2026-07-06: Hydrocarbon-12 (Chlorine, ISO15597/ISIRI13378). Confirmed
+  active capability. Decision: add a new Analysis Service.
+- 2026-07-06: Hydrocarbon-13 (Doctor test, ASTM D4952/ISIRI8722). Confirmed
+  active capability. Decision: add a new Analysis Service.
+- 2026-07-06: Hydrocarbon-16 (Water, PDF cites ASTM D1796 but calls it Karl
+  Fischer; D1796 is actually centrifuge water/sediment). Confirmed the lab
+  really means Karl Fischer and has a dedicated Karl Fischer service (same
+  family as Oil-10, ASTM D6304). Decision: `Covered` by the existing Karl
+  Fischer service; the PDF's D1796 reference is a source error and should be
+  corrected to D6304 in any documentation.
+- 2026-07-06: Hydrocarbon-17 (Elemental analysis, 19 elements, ASTM D6595,
+  duplicate of Oil-11). Confirmed the same ICP package is sufficient.
+  Decision: `Covered`.
+- 2026-07-06: Hydrocarbon-18 (GC benzene/aromatic/olefin, ASTM
+  D6730/D5134/D6729). Confirmed the current GC services cover all three
+  method references. Decision: `Covered`.
+- 2026-07-06: Hydrocarbon-19 (PONA, ASTM D1319-GC/ISIRI8403). Confirmed the
+  current GC service covers PONA. Decision: `Covered`.
+- 2026-07-06: Crude Oil-1 (Specific gravity at 15.6 C, PDF cites "ASTM
+  A1298"). Confirmed source typo for ASTM D1298; the existing D1298/INSO197
+  service is sufficient. Decision: `Covered`.
+- 2026-07-06: Crude Oil-6 (Water by distillation, ISO 9029/ISIRI8139).
+  Confirmed the existing ASTM D95/ISIRI8139 service is sufficient. Decision:
+  `Covered`.
+- 2026-07-06: Crude Oil-10 (Ramsbottom carbon residue, ASTM D5424/INSO200,
+  duplicate of Oil-13). Confirmed active capability. Decision: covered by the
+  same new Analysis Service being added for Oil-13.
+
+## Crosswalk Resolution Summary (2026-07-06)
+
+All 26 open rows (15 Review, 10 Add/Review, 1 Deferred) have been discussed
+with the lab technical owner, except three left open for a later session.
+
+Resolved to `Covered` (no new service needed, only method-reference/product
+scope cleanup where noted): Bitumen-3, Bitumen-4, Antifreeze-6, Oil-11,
+Oil-12, Hydrocarbon-11, Hydrocarbon-16 (source method reference should be
+corrected from D1796 to D6304), Hydrocarbon-17, Hydrocarbon-18,
+Hydrocarbon-19, Crude Oil-1 (correct source typo A1298 to D1298), Crude
+Oil-6.
+
+Resolved to `Add` (new Analysis Service needed, not yet created in SENAITE):
+
+- Open-cup flash point, ASTM D92 (shared scope: Grease-2, Oil-2,
+  Hydrocarbon-3).
+- Antifreeze pH, ASTM D1287/INSO1212 (device: pH meter).
+- Antifreeze freezing point, ASTM D1177/INSO1448.
+- Antifreeze relative density, ASTM D1122 (now active; supersedes the PDF's
+  "future-capable"/Deferred marking).
+- Antifreeze water content, ASTM D1123/ISIRI6228.
+- Ramsbottom carbon residue, ASTM D524/D5424/INSO200 (shared scope: Oil-13,
+  Crude Oil-10).
+- Chlorine, ISO15597/ISIRI13378 (Hydrocarbon-12).
+- Doctor test, ASTM D4952/ISIRI8722 (Hydrocarbon-13).
+
+Still open, owner will decide later:
+
+- Grease-4 (Water content; PDF method reference looks like a source typo).
+- Bitumen-1 (Ductility, ASTM D113/INSO3866).
+- Bitumen-2 (Specific gravity, ASTM D70/INSO3872).
+
+Next step: create the 8 new Analysis Services listed above in the setup
+workbook (or directly in SENAITE), including method, unit, department, and
+instrument/device fields, then re-run the crosswalk check once the 3 open
+rows are decided.
