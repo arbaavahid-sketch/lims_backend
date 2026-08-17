@@ -546,18 +546,43 @@ Definition of done:
 
 Goal: make access control deliberate and testable.
 
-- [ ] Define role matrix: admin, lab manager, technical manager, analyst,
+- [x] Define role matrix: admin, lab manager, technical manager, analyst,
   sampler, finance, document controller, inventory manager, customer, and guest.
-- [ ] Map each role to allowed actions and forbidden actions.
-- [ ] Configure users, groups, and local roles.
-- [ ] Test access for representative users.
-- [ ] Review password policy, admin account handling, and backup access.
-- [ ] Add permission regression checks for customer data isolation.
+- [x] Map each role to allowed actions and forbidden actions.
+- [x] Configure users, groups, and local roles.
+- [~] Test access for representative users.
+- [~] Review password policy, admin account handling, and backup access.
+- [x] Add permission regression checks for customer data isolation.
 
 Definition of done:
 
 - Each role can do required work, cannot access unrelated data, and the role
   matrix is documented.
+
+Phase 9 notes:
+
+- 2026-07-06: Native SENAITE role model already in place from earlier setup.
+  Users: admin (Zope root Manager, system config only), manager (LabManager +
+  Publisher), ali/analyst (Analyst), verifier/reviewer (Verifier), sampler
+  (Sampler). Setup/config and the management dashboards are gated by the
+  "senaite.core: Manage Bika" permission (LabManager / LabClerk / Manager), so
+  Analyst / Sampler / Verifier cannot reach system setup.
+- 2026-07-06: Documented the full role + access matrix in docs/ROLES_MATRIX.md
+  (bilingual), including the segregation-of-duties controls (verifier != result
+  entry via SelfVerificationEnabled=0; controlled-doc approver != author;
+  complaint handling staff-only).
+- 2026-07-06: SECURITY FIX. The four custom dashboards (customer-care-status,
+  analyst-performance, instrument-status, document-review-status) had been
+  registered with zope2.View, i.e. anonymous users could read internal data
+  (client names, complaint subjects, analyst workload, instrument/document
+  status). Changed all four to require "senaite.core: Manage Bika"; verified
+  anonymous now gets 302->login while staff still get 200. The two genuinely
+  public customer pages (customer-feedback, track-request) remain zope2.View.
+- Still open in Phase 9: (a) set strong passwords for the daily accounts
+  (manager, analyst, sampler, verifier, ...) - admin was already changed by the
+  user; the rest still hold their setup-time defaults. (b) end-to-end login test
+  as each representative role before go-live. (c) optional finance / document-
+  controller role assignment if the lab needs them.
 
 ## Phase 10 - Production Readiness
 
