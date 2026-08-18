@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>راهنمای کاربری — آزمایشگاه تندیس</title>
+<style>
+  :root { --brand:#0d6efd; --ink:#1a2230; --muted:#5b6472; --line:#e2e6ec; --bg:#f6f8fb; }
+  * { box-sizing:border-box; }
+  body { font-family: Tahoma, "Segoe UI", Arial, sans-serif; color:var(--ink);
+         background:var(--bg); margin:0; line-height:1.9; }
+  .page { max-width:900px; margin:0 auto; background:#fff; padding:32px 40px 60px; }
+  header.top { border-bottom:3px solid var(--brand); padding-bottom:14px; margin-bottom:8px; }
+  header.top h1 { margin:0; font-size:1.6rem; }
+  header.top .sub { color:var(--muted); margin-top:4px; }
+  .base { background:#eef4ff; border:1px solid #cfe0ff; border-radius:10px;
+          padding:12px 16px; margin:18px 0; }
+  .base code { background:#fff; padding:1px 6px; border-radius:5px; border:1px solid var(--line); direction:ltr; display:inline-block; }
+  h2 { font-size:1.25rem; margin:30px 0 10px; padding:8px 12px; background:var(--brand);
+       color:#fff; border-radius:8px; }
+  h3 { font-size:1.05rem; margin:18px 0 6px; color:var(--brand); }
+  table { width:100%; border-collapse:collapse; margin:12px 0; font-size:.95rem; }
+  th, td { border:1px solid var(--line); padding:8px 10px; text-align:right; vertical-align:top; }
+  th { background:#eef2f7; }
+  td code, .base code, .u { direction:ltr; unicode-bidi:embed; font-family:Consolas,monospace;
+       background:#f3f5f9; padding:1px 5px; border-radius:4px; display:inline-block; font-size:.9em; }
+  ol, ul { padding-right:22px; margin:8px 0; }
+  li { margin:4px 0; }
+  .note { background:#fff8e6; border:1px solid #ffe6a3; border-radius:8px; padding:10px 14px; margin:12px 0; }
+  .warn { background:#fdecec; border:1px solid #f5b5b5; border-radius:8px; padding:10px 14px; margin:12px 0; }
+  .flow { font-weight:bold; color:var(--brand); direction:rtl; }
+  footer { margin-top:40px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:.9rem; }
+  @media print {
+    body { background:#fff; } .page { max-width:100%; padding:0 8px; }
+    h2 { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    tr, li { page-break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <h1>راهنمای جامع کاربری — سامانهٔ آزمایشگاه تندیس</h1>
+    <div class="sub">Tandis Pars Petrochemical Co. (TPPC) — سامانهٔ مدیریت آزمایشگاه</div>
+  </header>
+
+  <div class="base">
+    <strong>آدرس پایه (Base URL):</strong> هرجا نوشته <span class="u">[آدرس‌پایه]</span> یکی از این‌ها را بگذارید:
+    <ul style="margin:6px 0 0">
+      <li>روی همین کامپیوتر سرور: <code>http://localhost:8080</code></li>
+      <li>از کامپیوتر بچه‌ها روی شبکهٔ مشترک: <code>http://192.168.1.33:8080</code></li>
+      <li>بعد از انتقال به سرور (بعداً): <code>https://lims.tandispars.com</code></li>
+    </ul>
+    مثال: <code>[آدرس‌پایه]/senaite/login</code>
+  </div>
+
+  <h2>۰) آدرس‌های مهم — نگاه سریع</h2>
+  <table>
+    <tr><th>کار</th><th>چه کسی</th><th>آدرس</th></tr>
+    <tr><td>ورود کارکنان</td><td>همه</td><td><span class="u">[آدرس‌پایه]/senaite/login</span></td></tr>
+    <tr><td>صفحهٔ اصلی</td><td>کارکنان</td><td><span class="u">[آدرس‌پایه]/senaite</span></td></tr>
+    <tr><td>فهرست نمونه‌ها</td><td>کارکنان</td><td><span class="u">[آدرس‌پایه]/senaite/samples</span></td></tr>
+    <tr><td>مشتریان</td><td>پذیرش/مدیر</td><td><span class="u">[آدرس‌پایه]/senaite/clients</span></td></tr>
+    <tr><td>برگه‌های کاری</td><td>کارشناس</td><td><span class="u">[آدرس‌پایه]/senaite/worksheets</span></td></tr>
+    <tr><td><b>امور مشتریان</b> (شکایت/نظرسنجی/پشتیبانی)</td><td>پذیرش/مدیر</td><td><span class="u">[آدرس‌پایه]/senaite/setup/customercare</span></td></tr>
+    <tr><td><b>پذیرش نمونهٔ آنلاین</b> (درخواست آزمون)</td><td>پذیرش/مدیر</td><td><span class="u">[آدرس‌پایه]/senaite/setup/sampleintake</span></td></tr>
+    <tr><td>آزمون‌ها (فعال/غیرفعال، ASTM، قیمت)</td><td>مدیر</td><td><span class="u">[آدرس‌پایه]/senaite/bika_setup/bika_analysisservices</span></td></tr>
+    <tr><td>مدیریت کاربران و نقش‌ها</td><td>مدیر</td><td><span class="u">[آدرس‌پایه]/senaite/@@usergroup-userprefs</span></td></tr>
+    <tr><td>تنظیمات ایمیل (SMTP)</td><td>مدیر</td><td><span class="u">[آدرس‌پایه]/senaite/@@mail-controlpanel</span></td></tr>
+    <tr><td><b>فرم عمومی درخواست آزمون</b> (مشتری)</td><td>مشتری</td><td><span class="u">[آدرس‌پایه]/senaite/@@sample-request</span></td></tr>
+    <tr><td><b>فرم عمومی شکایت/نظرسنجی</b> (مشتری)</td><td>مشتری</td><td><span class="u">[آدرس‌پایه]/senaite/@@customer-feedback</span></td></tr>
+    <tr><td>پیگیری مشتری (با کد/لینک)</td><td>مشتری</td><td><span class="u">[آدرس‌پایه]/senaite/@@track-request</span></td></tr>
+  </table>
+
+  <h2>۱) نقش‌ها — چه کسی چه کاری می‌کند</h2>
+  <table>
+    <tr><th>نقش</th><th>مسئولیت اصلی</th></tr>
+    <tr><td><b>مدیر آزمایشگاه (LabManager)</b></td><td>همه‌کار: تنظیمات، کاربران، آزمون‌ها، تأیید، انتشار</td></tr>
+    <tr><td><b>پذیرش / دفتری (LabClerk)</b></td><td>ثبت نمونه و مشتری، امور مشتریان، تبدیل درخواست آنلاین</td></tr>
+    <tr><td><b>کارشناس آزمون (Analyst)</b></td><td>انجام آزمون و ثبت نتیجه</td></tr>
+    <tr><td><b>تأییدکننده (Verifier)</b></td><td>تأیید نتیجه — باید فردی جز آنالیست باشد (الزام ۱۷۰۲۵)</td></tr>
+    <tr><td><b>صادرکننده (Publisher)</b></td><td>انتشار و ارسال گزارش نهایی</td></tr>
+  </table>
+  <div class="note">جزئیات کامل نقش‌ها و ساخت حساب در فایل <b>ROLES_AND_ACCESS.md</b>.</div>
+
+  <h2>۲) ورود به سیستم</h2>
+  <ol>
+    <li>بروید به <span class="u">[آدرس‌پایه]/senaite/login</span></li>
+    <li>نام کاربری و رمز خود را وارد کنید (رمز را مدیر داده است).</li>
+    <li>منوی بالای صفحه: <b>Samples، Clients، Worksheets، Batches</b> و آیکون <b>چرخ‌دنده (Setup)</b>.</li>
+  </ol>
+
+  <h2>۳) گردش کار کامل یک نمونه (هستهٔ آزمایشگاه)</h2>
+  <p class="flow">ثبت (Register) → دریافت (Receive) → آزمون و ثبت نتیجه (Submit) → تأیید (Verify) → انتشار (Publish)</p>
+
+  <h3>۳-۱) ثبت نمونهٔ جدید (پذیرش)</h3>
+  <ol>
+    <li>بروید به <span class="u">[آدرس‌پایه]/senaite/samples</span></li>
+    <li>دکمهٔ <b>Add (افزودن)</b> بالای صفحه را بزنید.</li>
+    <li><b>Client</b> را انتخاب کنید (مشتری جدید را اول در <span class="u">/senaite/clients</span> بسازید).</li>
+    <li><b>Contact</b>، <b>Date Sampled</b> و <b>Sample Type</b> را پر کنید.</li>
+    <li>آزمون‌های موردنیاز را تیک بزنید (فقط آزمون‌های <b>فعال</b> دیده می‌شوند).</li>
+    <li><b>Save</b> بزنید. نمونه با یک شناسهٔ یکتا ثبت می‌شود.</li>
+  </ol>
+
+  <h3>۳-۲) دریافت نمونه (Receive)</h3>
+  <ol><li>در فهرست Samples نمونه را تیک بزنید.</li><li><b>Receive</b> بزنید (نمونهٔ فیزیکی رسیده و آماده آزمون است).</li></ol>
+
+  <h3>۳-۳) ثبت نتیجه (کارشناس آزمون)</h3>
+  <ol><li>روی شناسهٔ نمونه کلیک کنید.</li><li>مقابل هر آزمون <b>نتیجه</b> را وارد کنید.</li><li><b>Submit</b> بزنید.</li></ol>
+  <div class="warn"><b>نکتهٔ ۱۷۰۲۵:</b> کسی که نتیجه را Submit کرده نمی‌تواند خودش آن را Verify کند.</div>
+
+  <h3>۳-۴) تأیید نتیجه (تأییدکننده — فرد دوم)</h3>
+  <ol><li>نمونه را باز کنید یا از فهرست تیک بزنید.</li><li>نتیجه‌ها را کنترل و <b>Verify</b> بزنید.</li></ol>
+
+  <h3>۳-۵) انتشار گزارش (Publish)</h3>
+  <ol><li>نمونهٔ تأییدشده را تیک بزنید.</li><li><b>Publish</b> بزنید → گزارش PDF ساخته می‌شود.</li><li>می‌توانید همان‌جا برای <b>ایمیل مشتری</b> بفرستید (اگر SMTP تنظیم باشد).</li></ol>
+
+  <h2>۴) امور مشتریان (شکایت / نظرسنجی / پشتیبانی)</h2>
+  <h3>مشتری از کجا ثبت می‌کند؟</h3>
+  <p>بدون ورود: <span class="u">[آدرس‌پایه]/senaite/@@customer-feedback</span> — فرم را پر می‌کند و <b>کد پیگیری + لینک</b> می‌گیرد.</p>
+  <h3>کارمند از کجا پاسخ می‌دهد؟</h3>
+  <ol>
+    <li>بروید به <span class="u">[آدرس‌پایه]/senaite/setup/customercare</span> (کاشی «امور مشتریان»).</li>
+    <li>روی درخواست کلیک کنید.</li>
+    <li>پاسخ را در «Response to customer» بنویسید.</li>
+    <li>وضعیت را جلو ببرید: <b>Process → Resolve → Close</b>.</li>
+    <li>هنگام <b>Close</b>، اگر مشتری ایمیل داده باشد، سیستم <b>خودکار پاسخ + لینک</b> را ایمیل می‌کند.</li>
+    <li>برای ارسال دستی، لینک را از ستون «لینک مشتری» کپی کنید.</li>
+  </ol>
+
+  <h2>۵) پذیرش نمونهٔ آنلاین (درخواست آزمون → تبدیل به نمونه)</h2>
+  <h3>مشتری از کجا درخواست می‌دهد؟</h3>
+  <p>بدون ورود: <span class="u">[آدرس‌پایه]/senaite/@@sample-request</span> — آزمون‌ها را <b>از فهرست انتخاب</b> می‌کند (با ASTM)، کد + لینک می‌گیرد، سپس نمونه را می‌فرستد.</p>
+  <h3>کارمند از کجا تبدیل می‌کند؟</h3>
+  <ol>
+    <li>بروید به <span class="u">[آدرس‌پایه]/senaite/setup/sampleintake</span> (کاشی «پذیرش نمونه»).</li>
+    <li>روی درخواست کلیک کنید.</li>
+    <li>دکمهٔ <b>«تبدیل به نمونه»</b> را بزنید.</li>
+    <li>مشتری، نوع نمونه و آزمون‌ها را تأیید کنید (آزمون‌های خواسته‌شده از قبل تیک خورده‌اند) و تاریخ نمونه‌برداری را بگذارید.</li>
+    <li><b>«ساخت نمونه»</b> را بزنید → یک <b>Sample واقعی</b> ساخته می‌شود؛ از بخش ۳ ادامه دهید.</li>
+  </ol>
+
+  <h2>۶) مدیریت آزمون‌ها (مدیر)</h2>
+  <p>مسیر: <span class="u">[آدرس‌پایه]/senaite/bika_setup/bika_analysisservices</span></p>
+  <h3>فعال/غیرفعال کردن آزمون</h3>
+  <ul>
+    <li>آزمونی که دستگاهش را ندارید: تیک بزنید → <b>Deactivate</b> (دیگر در فرم‌ها دیده نمی‌شود).</li>
+    <li>بعد از خرید دستگاه: فیلتر را روی <b>Inactive</b> بگذارید → تیک بزنید → <b>Activate</b>.</li>
+  </ul>
+  <h3>افزودن ASTM یا قیمت</h3>
+  <ol>
+    <li>روی آزمون کلیک کنید → <b>Edit</b>.</li>
+    <li>ASTM را در نام اضافه کنید، مثل: <span dir="rtl">عدد اسیدی کل (<span class="u">ASTM D664</span>)</span></li>
+    <li><b>Price</b> را برای فاکتور وارد کنید.</li>
+    <li><b>Save</b>.</li>
+  </ol>
+  <div class="note">ASTM هرجا در نام آزمون باشد، خودکار در فرم مشتری و گزارش‌ها نمایش داده می‌شود.</div>
+
+  <h2>۷) تنظیمات مدیریتی (فقط مدیر)</h2>
+  <h3>کاربران و نقش‌ها</h3>
+  <p><span class="u">[آدرس‌پایه]/senaite/@@usergroup-userprefs</span> — <b>Add User</b> → نام کاربری، ایمیل، رمز قوی، انتخاب گروه/نقش. تغییر رمز/نقش از همین‌جا.</p>
+  <h3>ایمیل خروجی (SMTP)</h3>
+  <p><span class="u">[آدرس‌پایه]/senaite/@@mail-controlpanel</span> — SMTP server، Port ۵۸۷، Username، Password، From address → <b>Save</b> → <b>Send test e-mail</b>. جزئیات در <b>EMAIL_SETUP.md</b>.</p>
+
+  <h2>۸) بک‌آپ و بازیابی</h2>
+  <ul>
+    <li>بک‌آپ دستی (روی سرور، PowerShell): <span class="u">powershell -ExecutionPolicy Bypass -File scripts\backup.ps1</span></li>
+    <li>بک‌آپ خودکار روزانه و بازیابی اضطراری: طبق <b>GO_LIVE_CHECKLIST.md</b>.</li>
+  </ul>
+
+  <h2>۹) پرسش‌های رایج</h2>
+  <table>
+    <tr><th>مشکل</th><th>راه‌حل</th></tr>
+    <tr><td>نمی‌توانم نتیجهٔ خودم را تأیید کنم</td><td>درست است؛ تأیید باید توسط فرد دیگری باشد.</td></tr>
+    <tr><td>آزمونی در فهرست نیست</td><td>احتمالاً غیرفعال است؛ مدیر آن را Activate کند (بخش ۶).</td></tr>
+    <tr><td>مشتری می‌گوید ایمیل/لینک نرسید</td><td>ایمیل مشتری در فرم؟ تنظیم SMTP؟ پوشهٔ Spam مشتری؟</td></tr>
+    <tr><td>بچه‌ها وصل نمی‌شوند</td><td>یک شبکهٔ مشترک + آدرس <span class="u">http://192.168.1.33:8080</span> + باز بودن پورت 8080 در فایروال سرور.</td></tr>
+    <tr><td>رمزم را فراموش کردم</td><td>مدیر از بخش ۷ رمز جدید بگذارد.</td></tr>
+  </table>
+
+  <h2>۱۰) هر نقش از کجا شروع کند</h2>
+  <table>
+    <tr><th>نقش</th><th>نقطهٔ شروع</th></tr>
+    <tr><td>پذیرش</td><td><span class="u">/senaite/samples</span> ، <span class="u">/senaite/setup/sampleintake</span> ، <span class="u">/senaite/setup/customercare</span></td></tr>
+    <tr><td>کارشناس آزمون</td><td><span class="u">/senaite/worksheets</span> یا مستقیم روی نمونه‌ها در <span class="u">/senaite/samples</span></td></tr>
+    <tr><td>تأییدکننده</td><td><span class="u">/senaite/samples</span> (فیلتر «To be verified»)</td></tr>
+    <tr><td>صادرکننده</td><td><span class="u">/senaite/samples</span> (فیلتر «Verified» → Publish)</td></tr>
+    <tr><td>مدیر</td><td>آیکون <b>Setup (چرخ‌دنده)</b> برای همهٔ تنظیمات</td></tr>
+  </table>
+
+  <footer>
+    این راهنما را می‌توان چاپ کرد و کنار هر ایستگاه کاری گذاشت. برای ذخیره به‌صورت PDF:
+    در مرورگر <b>Ctrl+P</b> → مقصد را «Save as PDF» بگذارید.<br/>
+    نسخهٔ کامل سیاست‌ها: <b>ROLES_AND_ACCESS.md</b> ، <b>EMAIL_SETUP.md</b> ، <b>GO_LIVE_CHECKLIST.md</b>.
+  </footer>
+
+</div>
+</body>
+</html>
