@@ -31,3 +31,6 @@ Thumbs.db
 
 # Docker image exports (large, self-contained runnable image) — do not commit
 backups/*.tar
+
+# Automated daily data backups (rotated locally) — do not commit
+backups/senaite-data-*.tar.gz
