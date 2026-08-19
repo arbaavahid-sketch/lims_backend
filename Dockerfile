@@ -41,3 +41,7 @@ COPY translations/impress/discreeter.pt \
      /home/senaite/senaitelims/src/senaite.impress/src/senaite/impress/analysisrequest/templates/discreeter.pt
 COPY translations/impress/footer.pt \
      /home/senaite/senaitelims/src/senaite.impress/src/senaite/impress/analysisrequest/templates/footer.pt
+
+# تعداد thread سرور WSGI را بالا می‌بریم تا زیر بار همزمان (چند کاربر + بات‌های
+# اینترنت) روی سرورهای کوچک، ۵۰۳ (thread پر) ندهد.
+RUN sed -i 's/^threads = .*/threads = 12/' /home/senaite/senaitelims/parts/instance/etc/wsgi.ini
