@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>سامانهٔ مدیریت آزمایشگاه تندیس — معرفی برای مدیران</title>
+<style>
+  :root{--brand:#0d6efd;--brand2:#0a58ca;--ink:#1a2230;--muted:#5b6472;--line:#e3e7ee;--bg:#f5f7fb;--ok:#1f9d55;--gold:#b8860b;}
+  *{box-sizing:border-box;}
+  body{font-family:Tahoma,"Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--bg);margin:0;line-height:1.95;}
+  .page{max-width:920px;margin:0 auto;background:#fff;padding:0 0 60px;}
+  .hero{background:linear-gradient(135deg,#0d6efd,#0a58ca);color:#fff;padding:34px 44px;}
+  .hero h1{margin:0 0 6px;font-size:1.7rem;}
+  .hero p{margin:0;opacity:.95;}
+  .wrap{padding:26px 44px;}
+  .lead{font-size:1.05rem;background:#eef4ff;border:1px solid #cfe0ff;border-radius:12px;padding:16px 18px;margin:0 0 24px;}
+  .stats{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0 26px;}
+  .stat{flex:1;min-width:120px;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;background:#fbfcfe;}
+  .stat .n{font-size:1.7rem;font-weight:bold;color:var(--brand2);}
+  .stat .l{font-size:.85rem;color:var(--muted);}
+  h2{font-size:1.25rem;margin:30px 0 12px;padding-bottom:6px;border-bottom:2px solid var(--brand);}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:640px){.cards{grid-template-columns:1fr;}}
+  .card{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fff;}
+  .card h3{margin:0 0 6px;font-size:1.02rem;color:var(--brand2);}
+  .card p{margin:0;color:#333;font-size:.95rem;}
+  .iso{background:#fff8e6;border:1px solid #ffe4a3;border-radius:12px;padding:16px 18px;margin:18px 0;}
+  .iso h3{margin:0 0 6px;color:var(--gold);}
+  ul{padding-right:22px;margin:8px 0;}li{margin:5px 0;}
+  .access{background:#e8f6ee;border:1px solid #b6e0c6;border-radius:12px;padding:16px 18px;margin:18px 0;}
+  .access code{direction:ltr;display:inline-block;background:#fff;border:1px solid var(--line);border-radius:6px;padding:3px 10px;font-family:Consolas,monospace;}
+  .note{background:#f3f5f9;border:1px solid var(--line);border-radius:10px;padding:12px 16px;color:#444;font-size:.92rem;margin:10px 0;}
+  footer{padding:18px 44px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);}
+  @media print{body{background:#fff;}.hero{-webkit-print-color-adjust:exact;print-color-adjust:exact;}.card,.stat,li{page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <h1>سامانهٔ مدیریت آزمایشگاه تندیس (LIMS)</h1>
+    <p>معرفی برای مدیران — این سیستم چیست، چه می‌کند و چه ارزشی دارد</p>
+  </div>
+
+  <div class="wrap">
+
+    <div class="lead">
+      این یک <b>سامانهٔ جامع مدیریت آزمایشگاه (LIMS)</b> برای آزمایشگاه پتروشیمی تندیس است که
+      <b>کل چرخهٔ کار آزمایشگاه</b> — از دریافت نمونه تا صدور گزارش — را دیجیتال، قابل‌ردیابی و
+      استاندارد می‌کند. بر پایهٔ <b>SENAITE</b> (نرم‌افزار متن‌باز و بین‌المللی LIMS) ساخته و
+      کاملاً <b>دوزبانه (فارسی/انگلیسی)</b> و متناسب با الزامات <b>ISO/IEC 17025</b> سفارشی شده است.
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="n">۱۸۱</div><div class="l">آزمون فعال (با استاندارد ASTM)</div></div>
+      <div class="stat"><div class="n">۱۱۴</div><div class="l">نوع نمونه</div></div>
+      <div class="stat"><div class="n">۳۰</div><div class="l">دستگاه</div></div>
+      <div class="stat"><div class="n">۶</div><div class="l">دستهٔ آزمایشگاهی</div></div>
+      <div class="stat"><div class="n">۲</div><div class="l">زبان (fa/en)</div></div>
+    </div>
+
+    <h2>چه مشکلی را حل می‌کند؟</h2>
+    <ul>
+      <li>پایان کاغذبازی و دفترهای دستی؛ <b>ثبت و ردیابی کامل هر نمونه</b> از ورود تا گزارش.</li>
+      <li><b>کاهش خطای انسانی</b> و اعمال خودکار قوانین کیفیت (تأیید دومرحله‌ای، ثبت زمان‌ها).</li>
+      <li><b>آمادگی برای ممیزی ISO 17025</b> با سابقهٔ کامل تغییرات و تفکیک وظایف.</li>
+      <li><b>خدمات آنلاین به مشتری</b>: ثبت درخواست و شکایت، و دریافت جواب به‌صورت لینک اختصاصی.</li>
+      <li>گزارش‌های <b>حرفه‌ای و برنددار</b> با یک کلیک.</li>
+    </ul>
+
+    <h2>قابلیت‌های کلیدی</h2>
+    <div class="cards">
+      <div class="card"><h3>۱) گردش کامل نمونه</h3><p>ثبت نمونه → دریافت → انجام آزمون و ورود نتیجه → تأیید → صدور و انتشار گزارش. هر مرحله ثبت و زمان‌دار می‌شود.</p></div>
+      <div class="card"><h3>۲) کاتالوگ آزمون‌ها با ASTM</h3><p>۱۸۱ آزمون فعال، گروه‌بندی‌شده در ۶ دستهٔ آزمایشگاه (روغن، نفت خام، قیر، گریس، هیدروکربن، ضدیخ) با استاندارد ASTM.</p></div>
+      <div class="card"><h3>۳) پنل مشتری (آنلاین)</h3><p>مشتری بدون نیاز به ثبت‌نام، درخواست آزمون یا شکایت/نظرسنجی ثبت می‌کند، کد پیگیری می‌گیرد و جواب را از طریق <b>لینک اختصاصی + ایمیل خودکار</b> دریافت می‌کند.</p></div>
+      <div class="card"><h3>۴) مدیریت دستگاه و کالیبراسیون</h3><p>۳۰ دستگاه ثبت‌شده؛ داشبورد وضعیت کالیبراسیون تاریخ انقضا را رنگی هشدار می‌دهد.</p></div>
+      <div class="card"><h3>۵) دسترسی مبتنی بر نقش</h3><p>هر کارمند فقط با نقش لازم کار می‌کند (مدیر آزمایشگاه، کارشناس، تأییدکننده، پذیرش، صادرکنندهٔ گزارش).</p></div>
+      <div class="card"><h3>۶) گزارش‌های حرفه‌ای PDF</h3><p>گزارش نتیجهٔ برنددار، فارسی و راست‌به‌چپ، آمادهٔ ارسال به مشتری با یک کلیک.</p></div>
+      <div class="card"><h3>۷) داشبوردهای مدیریتی</h3><p>عملکرد کارشناسان، وضعیت کالیبراسیون دستگاه‌ها، امور مشتریان، و وضعیت بازنگری اسناد.</p></div>
+      <div class="card"><h3>۸) اسناد کنترل‌شده</h3><p>روش‌ها و SOPها با گردش تأیید و نسخه‌بندی (پیش‌نویس → تأیید → معتبر → بازنگری/ابطال).</p></div>
+    </div>
+
+    <div class="iso">
+      <h3>🎯 انطباق با ISO/IEC 17025</h3>
+      <ul style="margin:0">
+        <li><b>تفکیک وظایف:</b> کسی که نتیجه را ثبت می‌کند نمی‌تواند خودش آن را تأیید کند — تأیید توسط فرد دوم اجباری است.</li>
+        <li><b>ردیابی کامل (Audit Trail):</b> هر تغییر با کاربر و زمان ثبت می‌شود.</li>
+        <li><b>مدیریت شکایات مشتری</b> (بند ۷.۹) به‌صورت ساختارمند.</li>
+        <li><b>استانداردهای ASTM</b> روی آزمون‌ها ثبت شده و در گزارش‌ها نمایش داده می‌شود.</li>
+      </ul>
+    </div>
+
+    <h2>امنیت و زیرساخت</h2>
+    <ul>
+      <li>اجرا روی سرور ابری با <b>HTTPS (اتصال رمزنگاری‌شده)</b> و گواهی معتبر.</li>
+      <li><b>بک‌آپ و بازیابی</b> آزموده‌شده؛ داده‌ها قابل بازگردانی.</li>
+      <li>دوزبانهٔ کامل فارسی/انگلیسی، راست‌به‌چپ.</li>
+      <li>مستقل و خودکفا؛ قابل انتقال به سرور اختصاصی آزمایشگاه.</li>
+    </ul>
+
+    <div class="access">
+      <h3>چطور خودتان ببینید</h3>
+      <p>سامانه را در مرورگر باز کنید (روی <b>اینترنت عادی، بدون فیلترشکن</b>):</p>
+      <p><code>https://95-38-166-68.nip.io/senaite/</code></p>
+      <p style="margin:6px 0 0">برای مشاهدهٔ فرم عمومی مشتری (بدون ورود): <code>…/senaite/@@sample-request</code></p>
+    </div>
+
+    <div class="note">
+      <b>توجه:</b> نسخهٔ فعلی برای <b>بازبینی و تأیید شما</b> روی یک سرور آزمایشی اجرا شده است.
+      داده‌های واقعی آزمایشگاه (نوع نمونه، دستگاه‌ها، آزمون‌ها با ASTM) از قبل بارگذاری شده‌اند.
+      پس از تأیید شما، روی سرور نهایی با <b>دامنهٔ رسمی تندیس و ظرفیت بیشتر</b> منتشر می‌شود.
+    </div>
+
+  </div>
+
+  <footer>
+    سامانهٔ مدیریت آزمایشگاه تندیس (TPPC) — بر پایهٔ SENAITE، سفارشی‌سازی‌شده و دوزبانه. برای PDF: در مرورگر Ctrl+P → «Save as PDF».
+  </footer>
+
+</div>
+</body>
+</html>
