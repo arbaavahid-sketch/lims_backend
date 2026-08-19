@@ -24,14 +24,20 @@
   - `scripts/Caddyfile.prod`
   - `.env.prod.example`
 - **ایمیج اپ:** `backups/tandis-lims.tar` (خودکفا، بدون نیاز به اینترنت/رجیستری)
+- **ایمیج‌های کمکی:** `backups/caddy-2.tar` و `backups/alpine.tar`
+  (تا حتی اگر Docker Hub روی سرور بلاک باشد، هیچ چیزی دانلود نشود)
 - **آخرین بک‌آپ داده:** `backups/senaite-data-XXXX.tar.gz`
 
 مثال انتقال:
 ```bash
 scp -r docker-compose.prod.yml scripts .env.prod.example \
-    backups/tandis-lims.tar backups/senaite-data-XXXX.tar.gz \
+    backups/tandis-lims.tar backups/caddy-2.tar backups/alpine.tar \
+    backups/senaite-data-XXXX.tar.gz \
     user@SERVER_IP:/home/user/tandis-lims/
 ```
+
+> **کاملاً خودکفا:** با این سه ایمیجِ tar، استقرار **هیچ نیازی به Docker Hub یا
+> اینترنت** ندارد — مناسب سرورهای ایرانی که ممکن است داکرهاب برایشان بلاک باشد.
 
 ---
 
@@ -43,11 +49,13 @@ sudo usermod -aG docker $USER    # سپس یک‌بار logout/login
 
 ---
 
-## ۳) بارگذاری ایمیج اپ
+## ۳) بارگذاری ایمیج‌ها (اپ + کمکی‌ها) — بدون نیاز به داکرهاب
 ```bash
 cd /home/user/tandis-lims
-docker load -i tandis-lims.tar        # ایمیج tandis/lims:latest لود می‌شود
-docker images | grep tandis           # بررسی
+docker load -i tandis-lims.tar        # ایمیج اپ: tandis/lims:latest
+docker load -i caddy-2.tar            # پروکسی: caddy:2
+docker load -i alpine.tar             # ابزار بازیابی/بک‌آپ: alpine
+docker images                         # بررسی: هر سه باید باشند
 ```
 
 ---
@@ -117,6 +125,8 @@ docker logs tandis-caddy --tail 30
 ## خلاصهٔ فرمان‌ها (بعد از انتقال فایل‌ها)
 ```bash
 docker load -i tandis-lims.tar
+docker load -i caddy-2.tar
+docker load -i alpine.tar
 docker volume create senaite_data
 docker run --rm -v senaite_data:/data -v "$(pwd)":/backup alpine \
     sh -c "tar xzf /backup/senaite-data-XXXX.tar.gz -C /data"
