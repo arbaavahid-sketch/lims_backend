@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>سناریوی تست دو‌نفره — آزمایشگاه تندیس</title>
+<style>
+  :root { --brand:#0d6efd; --a:#1565c0; --b:#2e7d32; --cust:#b26a00;
+          --ink:#1a2230; --muted:#5b6472; --line:#e2e6ec; --bg:#f6f8fb; }
+  * { box-sizing:border-box; }
+  body { font-family: Tahoma, "Segoe UI", Arial, sans-serif; color:var(--ink);
+         background:var(--bg); margin:0; line-height:1.9; }
+  .page { max-width:880px; margin:0 auto; background:#fff; padding:32px 40px 60px; }
+  header.top { border-bottom:3px solid var(--brand); padding-bottom:14px; margin-bottom:14px; }
+  header.top h1 { margin:0; font-size:1.55rem; }
+  header.top .sub { color:var(--muted); margin-top:4px; }
+  h2 { font-size:1.2rem; margin:26px 0 10px; padding:8px 12px; background:var(--brand);
+       color:#fff; border-radius:8px; }
+  .who { display:inline-block; color:#fff; border-radius:20px; padding:2px 12px;
+         font-size:.85rem; font-weight:bold; margin-left:6px; }
+  .who.a { background:var(--a); } .who.b { background:var(--b); } .who.c { background:var(--cust); }
+  h3 { font-size:1.05rem; margin:16px 0 4px; padding-right:6px;
+       border-right:5px solid var(--line); }
+  h3.a { border-color:var(--a); } h3.b { border-color:var(--b); } h3.c { border-color:var(--cust); }
+  ol { padding-right:22px; margin:6px 0; } li { margin:5px 0; }
+  code, .u { direction:ltr; unicode-bidi:embed; font-family:Consolas,monospace;
+       background:#f3f5f9; padding:1px 6px; border-radius:4px; display:inline-block; font-size:.9em; }
+  .note { background:#fff8e6; border:1px solid #ffe6a3; border-radius:8px; padding:10px 14px; margin:12px 0; }
+  .key { background:#e8f5e9; border:1px solid #a5d6a7; border-radius:8px; padding:10px 14px; margin:12px 0; }
+  .roles { display:flex; gap:12px; flex-wrap:wrap; margin:10px 0; }
+  .role { flex:1; min-width:220px; border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .role.a { border-top:4px solid var(--a); } .role.b { border-top:4px solid var(--b); }
+  .check { background:#eef4ff; border:1px solid #cfe0ff; border-radius:10px; padding:12px 16px; margin:16px 0; }
+  .check li { margin:3px 0; }
+  footer { margin-top:36px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:.9rem; }
+  @media print { body{background:#fff;} .page{max-width:100%;padding:0 8px;}
+    h2{-webkit-print-color-adjust:exact;print-color-adjust:exact;} li,h3,.role{page-break-inside:avoid;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="top">
+    <h1>سناریوی تست کامل — دو‌نفره</h1>
+    <div class="sub">آزمایشگاه تندیس (TPPC) — محک کل چرخه با دو کاربر واقعی</div>
+  </header>
+
+  <div class="roles">
+    <div class="role a"><span class="who a">نفر A</span> پذیرش + آنالیست — ساخت مشتری، ثبت نمونه، ثبت نتیجه</div>
+    <div class="role b"><span class="who b">نفر B</span> تأییدکننده + انتشار — کنترل، تأیید، صدور گزارش</div>
+  </div>
+
+  <h2>آماده‌سازی</h2>
+  <ol>
+    <li>هر دو نفر وارد شوند: <span class="u">http://192.168.1.33:8080/senaite/login</span></li>
+    <li>اگر روی همین کامپیوترِ سرور کار می‌کنید، برای نفر دوم یک مرورگر <b>InPrivate/جدا</b> باز کنید تا دو حساب هم‌زمان باز باشند.</li>
+  </ol>
+
+  <h2>بخش ۱ — گردش نمونه (هستهٔ اصلی)</h2>
+
+  <h3 class="a"><span class="who a">A</span> ساخت مشتری</h3>
+  <ol>
+    <li>نوار کناری → <b>Clients</b> → دکمهٔ سبز <b>Add</b>.</li>
+    <li>نام: مثلاً <b>«شرکت پتروشیمی نمونه»</b> → <b>Save</b>.</li>
+    <li>داخل همان مشتری → بخش <b>Contacts</b> → <b>Add</b> → نام «علی رضایی» + یک <b>ایمیل واقعی خودت</b> (برای تست گزارش) → <b>Save</b>.</li>
+  </ol>
+
+  <h3 class="a"><span class="who a">A</span> ثبت نمونه</h3>
+  <ol start="4">
+    <li>نوار کناری → <b>Samples</b> → <b>Add</b> (یا از داخل مشتری، <b>Add</b>).</li>
+    <li><b>Client</b> = همان مشتری، <b>Contact</b> = علی رضایی، <b>Date Sampled</b> = امروز، <b>Sample Type</b> = مثلاً <b>«نفت خام»</b>.</li>
+    <li>چند آزمون تیک بزن: مثلاً <b>عدد اسیدی (ASTM D664)</b> و <b>گرانروی کینماتیک (ASTM D445)</b>.</li>
+    <li><b>Save</b> → یک شناسهٔ نمونه ساخته می‌شود؛ یادداشتش کن.</li>
+  </ol>
+
+  <h3 class="a"><span class="who a">A</span> دریافت و ثبت نتیجه</h3>
+  <ol start="8">
+    <li>نمونه را تیک بزن → <b>Receive</b>.</li>
+    <li>روی شناسهٔ نمونه کلیک کن → مقابل هر آزمون یک <b>عدد</b> وارد کن (مثلاً 0.5 و 12.3).</li>
+    <li><b>Submit</b> بزن.</li>
+  </ol>
+
+  <h3 class="b"><span class="who b">B</span> تأیید — مهم‌ترین تست</h3>
+  <ol start="11">
+    <li>نفر B وارد شود → نوار کناری <b>Samples</b> → نمونه را باز کن.</li>
+    <li><b>Verify</b> بزن.</li>
+  </ol>
+  <div class="key"><b>✅ کلیدی:</b> نفر B می‌تواند تأیید کند چون نفر A نتیجه را ثبت کرده بود. اگر نفر A بخواهد <b>خودش</b> تأیید کند، سیستم <b>نمی‌گذارد</b> — و همین درست است (الزام ISO 17025).</div>
+
+  <h3 class="b"><span class="who b">B</span> انتشار گزارش</h3>
+  <ol start="13">
+    <li>نمونهٔ تأییدشده را تیک بزن → <b>Publish</b> → گزارش PDF ساخته می‌شود.</li>
+    <li>اگر خواستی، همان‌جا برای <b>ایمیل مشتری</b> بفرست → Inbox علی رضایی را چک کن.</li>
+  </ol>
+
+  <h2>بخش ۲ — حلقهٔ مشتری (فرم عمومی + لینک)</h2>
+
+  <h3 class="c"><span class="who c">مشتری</span> ثبت درخواست آزمون (بدون ورود)</h3>
+  <ol start="15">
+    <li>روی یک مرورگر InPrivate برو به <span class="u">http://192.168.1.33:8080/senaite/@@sample-request</span></li>
+    <li>فرم را پر کن، <b>ایمیل خودت</b> را بگذار، چند آزمون <b>از فهرست انتخاب کن</b> (با ASTM) → <b>Submit</b> → یک <b>کد پیگیری</b> بگیر.</li>
+  </ol>
+
+  <h3 class="a"><span class="who a">A</span> تبدیل درخواست به نمونه</h3>
+  <ol start="17">
+    <li>نوار کناری → کاشی <b>«پذیرش نمونه»</b> → روی درخواست کلیک کن → <b>«تبدیل به نمونه»</b>.</li>
+    <li>مشتری/نوع نمونه را تأیید کن (آزمون‌های خواسته‌شده از قبل تیک خورده‌اند) → <b>ساخت نمونه</b>.</li>
+  </ol>
+  <div class="note">از اینجا مثل بخش ۱ ادامه می‌رود: دریافت → نتیجه (A) → تأیید (B) → انتشار (B).</div>
+
+  <h3 class="c"><span class="who c">مشتری</span> ثبت شکایت + تست ایمیل خودکار</h3>
+  <ol start="19">
+    <li>مشتری برود به <span class="u">http://192.168.1.33:8080/senaite/@@customer-feedback</span> → یک شکایت با <b>ایمیل خودت</b> ثبت کند.</li>
+    <li>نفر A → کاشی <b>«امور مشتریان»</b> → درخواست را باز کن → <b>پاسخ</b> بنویس → <b>Process → Resolve → Close</b>.</li>
+    <li>هنگام <b>Close</b>، به Inbox خودت نگاه کن → باید <b>ایمیل پاسخ + لینک</b> برسد. ✅</li>
+  </ol>
+
+  <h2>✔️ این تست چه چیزهایی را ثابت می‌کند</h2>
+  <div class="check">
+    <ul>
+      <li>جداسازی آنالیست / تأییدکننده (ISO 17025)</li>
+      <li>گردش کامل نمونه از ثبت تا گزارش PDF</li>
+      <li>فرم عمومی + انتخاب آزمون از فهرست با ASTM</li>
+      <li>تبدیل درخواست آنلاین مشتری به نمونهٔ واقعی</li>
+      <li>ارسال خودکار ایمیل پاسخ + لینک به مشتری</li>
+      <li>کار هم‌زمان دو کاربر با نقش‌های مختلف</li>
+    </ul>
+  </div>
+
+  <footer>
+    برای ذخیره به‌صورت PDF: در مرورگر <b>Ctrl+P</b> → مقصد را «Save as PDF». — راهنمای کامل کار با سامانه: <b>USER_GUIDE.html</b>.
+  </footer>
+
+</div>
+</body>
+</html>
