@@ -1,0 +1,8 @@
+{
+    auto_https off
+    admin off
+}
+:9080 {
+    rewrite * /VirtualHostBase/https/{host}:443/VirtualHostRoot{uri}
+    reverse_proxy senaite:8080
+}
