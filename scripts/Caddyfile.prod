@@ -1,0 +1,11 @@
+# Caddyfile تولیدی — HTTPS خودکار (Let's Encrypt) + VirtualHost زوپ.
+# دامنه از متغیر LIMS_DOMAIN خوانده می‌شود (در docker-compose.prod.yml ست می‌شود).
+#
+# ترفند VirtualHost: به SENAITE می‌گوید «تو https روی این دامنه هستی»، تا همهٔ
+# لینک‌های مطلق درست https ساخته شوند (بدون mixed-content).
+
+{$LIMS_DOMAIN} {
+	encode gzip
+	rewrite * /VirtualHostBase/https/{host}:443/VirtualHostRoot{uri}
+	reverse_proxy senaite:8080
+}

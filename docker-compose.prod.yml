@@ -1,0 +1,45 @@
+# استقرار تولیدی (VPS): SENAITE پشت Caddy با HTTPS خودکار + VirtualHost زوپ.
+#
+# پیش‌نیاز روی سرور:
+#   - Docker نصب باشد
+#   - رکورد DNS نوع A برای دامنه ($LIMS_DOMAIN) به IP سرور اشاره کند
+#   - پورت‌های 80 و 443 باز باشند
+#
+# مراحل (جزئیات در docs/VPS_DEPLOY.md):
+#   1) docker load -i tandis-lims.tar        # بارگذاری ایمیج اپ
+#   2) بازیابی داده در volume به نام senaite_data
+#   3) یک فایل .env با LIMS_DOMAIN بساز
+#   4) docker compose -f docker-compose.prod.yml up -d
+services:
+  senaite:
+    image: tandis/lims:latest
+    container_name: senaite
+    restart: unless-stopped
+    expose:
+      - "8080"          # فقط داخل شبکهٔ داکر؛ روی اینترنت باز نمی‌شود
+    volumes:
+      - senaite_data:/data
+
+  caddy:
+    image: caddy:2
+    container_name: tandis-caddy
+    restart: unless-stopped
+    depends_on:
+      - senaite
+    environment:
+      # دامنهٔ عمومی؛ در فایل .env مقداردهی کن (مثلاً lims.tandispars.com)
+      LIMS_DOMAIN: "${LIMS_DOMAIN:?LIMS_DOMAIN را در .env تنظیم کن، مثل lims.tandispars.com}"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./scripts/Caddyfile.prod:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data       # گواهی‌های HTTPS اینجا نگه داشته می‌شوند
+      - caddy_config:/config
+
+volumes:
+  senaite_data:
+    external: true      # باید از قبل ساخته و داده در آن بازیابی شده باشد
+    name: senaite_data
+  caddy_data:
+  caddy_config:
