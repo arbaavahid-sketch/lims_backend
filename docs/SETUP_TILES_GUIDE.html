@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>راهنمای تنظیمات سامانه — آزمایشگاه تندیس</title>
+<style>
+  :root{
+    --brand:#0d6efd;--brand2:#0a58ca;--ink:#1a2230;--muted:#5b6472;
+    --line:#e3e7ee;--bg:#f5f7fb;--core:#0a58ca;--sample:#1f9d55;
+    --inst:#b8860b;--doc:#8250df;--sys:#5b6472;
+  }
+  *{box-sizing:border-box;}
+  body{font-family:Tahoma,"Segoe UI",Arial,sans-serif;color:var(--ink);
+       background:var(--bg);margin:0;line-height:1.95;}
+  .page{max-width:960px;margin:0 auto;background:#fff;padding:0 0 60px;}
+  .hero{background:linear-gradient(135deg,#0d6efd,#0a58ca);color:#fff;padding:34px 44px;}
+  .hero h1{margin:0 0 6px;font-size:1.7rem;}
+  .hero p{margin:0;opacity:.95;}
+  .wrap{padding:26px 44px;}
+  .lead{font-size:1.05rem;background:#eef4ff;border:1px solid #cfe0ff;
+        border-radius:12px;padding:16px 18px;margin:0 0 26px;}
+  .legend{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 26px;font-size:.88rem;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;
+        border:1px solid var(--line);border-radius:20px;padding:4px 12px;background:#fbfcfe;}
+  .legend .dot{width:11px;height:11px;border-radius:50%;display:inline-block;}
+  .d-core{background:var(--core);}.d-sample{background:var(--sample);}
+  .d-inst{background:var(--inst);}.d-doc{background:var(--doc);}.d-sys{background:var(--sys);}
+
+  h2{font-size:1.25rem;margin:34px 0 14px;padding-bottom:6px;
+     border-bottom:2px solid var(--brand);display:flex;align-items:center;gap:10px;}
+  h2 .chip{font-size:.7rem;font-weight:normal;color:#fff;border-radius:20px;
+     padding:2px 12px;}
+  .sec-core h2 .chip{background:var(--core);}.sec-sample h2 .chip{background:var(--sample);}
+  .sec-inst h2 .chip{background:var(--inst);}.sec-doc h2 .chip{background:var(--doc);}
+  .sec-sys h2 .chip{background:var(--sys);}
+
+  .tile{border:1px solid var(--line);border-right-width:5px;border-radius:10px;
+        padding:14px 18px;margin:12px 0;background:#fff;}
+  .sec-core .tile{border-right-color:var(--core);}
+  .sec-sample .tile{border-right-color:var(--sample);}
+  .sec-inst .tile{border-right-color:var(--inst);}
+  .sec-doc .tile{border-right-color:var(--doc);}
+  .sec-sys .tile{border-right-color:var(--sys);}
+  .tile .th{display:flex;align-items:baseline;justify-content:space-between;
+        flex-wrap:wrap;gap:6px;margin-bottom:4px;}
+  .tile h3{margin:0;font-size:1.08rem;color:var(--ink);}
+  .tile .count{font-size:.8rem;color:#fff;background:var(--brand);border-radius:20px;
+        padding:2px 11px;font-weight:bold;}
+  .tile .en{font-size:.78rem;color:var(--muted);direction:ltr;font-family:Consolas,monospace;}
+  .tile p{margin:6px 0 0;color:#333;font-size:.96rem;}
+  .tile .use{margin:8px 0 0;font-size:.9rem;color:#0a58ca;background:#f0f6ff;
+        border-radius:8px;padding:6px 12px;}
+  .tile .use b{color:#0a58ca;}
+
+  .pillars{background:#fff8e6;border:1px solid #ffe4a3;border-radius:12px;
+        padding:16px 20px;margin:26px 0;}
+  .pillars h3{margin:0 0 8px;color:var(--inst);}
+  .pillars ul{margin:0;padding-right:20px;}.pillars li{margin:5px 0;}
+
+  footer{padding:18px 44px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);}
+  @media print{
+    body{background:#fff;}
+    .hero,.tile .count,.tile .use,.legend span,h2 .chip{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    .tile,h2,.pillars li{page-break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="hero">
+    <h1>راهنمای «تنظیمات سامانه»</h1>
+    <p>سامانهٔ مدیریت آزمایشگاه تندیس (LIMS) — هر کاشی چیست و به چه کار می‌آید</p>
+  </div>
+
+  <div class="wrap">
+
+    <div class="lead">
+      صفحهٔ <b>«تنظیمات سامانه»</b> جایی است که ساختار و دادهٔ پایهٔ آزمایشگاه تعریف می‌شود؛
+      یعنی «مغز» سیستم. بقیهٔ بخش‌ها (پذیرش نمونه، ثبت نتیجه، گزارش‌گیری) از همین داده‌ها
+      استفاده می‌کنند. این راهنما <b>هر ۴۲ کاشی</b> را به‌زبان ساده معرفی می‌کند. رنگ حاشیهٔ هر
+      کارت نشان می‌دهد به کدام گروه تعلق دارد.
+    </div>
+
+    <div class="legend">
+      <span><i class="dot d-core"></i> قلب آزمایشگاه</span>
+      <span><i class="dot d-sample"></i> نمونه‌ها</span>
+      <span><i class="dot d-inst"></i> دستگاه‌ها و کیفیت</span>
+      <span><i class="dot d-doc"></i> اسناد و مشتری</span>
+      <span><i class="dot d-sys"></i> سیستم</span>
+    </div>
+
+    <!-- ===================== CORE ===================== -->
+    <section class="sec-core">
+    <h2><span class="chip">قلب آزمایشگاه</span> چه چیزی را آزمایش می‌کنیم</h2>
+
+    <div class="tile">
+      <div class="th"><h3>سرویس‌های آنالیز <span class="count">۱۸۱ مورد</span></h3>
+        <span class="en">Analysis Services</span></div>
+      <p>مهم‌ترین بخش سامانه. فهرست کامل تمام آزمون‌هایی که آزمایشگاه انجام می‌دهد — مانند
+      گرانروی، نقطه اشتعال، خاکستر سولفاته، عدد اسیدی — همراه با <b>استاندارد ASTM</b>، واحد
+      اندازه‌گیری، روش انجام، قیمت و حدود مجاز.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> هر آزمونی که روی نمونه ثبت می‌کنید و هر برگهٔ
+      نتیجه‌ای که صادر می‌شود، از این فهرست می‌آید. همان چک‌باکس‌هایی که مشتری در فرم درخواست می‌بیند.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>دسته‌های آنالیز <span class="count">۶ مورد</span></h3>
+        <span class="en">Analysis Categories</span></div>
+      <p>آزمون‌ها را در ۶ دستهٔ اصلی آزمایشگاه گروه‌بندی می‌کند: روغن، نفت خام، قیر، گریس،
+      هیدروکربن و ضدیخ.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای مرتب‌کردن آزمون‌ها در فرم‌ها و گزارش‌ها؛
+      همین دسته‌ها چک‌باکس‌های فرم مشتری را گروه‌بندی می‌کنند.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>زیرگروه‌ها</h3><span class="en">Sub-groups</span></div>
+      <p>تقسیم‌بندی ریزتر داخل یک دسته (مثلاً «فلزات سنگین» یا «خواص فیزیکی» درون یک دسته).</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای چیدمان مرتب‌تر نتایج مرتبط، کنار هم در گزارش.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>دپارتمان‌های آزمایشگاه <span class="count">۶ مورد</span></h3>
+        <span class="en">Lab Departments</span></div>
+      <p>بخش‌های فیزیکی/سازمانی آزمایشگاه. هر آزمون به یک دپارتمان مسئول وصل می‌شود.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای مشخص‌کردن مسئولیت هر بخش و گرفتن آمار
+      عملکرد به‌تفکیک دپارتمان.</div>
+    </div>
+    </section>
+
+    <!-- ===================== SAMPLES ===================== -->
+    <section class="sec-sample">
+    <h2><span class="chip">نمونه‌ها</span> نمونه چه شکلی است</h2>
+
+    <div class="tile">
+      <div class="th"><h3>انواع نمونه <span class="count">۱۱۴ مورد</span></h3>
+        <span class="en">Sample Types</span></div>
+      <p>نوع مادهٔ ارسالی مشتری: روغن موتور، نفت خام، قیر، گازوئیل، ضدیخ و… .</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> هنگام پذیرش نمونه، اول نوع نمونه انتخاب می‌شود
+      تا آزمون‌های مرتبط پیشنهاد شوند.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>انواع ظرف</h3><span class="en">Container Types</span></div>
+      <p>نوع ظرفی که نمونه در آن می‌آید (بطری شیشه‌ای، بشکه، ظرف پلاستیکی) و حجم آن.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای ثبت و ردیابی فیزیکی نمونه در انبار.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>ظرف‌های نمونه</h3><span class="en">Sample Containers</span></div>
+      <p>ظرف‌های مشخص و موجودِ آزمایشگاه (بر پایهٔ «انواع ظرف») که به نمونه اختصاص داده می‌شوند.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> مدیریت موجودی ظروف و تخصیص آن‌ها به نمونه‌ها.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>انحرافات نمونه‌گیری</h3><span class="en">Sampling Deviations</span></div>
+      <p>ثبت این‌که نمونه‌گیری خارج از شرایط استاندارد انجام شده (مثلاً دمای نامناسب، تأخیر).</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای شفافیت و <b>انطباق با ISO 17025</b> — هر انحراف
+      مستند و قابل ردیابی می‌شود.</div>
+    </div>
+    </section>
+
+    <!-- ===================== INSTRUMENTS ===================== -->
+    <section class="sec-inst">
+    <h2><span class="chip">دستگاه‌ها و کیفیت</span> با چه چیزی آزمایش می‌کنیم</h2>
+
+    <div class="tile">
+      <div class="th"><h3>تجهیزات <span class="count">۳۰ مورد</span></h3>
+        <span class="en">Instruments</span></div>
+      <p>دستگاه‌های واقعی آزمایشگاه، هر کدام با شمارهٔ سریال، سازنده و <b>تاریخ کالیبراسیون</b>.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> داشبورد کالیبراسیون از این‌جا هشدار رنگی می‌دهد
+      وقتی اعتبار کالیبراسیون یک دستگاه رو به پایان است.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>انواع دستگاه <span class="count">۲۸ مورد</span></h3>
+        <span class="en">Instrument Types</span></div>
+      <p>نوع/مدل کلی دستگاه‌ها (مثلاً «ICP»، «ویسکومتر»، «دستگاه نقطه اشتعال»).</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> دسته‌بندی تجهیزات و ربط‌دادن هر آزمون به نوع
+      دستگاه مناسب.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>تولیدکنندگان <span class="count">۱۵ مورد</span></h3>
+        <span class="en">Manufacturers</span></div>
+      <p>شرکت‌های سازندهٔ دستگاه‌ها (کارخانهٔ سازنده).</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> در مشخصات هر دستگاه، برای پیگیری خدمات و قطعات.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>تعاریف مرجع</h3><span class="en">Reference Definitions</span></div>
+      <p>مواد مرجع و نمونه‌های استاندارد کنترل کیفیت با مقادیر شناخته‌شده.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای صحت‌سنجی دستگاه‌ها و آزمون‌ها (کنترل کیفیت
+      داخلی) — بخش مهم ISO 17025.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>تأمین‌کنندگان</h3><span class="en">Suppliers</span></div>
+      <p>شرکت‌هایی که مواد مرجع، استانداردها یا خدمات کالیبراسیون را تأمین می‌کنند.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> در تعاریف مرجع و کالیبراسیون، برای مشخص‌کردن
+      منبع تأمین.</div>
+    </div>
+    </section>
+
+    <!-- ===================== DOCS & CUSTOMER ===================== -->
+    <section class="sec-doc">
+    <h2><span class="chip">اسناد و مشتری</span> ارتباط با بیرون و مستندسازی</h2>
+
+    <div class="tile">
+      <div class="th"><h3>امور مشتریان <span class="count">۳ مورد</span></h3>
+        <span class="en">Customer Care</span></div>
+      <p>بخش خدمات مشتری: شکایت‌ها، نظرسنجی‌ها و درخواست‌های پشتیبانی که مشتری از فرم آنلاین
+      ثبت می‌کند. عدد «۳» یعنی هم‌اکنون سه درخواست ثبت شده است.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> کارمند این‌جا درخواست را می‌بیند، پاسخ می‌دهد و
+      «می‌بندد» — با بستن، ایمیل پاسخ به‌صورت خودکار برای مشتری ارسال می‌شود.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>اسناد کنترل‌شده</h3><span class="en">Controlled Documents</span></div>
+      <p>روش‌های اجرایی و دستورالعمل‌ها (SOP) با نسخه‌بندی و گردش تأیید
+      (پیش‌نویس ← تأیید ← معتبر ← بازنگری/ابطال).</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای مدیریت مستندات کیفیت و آمادگی برای
+      <b>ممیزی ISO 17025</b>.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>برچسب‌ها</h3><span class="en">Labels</span></div>
+      <p>برچسب‌های دلخواه برای دسته‌بندی و فیلترکردن نمونه‌ها و رکوردها.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای پیداکردن سریع گروهی از نمونه‌ها (مثلاً یک
+      پروژهٔ خاص).</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>برچسب‌های بچ</h3><span class="en">Batch Labels</span></div>
+      <p>برچسب مخصوص «بچ» (مجموعه‌ای از نمونه‌های مرتبط که با هم پردازش می‌شوند).</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای سازمان‌دهی و پیگیری بچ‌های کاری.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>انواع پیوست</h3><span class="en">Attachment Types</span></div>
+      <p>نوع فایل‌های ضمیمه‌ای که به نمونه یا نتیجه می‌چسبد (کروماتوگرام، عکس، PDF گواهی).</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای دسته‌بندی مستندات پیوستِ هر نمونه.</div>
+    </div>
+    </section>
+
+    <!-- ===================== SYSTEM ===================== -->
+    <section class="sec-sys">
+    <h2><span class="chip">سیستم</span> تنظیمات کلی</h2>
+
+    <div class="tile">
+      <div class="th"><h3>تنظیمات سامانه</h3><span class="en">Setup / Preferences</span></div>
+      <p>تنظیمات عمومی سیستم: قالب شماره‌گذاری نمونه‌ها، گردش کار، واحدها و رفتار کلی برنامه.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> پیکربندی یک‌بارهٔ کل سامانه توسط مدیر سیستم.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>آزمایشگاه پتروشیمی تندیس پارس</h3><span class="en">Laboratory Information</span></div>
+      <p>مشخصات خودِ آزمایشگاه: نام، لوگو، آدرس، اطلاعات تماس و امضای مجاز.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> این اطلاعات در <b>سربرگ و پاورقی گزارش‌ها و
+      گواهی‌ها</b> چاپ می‌شود.</div>
+    </div>
+    </section>
+
+    <!-- ===================== SPECS & CALC ===================== -->
+    <section class="sec-core">
+    <h2><span class="chip">قلب آزمایشگاه</span> کیفیت، حدود مجاز و محاسبات</h2>
+
+    <div class="tile">
+      <div class="th"><h3>مشخصات آنالیز <span class="count">۳۳ مورد</span></h3>
+        <span class="en">Analysis Specifications</span></div>
+      <p>حدود مجاز (کمینه/بیشینه) هر آزمون برای هر نوع نمونه.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> نتیجه‌ای که خارج از حد باشد را <b>خودکار
+      قرمز/مردود</b> می‌کند (قبول یا رد آزمون).</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>مشخصات پویای آنالیز</h3><span class="en">Dynamic Analysis Specifications</span></div>
+      <p>حدود مجازی که ثابت نیستند و بر اساس شرایط (جدول اکسل‌مانند) تغییر می‌کنند.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> نسخهٔ پیشرفتهٔ «مشخصات آنالیز» برای وقتی حد مجاز
+      به پارامترها بستگی دارد.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>محاسبات <span class="count">۱ مورد</span></h3>
+        <span class="en">Calculations</span></div>
+      <p>فرمول‌هایی که یک نتیجه را خودکار از روی نتایج دیگر حساب می‌کنند.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای آزمون‌های محاسباتی (مثلاً مقداری که از دو
+      اندازه‌گیری دیگر به‌دست می‌آید).</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>پروفایل‌های آنالیز</h3><span class="en">Analysis Profiles</span></div>
+      <p>«پکیج» آزمون‌هایی که معمولاً با هم سفارش داده می‌شوند.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> با یک انتخاب، کل مجموعهٔ آزمون‌ها روی نمونه
+      اضافه می‌شود (سرعت و قیمت‌گذاری).</div>
+    </div>
+    </section>
+
+    <!-- ===================== TEMPLATES ===================== -->
+    <section class="sec-doc">
+    <h2><span class="chip">اسناد و مشتری</span> قالب‌ها (آماده‌سازی سریع)</h2>
+
+    <div class="tile">
+      <div class="th"><h3>قالب‌های نمونه</h3><span class="en">Sample Templates</span></div>
+      <p>مجموعهٔ آزمون‌های ازپیش‌تعریف‌شده برای یک نوع نمونهٔ رایج.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> هنگام پذیرش، با انتخاب قالب همهٔ آزمون‌های
+      استاندارد آن نمونه یک‌جا اضافه می‌شوند.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>قالب‌های کاربرگ</h3><span class="en">Worksheet Templates</span></div>
+      <p>چیدمان ازپیش‌آمادهٔ کاربرگ برای کارشناس (جای نمونه‌ها و نمونه‌های کنترلی).</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> ساخت کاربرگ کاری را سریع و یک‌دست می‌کند.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>قالب‌های تفسیر</h3><span class="en">Interpretation Templates</span></div>
+      <p>متن‌های آمادهٔ بخش «تفسیر/توضیح» گزارش.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> تا کارشناس مجبور نباشد هر بار توضیح گزارش را از
+      نو بنویسد.</div>
+    </div>
+    </section>
+
+    <!-- ===================== SAMPLE EXTRA ===================== -->
+    <section class="sec-sample">
+    <h2><span class="chip">نمونه‌ها</span> دادهٔ تکمیلی نمونه</h2>
+
+    <div class="tile">
+      <div class="th"><h3>ماتریکس‌های نمونه</h3><span class="en">Sample Matrices</span></div>
+      <p>بستر/محیط پایهٔ نمونه (آبی، روغنی، جامد…).</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> دسته‌بندی انواع نمونه بر اساس ماهیت پایه.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>نقاط نمونه‌گیری</h3><span class="en">Sample Points</span></div>
+      <p>نقاط مشخص برداشت نمونه (شیر، مخزن، خط تولید معیّن).</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> ثبت اینکه نمونه دقیقاً از کجا برداشته شده است.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>نگهداری‌های نمونه</h3><span class="en">Sample Preservations</span></div>
+      <p>روش‌های نگهداری نمونه (سرمایش، افزودنی شیمیایی).</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای حفظ اعتبار نمونه تا زمان آزمایش.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>وضعیت‌های نمونه</h3><span class="en">Sample Conditions</span></div>
+      <p>وضعیت نمونه هنگام دریافت (سالم، سرد، آسیب‌دیده، پلمب…).</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> ثبت شرایط دریافت برای کیفیت و ISO.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>محل‌های نگهداری</h3><span class="en">Storage Locations</span></div>
+      <p>جای فیزیکی انبار و نگهداری نمونه‌ها.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای پیداکردن سریع نمونه در انبار.</div>
+    </div>
+    </section>
+
+    <!-- ===================== INSTRUMENT EXTRA ===================== -->
+    <section class="sec-inst">
+    <h2><span class="chip">دستگاه‌ها و کیفیت</span> تکمیلی</h2>
+
+    <div class="tile">
+      <div class="th"><h3>محل‌های دستگاه</h3><span class="en">Instrument Locations</span></div>
+      <p>محل فیزیکی استقرار هر دستگاه در آزمایشگاه.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای مدیریت و پیداکردن تجهیزات.</div>
+    </div>
+    </section>
+
+    <!-- ===================== PEOPLE ===================== -->
+    <section class="sec-doc">
+    <h2><span class="chip">اسناد و مشتری</span> افراد و مخاطبین</h2>
+
+    <div class="tile">
+      <div class="th"><h3>مخاطبین آزمایشگاه <span class="count">۹ مورد</span></h3>
+        <span class="en">Lab Contacts</span></div>
+      <p>پرسنل خودِ آزمایشگاه (کارشناسان، امضاکنندگان) — مخاطبین داخلی.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> تعیین کارشناس/امضاکنندهٔ گزارش‌ها.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>مخاطبین</h3><span class="en">Contacts</span></div>
+      <p>افراد رابط در شرکت‌های مشتری — مخاطبین بیرونی.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> برای ارتباط با مشتری و ارسال نتایج.</div>
+    </div>
+    </section>
+
+    <!-- ===================== SYSTEM EXTRA / CUSTOM ===================== -->
+    <section class="sec-sys">
+    <h2><span class="chip">سیستم</span> سایر و بخش‌های سفارشی</h2>
+
+    <div class="tile">
+      <div class="th"><h3>محصولات آزمایشگاهی</h3><span class="en">Lab Products</span></div>
+      <p>کالاها/خدمات قیمت‌دار آزمایشگاه.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> در صورتحساب و قیمت‌گذاری خدمات.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>پذیرش نمونه (درخواست‌های آنلاین) <span class="count">سفارشی</span></h3>
+        <span class="en">Sample Intake</span></div>
+      <p>بخش سفارشیِ ما: درخواست‌های آزمونِ آنلاین که مشتری ثبت می‌کند.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> کارمند این درخواست‌ها را دیده و به نمونهٔ رسمی
+      تبدیل می‌کند.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>لاگ ممیزی</h3><span class="en">Audit Log</span></div>
+      <p>ثبت هر تغییر: چه کسی، چه چیزی را، چه زمانی عوض کرد.</p>
+      <div class="use"><b>کجا استفاده می‌شود؟</b> ستون اصلی ردیابی و <b>ممیزی ISO 17025</b>.</div>
+    </div>
+    </section>
+
+    <!-- ===================== DASHBOARDS ===================== -->
+    <section class="sec-sys">
+    <h2><span class="chip">سیستم</span> داشبوردها و گزارش‌های مدیریتی 📊</h2>
+
+    <div class="tile">
+      <div class="th"><h3>عملکرد آزمونگرها</h3><span class="en">Analysts Performance</span></div>
+      <p>داشبورد حجم کار و عملکرد هر کارشناس.</p>
+      <div class="use"><b>این‌ها دادهٔ پایه نیستند؛</b> گزارش/داشبورد مدیریتی‌اند که از داده‌های
+      موجود ساخته می‌شوند.</div>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>وضعیت کالیبراسیون دستگاه‌ها</h3><span class="en">Instruments Calibration Status</span></div>
+      <p>داشبورد: کدام دستگاه کالیبراسیونش رو به اتمام است (هشدار رنگی).</p>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>وضعیت بازنگری اسناد</h3><span class="en">Documents Review Status</span></div>
+      <p>داشبورد: کدام سند کنترل‌شده نیاز به بازنگری/تمدید دارد.</p>
+    </div>
+
+    <div class="tile">
+      <div class="th"><h3>داشبورد امور مشتریان</h3><span class="en">Customer Care Dashboard</span></div>
+      <p>داشبورد: وضعیت شکایت‌ها و درخواست‌های مشتری در یک نگاه.</p>
+    </div>
+    </section>
+
+    <div class="pillars">
+      <h3>⭐ جمع‌بندی برای خواننده</h3>
+      <ul>
+        <li>سه کاشیِ <b>«سرویس‌های آنالیز (۱۸۱)»</b>، <b>«انواع نمونه (۱۱۴)»</b> و
+        <b>«تجهیزات (۳۰)»</b> ستون‌های اصلی آزمایشگاه‌اند؛ بقیه یا این‌ها را دسته‌بندی می‌کنند
+        یا داده‌های پشتیبان می‌دهند.</li>
+        <li>همهٔ این کاشی‌ها هم‌اکنون با <b>دادهٔ واقعی آزمایشگاه تندیس</b> پر شده‌اند.</li>
+        <li>معمولاً فقط <b>مدیر سیستم / مدیر آزمایشگاه</b> این بخش را تغییر می‌دهد؛ کارمندان
+        عادی از این داده‌ها استفاده می‌کنند ولی آن‌ها را ویرایش نمی‌کنند.</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <footer>
+    راهنمای تنظیمات سامانه — سامانهٔ مدیریت آزمایشگاه تندیس (TPPC)، بر پایهٔ SENAITE.
+    برای تهیهٔ PDF: در مرورگر Ctrl+P → «Save as PDF».
+  </footer>
+
+</div>
+</body>
+</html>
