@@ -1,8 +1,26 @@
 <tal:t define="collection view/collection;
                laboratory python:view.laboratory;
+               english_report python:view.is_report_english();
                accredited_symbol string:★;
                outofrange_symbol string:⚠;"
        i18n:domain="senaite.impress">
+
+  <!-- Signature block (analyst / technical manager / lab stamp). Always
+       printed so the report looks like a formal, signable test-result form. -->
+  <div class="row section-signatures no-gutters">
+    <table class="signatures-table">
+      <tr class="sig-space">
+        <td></td><td class="sig-gap"></td><td></td><td class="sig-gap"></td><td></td>
+      </tr>
+      <tr class="sig-label">
+        <td tal:content="python: 'Analyst' if english_report else u'کارشناس آزمون'">Analyst</td>
+        <td class="sig-gap"></td>
+        <td tal:content="python: 'Technical Manager' if english_report else u'مدیر فنی'">Technical Manager</td>
+        <td class="sig-gap"></td>
+        <td tal:content="python: 'Laboratory stamp' if english_report else u'مهر و امضای آزمایشگاه'">Laboratory stamp</td>
+      </tr>
+    </table>
+  </div>
 
   <div class="row section-discreeter no-gutters">
     <div class="w-100 text-muted font-weight-light small">

@@ -494,3 +494,30 @@
   direction: ltr;
   text-align: left !important;
 }
+
+/* ---- Signature block (analyst / technical manager / lab stamp) ---- */
+.section-signatures {
+  margin-top: 14mm;
+  page-break-inside: avoid;
+}
+.signatures-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+.signatures-table td {
+  border: none;
+}
+.signatures-table .sig-gap {
+  width: 6%;
+}
+.signatures-table .sig-space td {
+  height: 20mm;
+}
+.signatures-table .sig-label td:not(.sig-gap) {
+  border-top: 1px solid #333;
+  padding-top: 2mm;
+  font-weight: bold;
+  font-size: 9pt;
+  width: 27.3%;
+}
