@@ -223,18 +223,54 @@ class ReportView(Base):
         return ""
 
     def get_analysis_method_fallback(self, analysis):
+        # First, use a standard reference embedded in the analysis name
+        # (e.g. "... (ASTM D323)") as the test method.
+        standard = self._split_standard(
+            self._get_analysis_title_raw(analysis))[1]
+        if standard:
+            return standard
+        obj = api.get_object(analysis)
+        if obj is not analysis:
+            standard = self._split_standard(
+                self._get_analysis_title_raw(obj))[1]
+            if standard:
+                return standard
+
         title = self.get_analysis_title(analysis)
         normalized = self.normalize_report_text(title)
         method = self.EN_REPORT_METHODS.get(normalized)
         if method:
             return method
 
-        obj = api.get_object(analysis)
         title = self.get_analysis_title(obj)
         normalized = self.normalize_report_text(title)
         return self.EN_REPORT_METHODS.get(normalized, "")
 
-    def get_analysis_title(self, analysis):
+    # A standard reference embedded in an analysis name, e.g. "(ASTM D323)",
+    # "(ISO 15597)", "(INSO 8402)", "(ASTM D 4294)". Used to move the standard
+    # into the "Test Method" column and clean it out of the analysis name.
+    _STANDARD_RE = re.compile(
+        u"\\(\\s*("
+        u"(?:ASTM|ISO|INSO|IEC|EN|DIN|IP|UOP|ASME|NACE|GB|JIS)"
+        u"[\\s\\-]*[A-Za-z]?\\s*\\d[\\w\\-\\./]*"
+        u")\\s*\\)",
+        re.IGNORECASE | re.UNICODE)
+
+    def _split_standard(self, title):
+        """Split a "(STANDARD)" reference off an analysis title.
+        Returns (clean_title, standard) where standard is "" if none found."""
+        title = api.safe_unicode(title or u"")
+        if not title:
+            return u"", u""
+        match = self._STANDARD_RE.search(title)
+        if not match:
+            return title.strip(), u""
+        standard = re.sub(u"\\s+", u" ", match.group(1)).strip()
+        clean = (title[:match.start()] + title[match.end():])
+        clean = re.sub(u"\\s{2,}", u" ", clean).strip()
+        return clean, standard
+
+    def _get_analysis_title_raw(self, analysis):
         candidates = []
         title = getattr(analysis, "Title", None)
         if safe_callable(title):
@@ -258,6 +294,11 @@ class ReportView(Base):
             if value:
                 return self.translate_report_text(value)
         return ""
+
+    def get_analysis_title(self, analysis):
+        # Show the clean name, with any "(ASTM ...)" standard stripped out (it
+        # is shown in the Test Method column instead).
+        return self._split_standard(self._get_analysis_title_raw(analysis))[0]
 
     def get_analysis_method_title(self, analysis):
         objects = [analysis]
