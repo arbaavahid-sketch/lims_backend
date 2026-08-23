@@ -306,6 +306,18 @@ class ReportView(Base):
         if obj is not analysis:
             objects.append(obj)
 
+        # TPPC: a curated final standard string stamped on the AnalysisService
+        # (or the analysis) wins over everything, so the Test Method column
+        # shows the reviewed standard list (e.g. "ASTM D445 / INSO 340").
+        for item in objects:
+            txt = getattr(item, "tppc_method_text", None)
+            if not txt:
+                getsvc = getattr(item, "getAnalysisService", None)
+                svc = getsvc() if safe_callable(getsvc) else None
+                txt = getattr(svc, "tppc_method_text", None) if svc else None
+            if txt:
+                return api.safe_unicode(txt)
+
         for item in objects:
             getter = getattr(item, "getMethodTitle", None)
             title = safe_callable(getter) and getter() or ""
