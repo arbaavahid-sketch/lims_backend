@@ -1,0 +1,57 @@
+<!-- ===== سامانهٔ آنلاین آزمایشگاه تندیس — بلوک خدمات (تم تندیس: سرمه‌ای + نارنجی) ===== -->
+<style>
+  .tls-wrap{max-width:1040px;margin:32px auto;padding:0 16px;
+    font-family:inherit;direction:rtl;text-align:center}
+  .tls-wrap *{box-sizing:border-box}
+  .tls-head{font-size:1.7rem;font-weight:800;color:#1e2f5e;margin:0 0 6px}
+  .tls-sub{color:#6b7280;font-size:1rem;margin:0 0 26px}
+  .tls-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+  .tls-card{display:flex;flex-direction:column;align-items:center;gap:10px;
+    background:#fff;border:1px solid #e8ebf1;border-top:4px solid var(--c);
+    border-radius:18px;padding:28px 20px 22px;text-decoration:none;
+    box-shadow:0 6px 18px rgba(30,47,94,.07);
+    transition:transform .18s ease,box-shadow .18s ease}
+  .tls-card:hover{transform:translateY(-7px);
+    box-shadow:0 16px 34px rgba(30,47,94,.16)}
+  .tls-ic{width:64px;height:64px;border-radius:50%;display:flex;align-items:center;
+    justify-content:center;background:var(--bg);color:var(--c);margin-bottom:4px}
+  .tls-ic svg{width:32px;height:32px;stroke:var(--c);fill:none;stroke-width:1.9;
+    stroke-linecap:round;stroke-linejoin:round}
+  .tls-t{font-size:1.15rem;font-weight:700;color:#1e2f5e;margin:0}
+  .tls-d{font-size:.92rem;color:#6b7280;margin:0;line-height:1.7;min-height:44px}
+  .tls-go{margin-top:6px;font-size:.92rem;font-weight:700;color:var(--c)}
+  @media(max-width:600px){.tls-head{font-size:1.4rem}}
+</style>
+
+<div class="tls-wrap">
+  <h2 class="tls-head">سامانهٔ آنلاین آزمایشگاه تندیس</h2>
+  <p class="tls-sub">خدمات آنلاین آزمایشگاه — سریع، بدون مراجعهٔ حضوری</p>
+
+  <div class="tls-grid">
+
+    <a class="tls-card" href="https://lims.tppc.ir/@@sample-request" target="_blank"
+       style="--c:#1e2f5e;--bg:#e9edf6">
+      <span class="tls-ic"><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 2 3h10a2 2 0 0 0 2-3l-5-9V3"/><path d="M7.5 15h9"/></svg></span>
+      <p class="tls-t">درخواست آزمون / ارسال نمونه</p>
+      <p class="tls-d">فرم آنلاین را پر کنید، کد پیگیری بگیرید و نمونه را ارسال کنید.</p>
+      <span class="tls-go">شروع درخواست ←</span>
+    </a>
+
+    <a class="tls-card" href="https://lims.tppc.ir/@@track-request" target="_blank"
+       style="--c:#ef7d1a;--bg:#fdefdf">
+      <span class="tls-ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></span>
+      <p class="tls-t">پیگیری درخواست</p>
+      <p class="tls-d">با کد پیگیری، وضعیت نمونه و نتیجهٔ آزمون خود را ببینید.</p>
+      <span class="tls-go">پیگیری ←</span>
+    </a>
+
+    <a class="tls-card" href="https://lims.tppc.ir/@@customer-feedback" target="_blank"
+       style="--c:#3f5488;--bg:#ebeef5">
+      <span class="tls-ic"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></span>
+      <p class="tls-t">ثبت شکایت / نظرسنجی</p>
+      <p class="tls-d">شکایت، پیشنهاد یا نظر خود را ثبت کنید؛ پاسخ را دریافت می‌کنید.</p>
+      <span class="tls-go">ثبت بازخورد ←</span>
+    </a>
+
+  </div>
+</div>

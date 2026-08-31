@@ -14,7 +14,7 @@
 با حساب `admin` وارد شوید و به این آدرس بروید:
 
 ```
-http://localhost:8080/senaite/@@mail-controlpanel
+https://lims.tppc.ir/@@mail-controlpanel
 ```
 
 (همین صفحه از مسیر منو هم در دسترس است: بالا سمت راست → **Site Setup / تنظیمات

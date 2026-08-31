@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>آمادگی انتشار — سامانهٔ آزمایشگاه تندیس</title>
+<style>
+  :root{--brand:#0d6efd;--brand2:#0a58ca;--ink:#1a2230;--muted:#5b6472;--line:#e3e7ee;
+        --bg:#f5f7fb;--ok:#1f9d55;--okbg:#e8f6ee;--warn:#b8860b;--warnbg:#fff8e6;
+        --todo:#8a94a6;--todobg:#eef1f6;--red:#c0392b;}
+  *{box-sizing:border-box;}
+  body{font-family:Tahoma,"Segoe UI",Arial,sans-serif;color:var(--ink);background:var(--bg);margin:0;line-height:1.9;}
+  .page{max-width:960px;margin:0 auto;background:#fff;padding:0 0 56px;}
+  .hero{background:linear-gradient(135deg,#0d6efd,#0a58ca);color:#fff;padding:30px 42px;}
+  .hero h1{margin:0 0 4px;font-size:1.55rem;}
+  .hero p{margin:0;opacity:.95;}
+  .wrap{padding:24px 42px;}
+  .gauges{display:flex;gap:16px;flex-wrap:wrap;margin:6px 0 22px;}
+  .gauge{flex:1;min-width:220px;border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:#fbfcfe;}
+  .gauge .lbl{font-size:.9rem;color:var(--muted);}
+  .gauge .pct{font-size:2rem;font-weight:bold;color:var(--brand2);}
+  .bar{height:10px;border-radius:6px;background:#e6eaf1;overflow:hidden;margin-top:6px;}
+  .bar i{display:block;height:100%;border-radius:6px;}
+  h2{font-size:1.2rem;margin:26px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--brand);}
+  table{width:100%;border-collapse:collapse;}
+  td,th{border:1px solid var(--line);padding:8px 11px;text-align:right;vertical-align:top;}
+  th{background:#f2f5fa;font-size:.9rem;}
+  .st{white-space:nowrap;font-weight:bold;border-radius:20px;padding:2px 10px;font-size:.82rem;display:inline-block;}
+  .s-ok{background:var(--okbg);color:var(--ok);}
+  .s-warn{background:var(--warnbg);color:var(--warn);}
+  .s-todo{background:var(--todobg);color:var(--todo);}
+  .box{border-radius:12px;padding:14px 18px;margin:14px 0;}
+  .must{background:#fdecea;border:1px solid #f5c6c0;}
+  .must h3{margin:0 0 6px;color:var(--red);}
+  .later{background:var(--warnbg);border:1px solid #ffe4a3;}
+  .later h3{margin:0 0 6px;color:var(--warn);}
+  ul{padding-right:20px;margin:8px 0;}li{margin:5px 0;}
+  footer{padding:16px 42px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);}
+  @media print{body{background:#fff;}.hero,.st,.gauge .pct,.bar i{-webkit-print-color-adjust:exact;print-color-adjust:exact;}tr,li,.box{page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <h1>گزارش آمادگی انتشار — سامانهٔ مدیریت آزمایشگاه تندیس</h1>
+    <p>وضعیت فعلی سامانه و کارهای باقی‌مانده تا بهره‌برداری کامل — ۱ شهریور ۱۴۰۵</p>
+  </div>
+
+  <div class="wrap">
+    <div class="gauges">
+      <div class="gauge">
+        <div class="lbl">آمادهٔ نمایش به مدیران / پایلوت</div>
+        <div class="pct">۹۵٪</div>
+        <div class="bar"><i style="width:95%;background:var(--ok)"></i></div>
+        <div style="font-size:.85rem;color:var(--muted);margin-top:4px">همین حالا قابل استفاده و نمایش است.</div>
+      </div>
+      <div class="gauge">
+        <div class="lbl">آمادهٔ بهره‌برداری کامل (تولید)</div>
+        <div class="pct">۸۰٪</div>
+        <div class="bar"><i style="width:80%;background:var(--warn)"></i></div>
+        <div style="font-size:.85rem;color:var(--muted);margin-top:4px">چند کار مشخص مانده (پایین آمده).</div>
+      </div>
+    </div>
+
+    <h2>۱) عملکرد و قابلیت‌ها</h2>
+    <table>
+      <tr><th>مورد</th><th>وضعیت</th><th>توضیح</th></tr>
+      <tr><td>سامانهٔ دوزبانه (فارسی/انگلیسی، راست‌به‌چپ)</td><td><span class="st s-ok">کامل</span></td><td>کل رابط و گزارش‌ها.</td></tr>
+      <tr><td>پذیرش نمونهٔ آنلاین (فرم مشتری)</td><td><span class="st s-ok">کامل</span></td><td>بازطراحی‌شده: اطلاعات، ایمنی، تعهدنامه، ضدهرزنامه.</td></tr>
+      <tr><td>امور مشتریان (شکایت/نظرسنجی/پشتیبانی)</td><td><span class="st s-ok">کامل</span></td><td>+ ایمیل خودکار فارسی هنگام بستن درخواست.</td></tr>
+      <tr><td>پیگیری درخواست (لینک + کد)</td><td><span class="st s-ok">کامل</span></td><td>وضعیت واقعی نمونه را نشان می‌دهد (گزارش صادر شد).</td></tr>
+      <tr><td>تبدیل درخواست به نمونه (پذیرش)</td><td><span class="st s-ok">کامل</span></td><td>موارد ایمنی به کارشناس نمایش داده می‌شود.</td></tr>
+      <tr><td>گزارش نتایج PDF (فارسی، بلوک امضا، ستون روش)</td><td><span class="st s-ok">کامل</span></td><td>روش آزمون (ASTM/INSO) روی گزارش می‌آید.</td></tr>
+      <tr><td>دسترسی مبتنی بر نقش</td><td><span class="st s-ok">کامل</span></td><td>تفکیک وظایف ISO؛ فقط تخصیص نهایی به افراد.</td></tr>
+    </table>
+
+    <h2>۲) داده و محتوا</h2>
+    <table>
+      <tr><th>مورد</th><th>وضعیت</th><th>توضیح</th></tr>
+      <tr><td>۱۸۱ آزمون + استانداردها (ASTM/INSO)</td><td><span class="st s-ok">کامل</span></td><td>۱۵۸ آزمون استانداردشان ثبت شد.</td></tr>
+      <tr><td>۱۱۴ نوع نمونه، ۳۰ دستگاه، ۶ دسته/دپارتمان</td><td><span class="st s-ok">کامل</span></td><td>از قبل بارگذاری‌شده.</td></tr>
+      <tr><td>اسناد کنترل‌شدهٔ ISO (~۱۰۹ سند)</td><td><span class="st s-ok">کامل</span></td><td>روش‌ها، فرم‌ها، خط‌مشی — معتبر شده.</td></tr>
+      <tr><td>حدود مجاز (محدوده / قبول‌ورد)</td><td><span class="st s-warn">ناقص</span></td><td>۱۴ محصول انجام شد؛ اتیلن گلایکول + ~۷۰ محصول دیگر مانده.</td></tr>
+      <tr><td>اطلاعات آزمایشگاه (تلفن/فکس/آدرس در پاورقی گزارش)</td><td><span class="st s-warn">بررسی</span></td><td>باید تکمیل شود تا پاورقی گزارش خالی نماند.</td></tr>
+      <tr><td>امضاکنندهٔ گزارش (تصویر امضا)</td><td><span class="st s-warn">مانده</span></td><td>برای امضای دیجیتال روی PDF (اختیاری اگر روی کاغذ امضا می‌شود).</td></tr>
+      <tr><td>قیمت آزمون‌ها / لیست هزینه</td><td><span class="st s-todo">مانده</span></td><td>در صورت نیاز به صورتحساب.</td></tr>
+      <tr><td>۳ آزمون گمشده (جیوه، خوردگی نوار مسی، آب افزودنی)</td><td><span class="st s-warn">جزئی</span></td><td>روی سرور نیستند؛ اگر لازم‌اند اضافه شوند.</td></tr>
+    </table>
+
+    <h2>۳) پایداری و عملیات</h2>
+    <table>
+      <tr><th>مورد</th><th>وضعیت</th><th>توضیح</th></tr>
+      <tr><td>HTTPS (گواهی معتبر، Caddy)</td><td><span class="st s-ok">کامل</span></td><td>روی nip.io فعلی.</td></tr>
+      <tr><td>بک‌آپ خودکار روزانه (cron)</td><td><span class="st s-ok">کامل</span></td><td>هر شب ۲؛ نگه‌داری ۱۴ روز.</td></tr>
+      <tr><td>کپی بک‌آپ خارج از سرور (off-site)</td><td><span class="st s-warn">دستی</span></td><td>باید مرتب با scp روی سیستم خودت بیاوری.</td></tr>
+      <tr><td>به‌روزرسانی امنیتی سیستم‌عامل + ری‌استارت</td><td><span class="st s-ok">انجام شد</span></td><td>کرنل جدید نصب و بوت شد.</td></tr>
+      <tr><td>استارت خودکار کانتینرها (restart)</td><td><span class="st s-ok">کامل</span></td><td>بعد از ری‌بوت خودکار بالا می‌آید.</td></tr>
+      <tr><td>ظرفیت سرور (۲ هسته / ۲ گیگ)</td><td><span class="st s-warn">تست</span></td><td>برای پایلوت خوب است؛ برای ترافیک واقعی بزرگ‌تر شود.</td></tr>
+      <tr><td>پایش/مانیتورینگ آپتایم</td><td><span class="st s-todo">مانده</span></td><td>یک هشدار ساده در دسترس‌نبودن سایت.</td></tr>
+      <tr><td>Pack دوره‌ای پایگاه‌داده (رشد Data.fs)</td><td><span class="st s-todo">مانده</span></td><td>ماهی یک‌بار، برای بلندمدت.</td></tr>
+    </table>
+
+    <h2>۴) امنیت</h2>
+    <table>
+      <tr><th>مورد</th><th>وضعیت</th><th>توضیح</th></tr>
+      <tr><td>HTTPS + فایروال (فقط ۲۲/۸۰/۴۴۳)</td><td><span class="st s-ok">کامل</span></td><td></td></tr>
+      <tr><td>ضدهرزنامه روی فرم‌های عمومی (honeypot)</td><td><span class="st s-ok">کامل</span></td><td>بدون کپچا.</td></tr>
+      <tr><td>لیست رمزها در اپ قرار نگرفت</td><td><span class="st s-ok">رعایت شد</span></td><td>فایل رمزها هنگام واردکردن اسناد رد شد.</td></tr>
+      <tr><td>ورود SSH با رمز</td><td><span class="st s-warn">سخت‌تر شود</span></td><td>بهتر است کلید SSH بگذاری و ورود با رمز را ببندی.</td></tr>
+      <tr><td>ابزارهای یک‌بارمصرف مدیریتی (import/apply)</td><td><span class="st s-warn">حذف شود</span></td><td>فقط برای مدیر باز است؛ قبل از تولید بردار.</td></tr>
+    </table>
+
+    <h2>۵) انتشار و دامنه</h2>
+    <table>
+      <tr><th>مورد</th><th>وضعیت</th><th>توضیح</th></tr>
+      <tr><td>دامنهٔ رسمی (به‌جای nip.io)</td><td><span class="st s-todo">مانده</span></td><td>nip.io روی فیلترشکن باز نمی‌شود؛ دامنهٔ واقعی همه‌جا کار می‌کند.</td></tr>
+      <tr><td>حذف پیشوند «/senaite» از لینک‌ها</td><td><span class="st s-todo">مانده</span></td><td>هنگام ست‌کردن دامنه (تغییر یک‌خطی آماده است).</td></tr>
+      <tr><td>پاک‌کردن دادهٔ تستی (مشتری/نمونهٔ آزمایشی)</td><td><span class="st s-todo">مانده</span></td><td>الماس تست، وحید، نمونه‌های ST67/ST75، درخواست‌های TR قبل از go-live.</td></tr>
+      <tr><td>به‌روزرسانی کارت لینک‌ها با دامنهٔ جدید</td><td><span class="st s-todo">مانده</span></td><td>بعد از دامنه.</td></tr>
+    </table>
+
+    <div class="box must">
+      <h3>⛔ قبل از بهره‌برداری کامل حتماً</h3>
+      <ul>
+        <li><b>دامنهٔ رسمی + HTTPS</b> و حذف «/senaite» (تا مشتری بدون فیلترشکن باز کند).</li>
+        <li><b>پاک‌کردن دادهٔ تستی</b> (مشتری‌ها/نمونه‌ها/درخواست‌های آزمایشی).</li>
+        <li><b>تکمیل حدود مجاز</b> محصولات اصلی (که قبول/رد گزارش درست باشد).</li>
+        <li><b>تلفن/فکس/آدرس آزمایشگاه</b> در تنظیمات (پاورقی گزارش).</li>
+        <li><b>حذف ابزارهای یک‌بارمصرف مدیریتی</b> و سخت‌کردن SSH.</li>
+        <li>یک <b>بک‌آپ خارج از سرور</b> بگیر و بازیابی را یک‌بار تست کن.</li>
+      </ul>
+    </div>
+
+    <div class="box later">
+      <h3>🟡 بهبودهای بعد از انتشار (فوری نیست)</h3>
+      <ul>
+        <li>بزرگ‌کردن سرور با افزایش ترافیک واقعی.</li>
+        <li>پایش آپتایم + Pack ماهانهٔ پایگاه‌داده.</li>
+        <li>امضاکنندهٔ دیجیتال، قیمت‌ها، و تکمیل بقیهٔ حدود مجاز.</li>
+        <li>ویرایش عنوان ~۱۰ سندی که نامشان ناقص وارد شد.</li>
+      </ul>
+    </div>
+
+    <p style="background:#eef4ff;border:1px solid #cfe0ff;border-radius:12px;padding:14px 18px">
+      <b>نتیجه:</b> سامانه از نظر عملکرد و داده <b>آمادهٔ نمایش و پایلوت است (۹۵٪)</b>.
+      برای <b>بهره‌برداری کامل</b> عمدتاً به <b>دامنهٔ رسمی، پاک‌سازی دادهٔ تست، و تکمیل حدود مجاز/اطلاعات آزمایشگاه</b> نیاز داریم — که همگی مشخص و کوتاه‌اند.
+    </p>
+  </div>
+
+  <footer>
+    گزارش آمادگی انتشار — سامانهٔ مدیریت آزمایشگاه تندیس (TPPC). برای PDF: در مرورگر Ctrl+P ← «Save as PDF».
+  </footer>
+</div>
+</body>
+</html>
