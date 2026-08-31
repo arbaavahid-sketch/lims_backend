@@ -6,6 +6,9 @@
 
 {$LIMS_DOMAIN} {
 	encode gzip
-	rewrite * /VirtualHostBase/https/{host}:443/VirtualHostRoot{uri}
+	# Insert "/senaite" before VirtualHostRoot so the Plone site (which lives
+	# at /senaite in Zope) is served at the domain root — clean URLs like
+	# https://lims.tppc.ir/login instead of https://lims.tppc.ir/senaite/login.
+	rewrite * /VirtualHostBase/https/{host}:443/senaite/VirtualHostRoot{uri}
 	reverse_proxy senaite:8080
 }
