@@ -85,11 +85,6 @@
                             <tal:x define="dummy python:analysis_footnotes.extend(conditions)">
                           </tal:analysis_conditions>
 
-                          <tal:interim_fields
-                              define="interims python:view.get_result_variables(analysis);
-                                      dummy python:analysis_footnotes.extend(interims)">
-                          </tal:interim_fields>
-
                           <tal:x condition="analysis_footnotes">
                             <sup tal:define="dummy python:footnotes.append(analysis_footnotes)"
                                  tal:content="python: len(footnotes)"/>
@@ -170,11 +165,6 @@
                             <tal:x define="dummy python:analysis_footnotes.extend(conditions)">
                           </tal:analysis_conditions>
 
-                          <tal:interim_fields
-                              define="interims python:view.get_result_variables(analysis);
-                                      dummy python:analysis_footnotes.extend(interims)">
-                          </tal:interim_fields>
-
                           <tal:x condition="analysis_footnotes">
                             <sup tal:define="dummy python:footnotes.append(analysis_footnotes)"
                                  tal:content="python: len(footnotes)"/>
@@ -183,6 +173,23 @@
                         </tal:analysis_footnotes>
                       </td>
                     </tal:fa>
+                  </tr>
+
+                  <!-- Inline result-variables strip (e.g. ASTM D86 boiling
+                       curve): render reportable interim fields as a compact
+                       row under the analysis instead of as footnotes. -->
+                  <tr class="interims-row"
+                      tal:define="interims python:view.get_result_variables(analysis)"
+                      tal:condition="interims">
+                    <td colspan="5" class="interims-cell">
+                      <tal:pts repeat="iv interims">
+                        <span class="interim-point">
+                          <span class="interim-title" tal:content="iv/title"/>
+                          <span class="interim-value" tal:content="iv/formatted_value"/><span
+                                class="interim-unit" tal:content="iv/formatted_unit|nothing"/>
+                        </span>
+                      </tal:pts>
+                    </td>
                   </tr>
                 </tal:analyses>
               </tbody>

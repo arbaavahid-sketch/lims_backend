@@ -350,6 +350,38 @@
   text-align: right !important;
 }
 
+/* Result-variables strip (e.g. the ASTM D86 distillation / boiling curve):
+   a compact sub-row printed directly under its analysis. */
+.report .section-results tbody tr.interims-row td.interims-cell {
+  border-top: 0;
+  padding-top: 0.4mm;
+  padding-bottom: 2.1mm;
+  direction: rtl;
+  text-align: right !important;
+  font-size: 9.5pt;
+  color: #333;
+}
+.report .section-results .interim-point {
+  display: inline-block;
+  direction: ltr;
+  margin-left: 4mm;
+  white-space: nowrap;
+  padding: 0.2mm 0;
+}
+.report .section-results .interim-title { color: #666; }
+.report .section-results .interim-value { font-weight: 700; margin-left: 0.6mm; }
+.report .section-results .interim-unit { color: #888; margin-left: 0.3mm; }
+
+/* English report: strip flows left-to-right */
+.report.report-en .section-results tbody tr.interims-row td.interims-cell {
+  direction: ltr;
+  text-align: left !important;
+}
+.report.report-en .section-results .interim-point {
+  margin-left: 0;
+  margin-right: 4mm;
+}
+
 .report .footnotes {
   margin: 0;
   padding: 0;
