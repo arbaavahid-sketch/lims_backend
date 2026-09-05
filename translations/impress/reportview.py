@@ -688,6 +688,13 @@ class ReportView(Base):
             if report_only and not interim_field.get("report", False):
                 continue
 
+            # skip interims with no value entered, so a single service can
+            # carry many possible components and the report prints only the
+            # ones actually measured for this sample (blank ones are hidden).
+            val = interim_field.get("value", "")
+            if val is None or (hasattr(val, "strip") and not val.strip()):
+                continue
+
             # apply formatting
             item = format_interim(interim_field)
             items.append(item)
