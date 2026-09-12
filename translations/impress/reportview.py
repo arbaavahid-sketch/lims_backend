@@ -517,6 +517,14 @@ class ReportView(Base):
         # Boil out analyses meant to be used for internal use only
         analyses = filter(lambda an: not IInternalUse.providedBy(an.instance),
                           analyses)
+        # Boil out analyses that have no submitted result yet (still pending),
+        # so a (pre)published report shows only the analyses actually done.
+        # Reportable states carry a result: to_be_verified/verified/published.
+        # This is a no-op for a final report (everything is verified).
+        _pending = ("registered", "unassigned", "assigned", "to_be_sampled")
+        analyses = filter(
+            lambda an: getattr(an, "review_state", None) not in _pending,
+            analyses)
         return self.sort_items(analyses)
 
     def get_analyses_by(self, model_or_collection,
