@@ -17,6 +17,11 @@ services:
     restart: unless-stopped
     expose:
       - "8080"          # فقط داخل شبکهٔ داکر؛ روی اینترنت باز نمی‌شود
+    environment:
+      # کدِ مرچنتِ زرین‌پال را در فایل .env بگذار (ZARINPAL_MERCHANT_ID=...)
+      ZARINPAL_MERCHANT_ID: "${ZARINPAL_MERCHANT_ID:-}"
+      # برای تستِ سندباکس مقدارش را 1 کن
+      ZARINPAL_SANDBOX: "${ZARINPAL_SANDBOX:-0}"
     volumes:
       - senaite_data:/data
 
